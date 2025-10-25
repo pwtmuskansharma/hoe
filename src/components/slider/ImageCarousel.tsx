@@ -151,8 +151,8 @@
 // }
 
 import { useState, useEffect } from "react";
-import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { Button } from "./ui/button";
+import { ImageWithFallback } from "../figma/ImageWithFallback";
+import { Button } from "../ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const carouselImages = [
@@ -192,15 +192,14 @@ export function ImageCarousel() {
     );
   };
 
-  // ✅ TypeScript fix added here
   const goToSlide = (index: number) => {
     setCurrentIndex(index);
   };
 
   return (
-    <div className="relative w-full h-[220px] sm:h-[320px] md:h-[450px] lg:h-[650px] xl:h-[700px] overflow-hidden">
+    <div className="relative w-full aspect-[16/5.8] overflow-hidden">
       {/* Images */}
-      <div className="relative w-full h-full">
+      <div className="relative w-full h-full bg-transparent">
         {carouselImages.map((image, index) => (
           <div
             key={image.id}
@@ -210,12 +209,8 @@ export function ImageCarousel() {
           >
             <ImageWithFallback
               src={image.src}
-              className="w-full h-full object-contain object-center"
+              className=" object-contain object-center "
             />
-
-            {/* Optional overlay gradient (disabled as per your code)
-            <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/20" />
-            */}
 
             <div className="absolute inset-0 flex items-center justify-start px-3 sm:px-6 md:px-10 lg:px-16">
               <div className="max-w-7xl mx-auto w-full">
