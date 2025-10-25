@@ -1,0 +1,317 @@
+/* Page baseline */
+body {
+  background: linear-gradient(180deg, #e3f2fd 0%, #bbdefb 100%);
+  font-family: 'Segoe UI', 'Poppins', sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Card container */
+.form-container {
+  max-width: 720px;
+  margin: 50px auto;
+  padding: 40px 45px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  /* background: rgba(255, 255, 255, 0.88); */
+  /* backdrop-filter: blur(10px); */
+}
+
+/* Logo & title */
+.form-logo {
+  display: block;
+  margin: 0 auto 12px auto;
+  width: 120px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a237e;
+  margin-bottom: 25px;
+}
+
+/* --- Passport Photo Upload Section (top, centered) --- */
+.photo-upload-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;    /* centers preview + input */
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.photo-preview {
+  width: 130px;
+  height: 160px;
+  border: 2px dashed #9e9e9e;
+  border-radius: 8px;
+  background: #f9f9f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.passport-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-placeholder {
+  color: #9e9e9e;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 6px;
+}
+
+/* Clean file input ONLY for the photo upload at top */
+.photo-upload-section input[type="file"] {
+  display: block;
+  background: transparent;
+  border: none;
+  outline: none;
+  text-align: center;
+  cursor: pointer;
+  width: auto;
+  margin: 0 auto;
+  color: #1a237e;
+}
+.photo-upload-section input[type="file"]::-webkit-file-upload-button {
+  background: none;
+  border: none;
+  color: #1a237e;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 6px 10px;
+}
+.photo-upload-section input[type="file"]:hover::-webkit-file-upload-button {
+  color: #283593;
+}
+
+/* --- Form elements --- */
+label {
+  display: block;
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 4px 6px;
+  /* margin-top: 6px; */
+  border: 1px solid #cfd8dc;
+  font-size: 1rem;
+  background: white;
+  box-sizing: border-box;
+}
+input[type="file"] {
+  border: none !important;
+  background: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: #1976d2;
+  box-shadow: 0 0 3px #90caf9;
+}
+
+/* Inline groups */
+.inline {
+  display: flex;
+  gap: 10px;
+}
+.inline input { flex: 1; }
+
+/* Submit button */
+button[type="submit"] {
+  background: #1a237e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 30px auto 0 auto;
+  display: block;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+button[type="submit"]:hover {
+  background: #283593;
+  transform: scale(1.02);
+}
+
+/* Radio group */
+/* Radio group container */
+.radio-group {
+  display: flex;
+  gap: 24px;               /* space between Male & Female */
+  align-items: center;     /* vertically center all items */
+  margin-top: 6px;
+}
+
+/* Each label aligns its radio and text side by side */
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;                /* spacing between circle and label text */
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+}
+
+/* Style the native radio buttons */
+.radio-label input[type="radio"] {
+  margin: 0;
+  accent-color: #1a237e;   /* (modern browsers) theme color for checked circle */
+  transform: scale(1.1);   /* slightly larger and cleaner */
+  cursor: pointer;
+}
+
+.radio-label { font-weight: 500; color: #333; }
+
+/* --- Achievements section (match your screenshot) --- */
+.achievements-block > label:first-of-type {
+  /* "Upload Achievement Documents" label */
+  font-size: 1rem;
+  color: #24334a;
+  margin-top: 20px;
+}
+
+.achievement-section {
+  padding: 6px 0 4px 0;
+  /* border-bottom: 1px solid rgba(207, 216, 220, 0.6); */
+}
+
+.achievement-section:last-child {
+  border-bottom: none;
+}
+
+.achievement-section > label {
+  margin: 10px 0 6px 0;     /* level title spacing e.g., "District Level" */
+  color: #24334a;
+}
+
+.achievement-section textarea {
+  min-height: 70px;
+  resize: vertical;
+}
+
+/* Native-looking file input below textarea */
+.achievement-file {
+  margin-top: 8px;
+  display: block;
+  width: 100%;
+  max-width: 380px;        /* optional: keep a nice width like screenshot */
+}
+
+/* Minor spacing below the achievements header */
+.achievement-section + .achievement-section {
+  /* margin-top: 6px; */
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .form-container { padding: 20px; margin: 20px; }
+  .inline { flex-direction: column; }
+  .achievement-file { max-width: 100%; }
+}
+/* ---- Aadhar pair cards (front/back) ---- */
+.id-pair-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 10px 0 20px;
+}
+
+.id-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 12px;
+  background: #fff;
+}
+
+.id-card-header {
+  font-size: 0.88rem;
+  color: #546e7a;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.id-preview {
+  position: relative;
+  height: 140px;
+  border: 2px dashed #9e9e9e;
+  border-radius: 10px;
+  background: #f9f9f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.id-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Actions row like screenshot: "Pas..."  Change  Remove */
+.id-actions {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+.id-file-name {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.92rem;
+  color: #455a64;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #1a73e8;
+  font-weight: 600;
+  cursor: pointer;
+}
+.link:hover { text-decoration: underline; }
+.link.danger { color: #e53935; }
+
+/* Signature block at bottom */
+.signature-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.signature-preview {
+  width: 260px;
+  height: 100px;
+  border: 2px dashed #9e9e9e;
+  border-radius: 8px;
+  background: #f9f9f9;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.signature-preview img { width: 100%; height: 100%; object-fit: contain; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .id-pair-row { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,413 @@
+[
+  {
+    "category": "Archery",
+    "events": [
+      { "gender": "Boys", "event": "Recurve Individual" },
+      { "gender": "Boys", "event": "Compound Individual" },
+      { "gender": "Girls", "event": "Recurve Individual" },
+      { "gender": "Girls", "event": "Compound Individual" },
+      { "gender": "Mixed", "event": "Recurve Mixed" },
+      { "gender": "Mixed", "event": "Compound Mixed" }
+    ]
+  },
+  {
+    "category": "Athletics",
+    "events": [
+      { "gender": "Boys", "event": "100 Mtr Run" },
+      { "gender": "Boys", "event": "200 Mtr Run" },
+      { "gender": "Boys", "event": "400 Mtr Run" },
+      { "gender": "Boys", "event": "800 Mtr Run" },
+      { "gender": "Boys", "event": "1500 Mtr Run" },
+      { "gender": "Boys", "event": "3000 Mtr Run" },
+      { "gender": "Boys", "event": "5000 Mtr Run" },
+      { "gender": "Boys", "event": "10000 Mtr Run" },
+      { "gender": "Boys", "event": "110 Mtr Hurdle (1.067 m)" },
+      { "gender": "Boys", "event": "400 Mtr Hurdle" },
+      { "gender": "Boys", "event": "Long Jump" },
+      { "gender": "Boys", "event": "High jump" },
+      { "gender": "Boys", "event": "Triple Jump" },
+      { "gender": "Boys", "event": "Shot Put (6 Kg)" },
+      { "gender": "Boys", "event": "Discus throw (1.75 Kg)" },
+      { "gender": "Boys", "event": "700 Gms Javelin Throw" },
+      { "gender": "Boys", "event": "Pole Vault" },
+      { "gender": "Boys", "event": "Hammer Throw" },
+      { "gender": "Boys", "event": "2000m steeple chase" },
+      { "gender": "Boys", "event": "3000m steeple chase" },
+      { "gender": "Boys", "event": "4*100m Relay" },
+      { "gender": "Boys", "event": "4*400m Relay" },
+      { "gender": "Boys", "event": "Marathon" },
+      { "gender": "Boys", "event": "20km Walk" },
+      { "gender": "Boys", "event": "Decathlon" },
+      { "gender": "Girls", "event": "100 Mtr Run" },
+      { "gender": "Girls", "event": "200 Mtr Run" },
+      { "gender": "Girls", "event": "400 Mtr Run" },
+      { "gender": "Girls", "event": "800 Mtr Run" },
+      { "gender": "Girls", "event": "1500 Mtr Run" },
+      { "gender": "Girls", "event": "3000 Mtr Run" },
+      { "gender": "Girls", "event": "5000 Mtr Run" },
+      { "gender": "Girls", "event": "10000 Mtr Run" },
+      { "gender": "Girls", "event": "100 Mtr Hurdle (.762 m)" },
+      { "gender": "Girls", "event": "400 Mtr Hurdle" },
+      { "gender": "Girls", "event": "Long Jump" },
+      { "gender": "Girls", "event": "High jump" },
+      { "gender": "Girls", "event": "Triple Jump" },
+      { "gender": "Girls", "event": "Shot Put (3 Kg)" },
+      { "gender": "Girls", "event": "Discus throw (1 Kg)" },
+      { "gender": "Girls", "event": "500 Gms Javelin Throw" },
+      { "gender": "Girls", "event": "Pole Vault" },
+      { "gender": "Girls", "event": "Hammer Throw" },
+      { "gender": "Girls", "event": "2000m steeple chase" },
+      { "gender": "Girls", "event": "3000m steeple chase" },
+      { "gender": "Girls", "event": "4*100m Relay" },
+      { "gender": "Girls", "event": "4*400m Relay" },
+      { "gender": "Girls", "event": "Marathon" },
+      { "gender": "Girls", "event": "20km Walk" },
+      { "gender": "Girls", "event": "Heptathlon" },
+      { "gender": "Mixed", "event": "4*400m Relay" },
+      { "gender": "Mixed", "event": "Marathon Walk Relay" }
+    ]
+  },
+  {
+    "category": "Badminton",
+    "events": [
+      { "gender": "Boys", "event": "Boys Singles" },
+      { "gender": "Boys", "event": "Boys Doubles" },
+      { "gender": "Girls", "event": "Girls Singles" },
+      { "gender": "Girls", "event": "Girls Doubles" },
+      { "gender": "Mixed", "event": "Doubles" }
+    ]
+  },
+  {
+    "category": "Basketball",
+    "events": [
+      { "gender": "Boys", "event": "Team" },
+      { "gender": "Girls", "event": "Team" }
+    ]
+  },
+  {
+    "category": "Boxing",
+    "events": [
+      { "gender": "Boys", "event": "47 Kg" },
+      { "gender": "Boys", "event": "50 Kg" },
+      { "gender": "Boys", "event": "55 Kg" },
+      { "gender": "Boys", "event": "60 Kg" },
+      { "gender": "Boys", "event": "65 Kg" },
+      { "gender": "Boys", "event": "70 Kg" },
+      { "gender": "Boys", "event": "75 Kg" },
+      { "gender": "Boys", "event": "80 Kg" },
+      { "gender": "Boys", "event": "85 Kg" },
+      { "gender": "Boys", "event": "90 Kg" },
+      { "gender": "Girls", "event": "45 Kg" },
+      { "gender": "Girls", "event": "48 Kg" },
+      { "gender": "Girls", "event": "51 Kg" },
+      { "gender": "Girls", "event": "54 kg" },
+      { "gender": "Girls", "event": "57 kg" },
+      { "gender": "Girls", "event": "60 kg" },
+      { "gender": "Girls", "event": "65 Kg" },
+      { "gender": "Girls", "event": "70 Kg" },
+      { "gender": "Girls", "event": "75 Kg" },
+      { "gender": "Girls", "event": "80 Kg" }
+    ]
+  },
+    {
+    "category": "Cycling (Track)",
+    "events": [
+      { "gender": "Boys", "event": "Sprint" },
+      { "gender": "Boys", "event": "Time Trial 1 KM" },
+      { "gender": "Boys", "event": "Individual Pursuit 4 KM" },
+      { "gender": "Boys", "event": "Points Race" },
+      { "gender": "Girls", "event": "Sprint" },
+      { "gender": "Girls", "event": "Time Trial 500 Mtr" },
+      { "gender": "Girls", "event": "Individual Pursuit 3 KM" },
+      { "gender": "Girls", "event": "Points Race" }
+    ]
+  },
+  {
+    "category": "Cycling (Road)",
+    "events": [
+      { "gender": "Boys", "event": "Mass Start 100 KM" },
+      { "gender": "Boys", "event": "Individual Time Trial 20 KM" },
+      { "gender": "Girls", "event": "Mass Start 60 KM" },
+      { "gender": "Girls", "event": "Individual Time Trial 15 KM" }
+    ]
+  },
+  {
+    "category": "Fencing",
+    "events": [
+      { "gender": "Boys", "event": "Epee Individual" },
+      { "gender": "Boys", "event": "Foil Individual" },
+      { "gender": "Boys", "event": "Sabre Individual" },
+      { "gender": "Girls", "event": "Epee Individual" },
+      { "gender": "Girls", "event": "Foil Individual" },
+      { "gender": "Girls", "event": "Sabre Individual" }
+    ]
+  },
+  {
+    "category": "Football",
+    "events": [
+      { "gender": "Boys", "event": "Team" },
+      { "gender": "Girls", "event": "Team" }
+    ]
+  },
+  {
+    "category": "Gatka",
+    "events": [
+      { "gender": "Boys", "event": "Single Soti" },
+      { "gender": "Boys", "event": "Fari Soti" },
+      { "gender": "Girls", "event": "Single Soti" },
+      { "gender": "Girls", "event": "Fari Soti" }
+    ]
+  },
+    {
+    "category": "Gymnastics",
+    "events": [
+      { "gender": "Boys", "event": "Floor Exercise" },
+      { "gender": "Boys", "event": "Horizontal Bar" },
+      { "gender": "Boys", "event": "Parallel Bar" },
+      { "gender": "Boys", "event": "Pommel Horse" },
+      { "gender": "Boys", "event": "Vaulting Table" },
+      { "gender": "Boys", "event": "Roman Ring" },
+      { "gender": "Girls", "event": "Vaulting Table" },
+      { "gender": "Girls", "event": "Uneven Bar" },
+      { "gender": "Girls", "event": "Balancing Beam" },
+      { "gender": "Girls", "event": "Floor Exercise" }
+    ]
+  },
+  {
+    "category": "Hockey",
+    "events": [
+      { "gender": "Boys", "event": "Team" },
+      { "gender": "Girls", "event": "Team" }
+    ]
+  },
+  {
+    "category": "Judo",
+    "events": [
+      { "gender": "Boys", "event": "-50Kg" },
+      { "gender": "Boys", "event": "-55Kg" },
+      { "gender": "Boys", "event": "-60Kg" },
+      { "gender": "Boys", "event": "-66Kg" },
+      { "gender": "Boys", "event": "-73Kg" },
+      { "gender": "Boys", "event": "-81Kg" },
+      { "gender": "Boys", "event": "+81Kg" },
+      { "gender": "Girls", "event": "-40Kg" },
+      { "gender": "Girls", "event": "-44Kg" },
+      { "gender": "Girls", "event": "-48Kg" },
+      { "gender": "Girls", "event": "-52Kg" },
+      { "gender": "Girls", "event": "-57Kg" },
+      { "gender": "Girls", "event": "-63Kg" },
+      { "gender": "Girls", "event": "+63Kg" }
+    ]
+  },
+  {
+    "category": "Kabaddi",
+    "events": [
+      { "gender": "Boys", "event": "Team" },
+      { "gender": "Girls", "event": "Team" }
+    ]
+  },
+  {
+    "category": "Kalarippayattu",
+    "events": [
+      { "gender": "Boys", "event": "Chuvadu" },
+      { "gender": "Boys", "event": "Kaithari" },
+      { "gender": "Boys", "event": "Vadivu" },
+      { "gender": "Boys", "event": "Angathari" },
+      { "gender": "Girls", "event": "Chuvadu" },
+      { "gender": "Girls", "event": "Kaithari" },
+      { "gender": "Girls", "event": "Vadivu" },
+      { "gender": "Girls", "event": "Angathari" }
+    ]
+  },
+    {
+    "category": "Kayaking & Canoeing",
+    "events": [
+      { "gender": "Boys", "event": "Kayaking 200m Single" },
+      { "gender": "Boys", "event": "Kayaking 200m Double" },
+      { "gender": "Boys", "event": "Canoeing 200m Single" },
+      { "gender": "Boys", "event": "Canoeing 200m Double" },
+      { "gender": "Girls", "event": "Kayaking 200m Single" },
+      { "gender": "Girls", "event": "Kayaking 200m Double" },
+      { "gender": "Girls", "event": "Canoeing 200m Single" },
+      { "gender": "Girls", "event": "Canoeing 200m Double" }
+    ]
+  },
+  {
+    "category": "Kho Kho",
+    "events": [
+      { "gender": "Boys", "event": "Team" },
+      { "gender": "Girls", "event": "Team" }
+    ]
+  },
+  {
+    "category": "Mallakhamb",
+    "events": [
+      { "gender": "Boys", "event": "Pole Mallakhamb" },
+      { "gender": "Boys", "event": "Rope Mallakhamb" },
+      { "gender": "Girls", "event": "Pole Mallakhamb" },
+      { "gender": "Girls", "event": "Rope Mallakhamb" }
+    ]
+  },
+  {
+    "category": "Rowing",
+    "events": [
+      { "gender": "Boys", "event": "Single Scull" },
+      { "gender": "Boys", "event": "Double Scull" },
+      { "gender": "Boys", "event": "Coxless Pair" },
+      { "gender": "Girls", "event": "Single Scull" },
+      { "gender": "Girls", "event": "Double Scull" },
+      { "gender": "Girls", "event": "Coxless Pair" }
+    ]
+  },
+  {
+    "category": "Shooting",
+    "events": [
+      { "gender": "Boys", "event": "10M Air Rifle" },
+      { "gender": "Boys", "event": "10M Air Pistol" },
+      { "gender": "Boys", "event": "25M Sports Pistol" },
+      { "gender": "Girls", "event": "10M Air Rifle" },
+      { "gender": "Girls", "event": "10M Air Pistol" },
+      { "gender": "Girls", "event": "25M Sports Pistol" },
+      { "gender": "Mixed", "event": "10M Air Rifle Mixed Team" },
+      { "gender": "Mixed", "event": "10M Air Pistol Mixed Team" }
+    ]
+  },
+    {
+    "category": "Swimming",
+    "events": [
+      { "gender": "Boys", "event": "50M Freestyle" },
+      { "gender": "Boys", "event": "100M Freestyle" },
+      { "gender": "Boys", "event": "200M Freestyle" },
+      { "gender": "Boys", "event": "400M Freestyle" },
+      { "gender": "Boys", "event": "1500M Freestyle" },
+      { "gender": "Boys", "event": "50M Backstroke" },
+      { "gender": "Boys", "event": "100M Backstroke" },
+      { "gender": "Boys", "event": "200M Backstroke" },
+      { "gender": "Boys", "event": "50M Breaststroke" },
+      { "gender": "Boys", "event": "100M Breaststroke" },
+      { "gender": "Boys", "event": "200M Breaststroke" },
+      { "gender": "Boys", "event": "50M Butterfly" },
+      { "gender": "Boys", "event": "100M Butterfly" },
+      { "gender": "Boys", "event": "200M Butterfly" },
+      { "gender": "Boys", "event": "200M Individual Medley" },
+      { "gender": "Boys", "event": "4x100M Freestyle Relay" },
+      { "gender": "Boys", "event": "4x100M Medley Relay" },
+      { "gender": "Girls", "event": "50M Freestyle" },
+      { "gender": "Girls", "event": "100M Freestyle" },
+      { "gender": "Girls", "event": "200M Freestyle" },
+      { "gender": "Girls", "event": "400M Freestyle" },
+      { "gender": "Girls", "event": "800M Freestyle" },
+      { "gender": "Girls", "event": "50M Backstroke" },
+      { "gender": "Girls", "event": "100M Backstroke" },
+      { "gender": "Girls", "event": "200M Backstroke" },
+      { "gender": "Girls", "event": "50M Breaststroke" },
+      { "gender": "Girls", "event": "100M Breaststroke" },
+      { "gender": "Girls", "event": "200M Breaststroke" },
+      { "gender": "Girls", "event": "50M Butterfly" },
+      { "gender": "Girls", "event": "100M Butterfly" },
+      { "gender": "Girls", "event": "200M Butterfly" },
+      { "gender": "Girls", "event": "200M Individual Medley" },
+      { "gender": "Girls", "event": "4x100M Freestyle Relay" },
+      { "gender": "Girls", "event": "4x100M Medley Relay" }
+    ]
+  },
+  {
+    "category": "Table Tennis",
+    "events": [
+      { "gender": "Boys", "event": "Singles" },
+      { "gender": "Boys", "event": "Doubles" },
+      { "gender": "Girls", "event": "Singles" },
+      { "gender": "Girls", "event": "Doubles" },
+      { "gender": "Mixed", "event": "Doubles" }
+    ]
+  },
+  {
+    "category": "Tennis",
+    "events": [
+      { "gender": "Boys", "event": "Singles" },
+      { "gender": "Boys", "event": "Doubles" },
+      { "gender": "Girls", "event": "Singles" },
+      { "gender": "Girls", "event": "Doubles" },
+      { "gender": "Mixed", "event": "Doubles" }
+    ]
+  },
+  {
+    "category": "Thang Ta",
+    "events": [
+      { "gender": "Boys", "event": "Spoon Laan" },
+      { "gender": "Boys", "event": "Phunaba Ama" },
+      { "gender": "Girls", "event": "Spoon Laan" },
+      { "gender": "Girls", "event": "Phunaba Ama" }
+    ]
+  },
+  {
+    "category": "Volleyball",
+    "events": [
+      { "gender": "Boys", "event": "Team" },
+      { "gender": "Girls", "event": "Team" }
+    ]
+  },
+    {
+    "category": "Weightlifting",
+    "events": [
+      { "gender": "Boys", "event": "55Kg" },
+      { "gender": "Boys", "event": "61Kg" },
+      { "gender": "Boys", "event": "67Kg" },
+      { "gender": "Boys", "event": "73Kg" },
+      { "gender": "Boys", "event": "81Kg" },
+      { "gender": "Boys", "event": "89Kg" },
+      { "gender": "Boys", "event": "96Kg" },
+      { "gender": "Girls", "event": "45Kg" },
+      { "gender": "Girls", "event": "49Kg" },
+      { "gender": "Girls", "event": "55Kg" },
+      { "gender": "Girls", "event": "59Kg" },
+      { "gender": "Girls", "event": "64Kg" },
+      { "gender": "Girls", "event": "71Kg" },
+      { "gender": "Girls", "event": "76Kg" }
+    ]
+  },
+  {
+    "category": "Wrestling",
+    "events": [
+      { "gender": "Boys", "event": "Freestyle 45Kg" },
+      { "gender": "Boys", "event": "Freestyle 48Kg" },
+      { "gender": "Boys", "event": "Freestyle 51Kg" },
+      { "gender": "Boys", "event": "Freestyle 55Kg" },
+      { "gender": "Boys", "event": "Freestyle 60Kg" },
+      { "gender": "Boys", "event": "Freestyle 65Kg" },
+      { "gender": "Boys", "event": "Freestyle 71Kg" },
+      { "gender": "Girls", "event": "Freestyle 40Kg" },
+      { "gender": "Girls", "event": "Freestyle 43Kg" },
+      { "gender": "Girls", "event": "Freestyle 46Kg" },
+      { "gender": "Girls", "event": "Freestyle 49Kg" },
+      { "gender": "Girls", "event": "Freestyle 53Kg" },
+      { "gender": "Girls", "event": "Freestyle 57Kg" },
+      { "gender": "Girls", "event": "Freestyle 62Kg" }
+    ]
+  },
+  {
+    "category": "Yogasana",
+    "events": [
+      { "gender": "Boys", "event": "Artistic Yoga" },
+      { "gender": "Boys", "event": "Traditional Yoga" },
+      { "gender": "Boys", "event": "Rhythmic Yoga" },
+      { "gender": "Girls", "event": "Artistic Yoga" },
+      { "gender": "Girls", "event": "Traditional Yoga" },
+      { "gender": "Girls", "event": "Rhythmic Yoga" }
+    ]
+  },
+  {
+    "category": "Rugby",
+    "events": [
+      { "gender": "Boys", "event": "Team" },
+      { "gender": "Girls", "event": "Team" }
+    ]
+  },
+  {
+    "category": "Sepaktakraw",
+    "events": [
+      { "gender": "Boys", "event": "Regu" },
+      { "gender": "Girls", "event": "Regu" }
+    ]
+  }
+]
