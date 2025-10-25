@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
-import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "./ui/button";
-
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -16,7 +14,7 @@ const dignitaries = [
     name: "Nayab Singh Saini",
     position: "President",
     organization: "Haryana Olympic Association",
-    bio: "Mr. Meenu Beniwal has been appointed as the President of the Haryana Association (HOA). With his vision and leadership, we look forward to expanding opportunities in sports, strengthening community bonds, and creating new avenues of growth and development. Together, under his guidance, HOA is set to achieve greater milestones and inspire future generations.",
+    bio: "Mr. Meenu Beniwal has been appointed as the President of the Haryana Association (HOA). With his vision and leadership, we look forward to expanding opportunities in sports, strengthening community bonds, and creating new avenues of growth and development.",
     image: "images/d1.jpeg",
   },
   {
@@ -24,7 +22,7 @@ const dignitaries = [
     name: "Manohar Lal Khattar",
     position: "Secretary General",
     organization: "Haryana Olympic Association",
-    bio: "Mr. Meenu Beniwal has been appointed as the President of the Haryana Association (HOA). With his vision and leadership, we look forward to expanding opportunities in sports, strengthening community bonds, and creating new avenues of growth and development. Together, under his guidance, HOA is set to achieve greater milestones and inspire future generations.",
+    bio: "Mr. Meenu Beniwal has been appointed as the President of the Haryana Association (HOA). With his vision and leadership, we look forward to expanding opportunities in sports, strengthening community bonds, and creating new avenues of growth and development.",
     image: "images/d3.jpeg",
   },
   {
@@ -32,7 +30,7 @@ const dignitaries = [
     name: "Nayab Singh Saini",
     position: "Director of Operations",
     organization: "Haryana Olympic Association",
-    bio: "Mr. Meenu Beniwal has been appointed as the President of the Haryana Association (HOA). With his vision and leadership, we look forward to expanding opportunities in sports, strengthening community bonds, and creating new avenues of growth and development. Together, under his guidance, HOA is set to achieve greater milestones and inspire future generations.",
+    bio: "Mr. Meenu Beniwal has been appointed as the President of the Haryana Association (HOA). With his vision and leadership, we look forward to expanding opportunities in sports, strengthening community bonds, and creating new avenues of growth and development.",
     image: "images/d4.jpeg",
   },
   {
@@ -40,7 +38,7 @@ const dignitaries = [
     name: "Pt. Usha",
     position: "Director of Operations",
     organization: "Haryana Olympic Association",
-    bio: "Mr. Meenu Beniwal has been appointed as the President of the Haryana Association (HOA). With his vision and leadership, we look forward to expanding opportunities in sports, strengthening community bonds, and creating new avenues of growth and development. Together, under his guidance, HOA is set to achieve greater milestones and inspire future generations.",
+    bio: "Mr. Meenu Beniwal has been appointed as the President of the Haryana Association (HOA). With his vision and leadership, we look forward to expanding opportunities in sports, strengthening community bonds, and creating new avenues of growth and development.",
     image: "images/d2_.jpeg",
   },
 ];
@@ -49,7 +47,7 @@ const dignitaries = [
 const newsArticles = [
   {
     id: 1,
-    title: "PHaryana Athletes Shine at National Games 2025",
+    title: "Haryana Athletes Shine at National Games 2025",
     excerpt:
       "Haryana's athletes won multiple gold and silver medals at the National Games, showcasing the state's growing sports talent.",
     category: "Achievements",
@@ -79,7 +77,6 @@ const newsArticles = [
   },
 ];
 
-// Combined Component
 export function CombinedHOASection() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -87,7 +84,7 @@ export function CombinedHOASection() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % dignitaries.length);
-    }, 3000);
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
@@ -105,137 +102,140 @@ export function CombinedHOASection() {
   const newsSettings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 600,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 4000,
     pauseOnHover: true,
-    responsive: [
-      { breakpoint: 1024, settings: { slidesToShow: 1 } },
-      { breakpoint: 640, settings: { slidesToShow: 1 } },
-    ],
+    arrows: false,
   };
 
   return (
-    <section className="py-16 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+    <section className="py-16 bg-[#f8f9fa]">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* Left Column - News */}
-          <div>
+          <div className="border border-gray-200 bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6">
             <div className="text-center lg:text-left mb-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Latest HOA NEWS
+              <h2 className="text-3xl font-semibold text-[#1b1f24] mb-2 border-l-4 border-sky-600 pl-3">
+                Latest HOA News
               </h2>
-              <p className="text-lg text-gray-600 max-w-lg mx-auto lg:mx-0">
+              <p className="text-gray-600 text-base">
                 Stay updated with the latest developments in the Olympic
-                movement, upcoming events, and inspiring stories.
+                movement, upcoming events, and inspiring stories from Haryana.
               </p>
             </div>
 
             <Slider {...newsSettings}>
               {newsArticles.map((article) => (
                 <div key={article.id} className="px-2">
-                  <Card className="hover:shadow-lg transition-shadow duration-300">
-                    <div className="relative">
-                      <ImageWithFallback
-                        src={article.image}
-                        alt={article.title}
-                        className="w-full h-64 object-cover rounded-t-lg"
-                      />
-                    </div>
+                  <div className="overflow-hidden rounded-xl">
+                    <ImageWithFallback
+                      src={article.image}
+                      alt={article.title}
+                      className=" object-contain "
+                    />
                     <div className="p-4">
-                      <h3 className="text-xl font-semibold mb-2">
+                      <Badge className="mb-3 bg-blue-100 text-blue-800 font-medium">
+                        {article.category}
+                      </Badge>
+                      <h3 className="text-xl font-semibold text-gray-900 mb-2">
                         {article.title}
                       </h3>
-                      <p className="text-gray-600">{article.excerpt}</p>
+                      <p className="text-gray-600 text-sm">{article.excerpt}</p>
                       <div className="mt-3 text-sm text-gray-500">
                         {article.date} • {article.readTime}
                       </div>
                     </div>
-                  </Card>
+                  </div>
                 </div>
               ))}
             </Slider>
 
-            <div className="text-center lg:text-left mt-6">
-              <Button size="lg" variant="outline">
+            <div className="text-center mt-8">
+              <Button
+                size="lg"
+                variant="outline"
+                className="bg-white text-blue-900 hover:bg-blue-50 border border-blue-800"
+              >
                 View All News
               </Button>
             </div>
           </div>
 
           {/* Right Column - Dignitaries */}
-          <div>
+          <div className="border border-gray-200 bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6">
             <div className="text-center lg:text-left mb-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Guiding force behind HOA
+              <h2 className="text-3xl font-semibold text-[#1b1f24] mb-2 border-l-4 border-green-600 pl-3">
+                Guiding Force Behind HOA
               </h2>
-              <p className="text-lg text-gray-600 max-w-lg mx-auto lg:mx-0">
-                Meet the distinguished leaders who guide Haryana&apos;s Olympic
-                journey and champion sporting excellence across the state.
+              <p className="text-gray-600 text-base">
+                Meet the distinguished leaders guiding Haryana's Olympic journey
+                and inspiring sporting excellence across the state.
               </p>
             </div>
 
             <div className="relative flex items-center justify-center overflow-hidden">
               <div
-                className="flex transition-transform duration-700 ease-in-out"
+                className="flex transition-transform duration-700 ease-in-out w-full"
                 style={{
                   transform: `translateX(-${currentIndex * 100}%)`,
-                  width: `${dignitaries.length * 100}%`,
                 }}
               >
                 {dignitaries.map((d, idx) => (
                   <div
                     key={d.id}
-                    className="w-full flex-shrink-0 flex justify-center"
+                    className="w-full flex-shrink-0 flex flex-col items-center text-center"
                   >
-                    <Card
-                      className={`transition-all duration-700 ease-in-out w-2/3 ${
-                        idx === currentIndex
-                          ? "scale-100 opacity-100 z-10"
-                          : "scale-90 opacity-50 blur-sm"
-                      }`}
-                    >
-                      <CardContent className="p-0 h-full flex flex-col">
-                        <div className="h-full relative w-full">
-                          <ImageWithFallback
-                            src={d.image}
-                            alt={d.name}
-                            className="w-full h-64 object-cover rounded-t-lg"
-                          />
-                          <Badge className="absolute top-4 left-4 bg-blue-600 text-white">
-                            {d.position.split(" ")[0]}
-                          </Badge>
-                        </div>
-                        <div className="p-4 text-center">
-                          <h3 className="text-lg font-semibold">{d.name}</h3>
-                          <p className="text-sm text-gray-500">{d.position}</p>
-                          <p className="mt-2 text-gray-600 text-sm">{d.bio}</p>
-                        </div>
-                      </CardContent>
-                    </Card>
+                    <div className="relative w-full overflow-hidden rounded-xl">
+                      <ImageWithFallback
+                        src={d.image}
+                        alt={d.name}
+                        className=" object-contain rounded-lg"
+                      />
+                      <Badge className="absolute top-4 left-4 bg-green-600 text-white text-sm font-medium">
+                        {d.position}
+                      </Badge>
+                    </div>
+                    <div className="mt-4">
+                      <h3 className="text-lg font-semibold text-gray-900">
+                        {d.name}
+                      </h3>
+                      <p className="text-sm text-gray-500 mb-2">
+                        {d.organization}
+                      </p>
+                      <p className="text-gray-600 text-sm leading-relaxed px-2 md:px-4">
+                        {d.bio}
+                      </p>
+                    </div>
                   </div>
                 ))}
               </div>
 
-              {/* Navigation */}
+              {/* Navigation Arrows */}
               <Button
                 variant="ghost"
-                size="sm"
+                size="icon"
                 onClick={goToPrevious}
-                className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm h-10 w-10 rounded-full p-0 z-20"
+                className="absolute left-2 top-1/2 transform -translate-y-1/2 
+             bg-white/80 hover:bg-white text-gray-800 
+             h-9 w-9 rounded-full shadow z-20 block"
               >
                 <ChevronLeft className="h-5 w-5" />
               </Button>
+
               <Button
                 variant="ghost"
-                size="sm"
+                size="icon"
                 onClick={goToNext}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm h-10 w-10 rounded-full p-0 z-20"
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 
+             bg-white/80 hover:bg-white text-gray-800 
+             h-9 w-9 rounded-full shadow z-20 block"
               >
                 <ChevronRight className="h-5 w-5" />
               </Button>
+
             </div>
           </div>
         </div>
