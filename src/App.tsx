@@ -3,7 +3,7 @@ import { Header } from "./components/navbar/Header";
 import { Footer } from "./components/navbar/Footer";
 import { ImageCarousel } from "./components/slider/ImageCarousel";
 import { HeroSection } from "./components/HeroSection";
-import { NewsSection } from "./components/NewsSection";
+import { CombinedHOASection as NewsSection } from "./components/NewsSection";
 import { DignitariesSection } from "./components/DignitariesSection";
 import { EventsSection } from "./components/EventsSection";
 import { SportsGallery } from "./components/SportsGallery";
@@ -21,7 +21,7 @@ function HomePage() {
       <DignitariesSection />
       <EventsSection />
       <SportsGallery />
-      <PlayerCarousel />
+      {/* <PlayerCarousel /> */}
       <PersonalityCard />
     </>
   );
