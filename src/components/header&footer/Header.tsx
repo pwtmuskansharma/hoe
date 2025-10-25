@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 import { Menu, Search, ChevronDown, ChevronUp } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -66,7 +66,9 @@ const menuItems = [
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState<number | null>(null);
+  const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState<number | null>(
+    null
+  );
 
   return (
     <header className="bg-white shadow-sm border-b">
@@ -141,11 +143,16 @@ export function Header() {
           <div className="lg:hidden mt-2 border-t border-gray-200">
             <div className="flex flex-col">
               {menuItems.map((item, idx) => (
-                <div key={idx} className="flex flex-col border-b border-gray-100">
+                <div
+                  key={idx}
+                  className="flex flex-col border-b border-gray-100"
+                >
                   <button
                     className="flex justify-between items-center px-4 py-3 w-full text-left text-gray-700 hover:bg-gray-50"
                     onClick={() =>
-                      setMobileSubmenuOpen(mobileSubmenuOpen === idx ? null : idx)
+                      setMobileSubmenuOpen(
+                        mobileSubmenuOpen === idx ? null : idx
+                      )
                     }
                   >
                     <span>{item.label}</span>
