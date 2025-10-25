@@ -10,7 +10,7 @@ import { SportsGallery } from "./components/SportsGallery";
 import { PlayerCarousel } from "./components/PlayerCarousel";
 import { PersonalityCard } from "./components/PersonalityCard";
 import Sports from "./components/Sports";
-import RegistrationForm from "./components/RegistrationForm";
+import RegistrationForm from "./components/Register/RegistrationForm";
 
 function HomePage() {
   return (
