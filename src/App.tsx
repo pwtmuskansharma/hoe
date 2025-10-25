@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Header } from "./components/header&footer/Header";
-import { Footer } from "./components/header&footer/Footer";
+import { Header } from "./components/navbar/Header";
+import { Footer } from "./components/navbar/Footer";
 import { ImageCarousel } from "./components/ImageCarousel";
 import { HeroSection } from "./components/HeroSection";
 import { NewsSection } from "./components/NewsSection";
