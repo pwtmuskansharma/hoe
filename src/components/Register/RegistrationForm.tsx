@@ -2,6 +2,13 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Select, { MultiValue, SingleValue } from 'react-select';
 import eventsJson from '../../assets/events.json';
 import '../../styles/HOARegistrationForm.css';
+import PreviewModal from "./PreviewModal"; // adjust import path if needed
+import Swal from "sweetalert2";
+import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { apiFetch } from '../../services/api/RegisterService';
+
 
 // ---------- Types ----------
 interface EventRow { gender: 'Boys' | 'Girls' | 'Mixed'; event: string; }
@@ -106,6 +113,10 @@ const HOARegistrationForm: React.FC = () => {
   const frontRef = useRef<HTMLInputElement>(null);
   const backRef = useRef<HTMLInputElement>(null);
   const signRef = useRef<HTMLInputElement>(null);
+  const [showPreview, setShowPreview] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
 
   // ---------- react-select Options ----------
   const categoryOptions = categoryList.map(v => ({ value: v, label: v }));
@@ -150,72 +161,192 @@ const HOARegistrationForm: React.FC = () => {
   }, [photoUrl, aadharFrontUrl, aadharBackUrl, signatureUrl]);
 
   // ---------- Handle Submit ----------
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const formData = new FormData();
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-      // ---------- Text Fields ----------
-      formData.append('firstName', form.firstName);
-      formData.append('middleName', form.middleName);
-      formData.append('lastName', form.lastName);
-      formData.append('fatherName', form.fathersName);
-      formData.append('motherName', form.mothersName);
-      formData.append('dob', form.dob);
-      formData.append('gender', form.gender);
-      formData.append('permAddr', form.permanentAddress);
-      formData.append('tempAddr', form.tempAddress);
-      formData.append('mobile', form.mobile);
-      formData.append('email', form.email);
-      formData.append('idMark', form.idMark);
-      formData.append('height', Math.floor(form.height).toString());
-      formData.append('bloodGroup', form.bloodGroup);
-      const sportsPayload = form.sportCategory.map(s => ({ value: s }));
-      formData.append('sports', JSON.stringify(sportsPayload));
-      formData.append('event', '1');
-      formData.append('qualification', form.qualification);
-      formData.append('college', form.college);
-      formData.append('collegeAddr', form.collegeAddress);
-      formData.append('regCategory', form.regCategory);
-      formData.append('instagram', form.instagram);
-      formData.append('facebook', form.facebook);
-      formData.append('twitter', form.twitter);
-      formData.append('username', form.username);
-      formData.append('password', form.password);
-formData.append('terms', form.terms ? '1' : '0');
+  // ---- Basic Required Fields ----
+  const errors: string[] = [];
 
-      // ---------- Achievements ----------
-      achievementLevels.forEach(level => {
-        formData.append(level.textKey, form.achievements[level.textKey]);
-        if (achievementFiles[level.fileKey]) formData.append(level.fileKey, achievementFiles[level.fileKey]!);
+  if (!form.firstName.trim()) errors.push("First Name is required");
+  // if (!form.lastName.trim()) errors.push("Last Name is required");
+  if (!form.dob.trim()) errors.push("Date of Birth is required");
+  if (!form.gender.trim()) errors.push("Gender is required");
+  if (!form.mobile.trim()) errors.push("Mobile Number is required");
+  if (!form.email.trim()) errors.push("Email is required");
+  if (!form.sportCategory.length) errors.push("Please select at least one sport");
+  if (!form.events || form.events === "") errors.push("Event is required");
+  if (!form.username.trim()) errors.push("Username is required");
+  if (!form.password.trim()) errors.push("Password is required");
+  if (!form.terms) errors.push("Please accept Terms and Conditions");
+
+  // Show all missing field errors
+  if (errors.length > 0) {
+    errors.forEach((err, index) => {
+      setTimeout(() => toast.error(err), index * 300); // small delay so they stack neatly
+    });
+    return;
+  }
+
+  // ---- Mobile Number Validation ----
+  const mobileRegex = /^[0-9]{10}$/;
+  if (!mobileRegex.test(form.mobile)) {
+    toast.error("Please enter a valid 10-digit mobile number.");
+    return;
+  }
+
+// ---- Email Validation (Any valid email) ----
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+if (!emailRegex.test(form.email)) {
+  toast.error("Please enter a valid email address.");
+  return;
+}
+
+
+  // ---- Date of Birth Validation ----
+  const dob = new Date(form.dob);
+  const today = new Date();
+  const ageDiff = today.getFullYear() - dob.getFullYear();
+  const hasBirthdayPassed =
+    today.getMonth() > dob.getMonth() ||
+    (today.getMonth() === dob.getMonth() && today.getDate() >= dob.getDate());
+  const age = hasBirthdayPassed ? ageDiff : ageDiff - 1;
+
+  if (isNaN(dob.getTime())) {
+    toast.error("Please enter a valid date of birth.");
+    return;
+  }
+
+  if (age < 10) {
+    toast.error("You must be at least 10 years old to register.");
+    return;
+  }
+
+  setShowPreview(true);
+};
+
+
+
+
+const handleConfirmSubmit = async () => {
+  setShowPreview(false);
+  setLoading(true);
+
+  try {
+    const formData = new FormData();
+
+    // ---------- Text Fields ----------
+    formData.append("firstName", form.firstName);
+    formData.append("middleName", form.middleName);
+    formData.append("lastName", form.lastName);
+    formData.append("fatherName", form.fathersName);
+    formData.append("motherName", form.mothersName);
+    formData.append("dob", form.dob);
+    formData.append("gender", form.gender);
+    formData.append("permAddr", form.permanentAddress);
+    formData.append("tempAddr", form.tempAddress);
+    formData.append("mobile", form.mobile);
+    formData.append("email", form.email);
+    formData.append("idMark", form.idMark);
+    formData.append("height", Math.floor(form.height).toString());
+    formData.append("bloodGroup", form.bloodGroup);
+    const sportsPayload = form.sportCategory.map((s) => ({ value: s }));
+    formData.append("sports", JSON.stringify(sportsPayload));
+    formData.append("event", "1");
+    formData.append("qualification", form.qualification);
+    formData.append("college", form.college);
+    formData.append("collegeAddr", form.collegeAddress);
+    formData.append("regCategory", form.regCategory);
+    formData.append("instagram", form.instagram);
+    formData.append("facebook", form.facebook);
+    formData.append("twitter", form.twitter);
+    formData.append("username", form.username);
+    formData.append("password", form.password);
+    formData.append("terms", form.terms ? "1" : "0");
+
+    // ---------- Achievements ----------
+    achievementLevels.forEach((level) => {
+      formData.append(level.textKey, form.achievements[level.textKey]);
+      if (achievementFiles[level.fileKey])
+        formData.append(level.fileKey, achievementFiles[level.fileKey]!);
+    });
+
+    // ---------- Other Files ----------
+    if (photoUrl && frontRef.current?.files?.[0])
+      formData.append("passport", frontRef.current.files[0]);
+    if (aadharFrontUrl && frontRef.current?.files?.[0])
+      formData.append("aadhar_front", frontRef.current.files[0]);
+    if (aadharBackUrl && backRef.current?.files?.[0])
+      formData.append("aadhar_back", backRef.current.files[0]);
+    if (signRef.current?.files?.[0])
+      formData.append("signature", signRef.current.files[0]);
+
+    console.log("Submitting formData...");
+    Array.from(formData.entries()).forEach(([k, v]) =>
+      console.log(k, v instanceof File ? v.name : v)
+    );
+
+    // ---------- Submit to backend ----------
+    const result = await apiFetch("athlete-register", formData);
+    console.log("Backend response:", result);
+    debugger;
+
+    if (result.ok && result.data?.success) {
+      await Swal.fire({
+        icon: "success",
+        title: "Registration Successful!",
+        text: result.data.message || "Your form has been submitted successfully.",
+        showConfirmButton: false,
+        timer: 2000,
       });
 
-      // ---------- Other Files ----------
-      if (photoUrl && frontRef.current?.files?.[0]) formData.append('passport', frontRef.current.files[0]);
-      if (aadharFrontUrl && frontRef.current?.files?.[0]) formData.append('aadhar_front', frontRef.current.files[0]);
-      if (aadharBackUrl && backRef.current?.files?.[0]) formData.append('aadhar_back', backRef.current.files[0]);
-      if (signRef.current?.files?.[0]) formData.append('signature', signRef.current.files[0]);
-
-      // ---------- Log FormData ----------
-      console.log('---- FormData ----');
-      Array.from(formData.entries()).forEach(([key, value]) => {
-        if (value instanceof File) console.log(key, ":", value.name);
-        else console.log(key, ":", value);
+      // ✅ RESET FORM AND FILES HERE
+      setForm({
+        filteredEvents: [],
+        firstName: '', middleName: '', lastName: '',
+        fathersName: '', mothersName: '', dob: '',
+        gender: '', permanentAddress: '', mobile: '', email: '',
+        tempAddress: '', idMark: '', height: 0, bloodGroup: '',
+        events: '', sportCategory: [],
+        achievements: { districtText:'', stateText:'', nationalText:'', intlText:'', otherAch:'' },
+        qualification: '', college: '', collegeAddress: '',
+        regCategory: '', instagram: '', facebook: '', twitter: '',
+        username: '', password: '', terms: false,
       });
-      console.log('-----------------');
 
-      // ---------- Submit ----------
-      const response = await fetch('https://hoa.premiercourses.in/api/athlete-register', { method: 'POST', body: formData });
-      const result = await response.json();
-      console.log('result', result);
+      setAchievementFiles({});
+      setPhotoUrl(null);
+      setAadharFrontUrl(null);
+      setAadharBackUrl(null);
+      setSignatureUrl(null);
+      setAadharFrontName('');
+      setAadharBackName('');
+      setSignatureName('');
 
-      if (response.ok && result.success) alert( result.message || 'Registration successful!');
-      else alert('Error: ' + (result.message || 'Something went wrong'));
-    } catch (err) {
-      console.error('Submit error:', err);
-      alert('Submission failed. Check console for details.');
+      if (frontRef.current) frontRef.current.value = '';
+      if (backRef.current) backRef.current.value = '';
+      if (signRef.current) signRef.current.value = '';
+
+      navigate("/"); // ✅ Redirect to home
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Submission Failed",
+        text: result.data?.message || "Something went wrong. Please try again.",
+      });
     }
-  };
+  } catch (error: any) {
+    console.error("Error:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Network Error",
+      text: error.message || "Unable to reach the server. Please try again later.",
+    });
+  } finally {
+    setLoading(false);
+  }
+};
+
+
 
   return (
     <div className="form-container">
@@ -285,7 +416,16 @@ formData.append('terms', form.terms ? '1' : '0');
         </div>
         <label>Temporary Address<textarea value={form.tempAddress} onChange={e=>setForm({...form,tempAddress:e.target.value})} rows={2}/></label>
         <label>Identification Mark<input value={form.idMark} onChange={e=>setForm({...form,idMark:e.target.value})} type="text"/></label>
-        <label>Height<input type="number" value={form.height} onChange={e=>setForm({...form,height:Number(e.target.value)})}/></label>
+        <label>
+  Height
+  <input
+    type="number"
+    value={form.height || ''} // <-- show empty string if 0
+    placeholder="Enter your height in cm" // <-- placeholder text
+    onChange={e => setForm({ ...form, height: Number(e.target.value) })}
+  />
+</label>
+
         <label>Blood Group<input value={form.bloodGroup} onChange={e=>setForm({...form,bloodGroup:e.target.value})} type="text"/></label>
 
         {/* Sport Category */}
@@ -333,7 +473,7 @@ formData.append('terms', form.terms ? '1' : '0');
 
 
   <label >
-    Registration Category <span style={{ color: 'red' }}>*</span>
+    Registration Category 
   </label>
   <div className="radio-group inline-radios">
     <label className="radio-label">
@@ -384,12 +524,60 @@ formData.append('terms', form.terms ? '1' : '0');
       checked={form.terms}
       onChange={e => setForm({ ...form, terms: e.target.checked })}
     />
-    I agree to the <a href="/terms" target="_blank" rel="noopener noreferrer">Terms and Conditions</a>
+    <span>
+      I agree to the <a href="/terms" target="_blank" rel="noopener noreferrer">Terms and Conditions</a>
+    </span>
   </label>
 </div>
 
-        <button type="submit">Submit</button>
+
+        <button
+  type="submit"
+  disabled={loading}
+  className={`flex items-center justify-center gap-2 bg-blue-600 text-white font-medium py-2 px-6 rounded-lg transition-all duration-200 ${
+    loading ? "opacity-60 cursor-not-allowed" : "hover:bg-blue-700"
+  }`}
+>
+  {loading ? (
+    <>
+      <svg
+        className="w-5 h-5 animate-spin text-white"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <circle
+          className="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          strokeWidth="4"
+        ></circle>
+        <path
+          className="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+        ></path>
+      </svg>
+      <span>Submitting...</span>
+    </>
+  ) : (
+    "Submit"
+  )}
+</button>
+
+
+              {showPreview && (
+        <PreviewModal
+          form={form}
+          onConfirm={handleConfirmSubmit}
+          onCancel={() => setShowPreview(false)}
+        />
+      )}
       </form>
+            <ToastContainer position="top-right" />
+
     </div>
   );
 };
