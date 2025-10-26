@@ -257,6 +257,17 @@ button[type="submit"]:hover {
   gap: 6px;
 }
 
+.terms-section {
+  text-align: left; /* ensures content starts from left */
+}
+
+.terms-label {
+  display: inline-flex; /* keeps checkbox + text inline */
+  align-items: center; /* vertically aligns them */
+  gap: 8px; /* space between checkbox and text */
+  cursor: pointer;
+}
+
 /* Responsive */
 @media (max-width: 600px) {
   .form-container {
