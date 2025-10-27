@@ -246,11 +246,14 @@ const menuItems = [
     label: "AWARDS",
     path: "/awards",
     children: [
-      { label: "Padma Shri Awards", path: "/awards/padma-shri" },
-      { label: "Dronacharya Awards", path: "/awards/dronacharya" },
-      { label: "Arjuna Awards", path: "/awards/arjuna" },
-      { label: "Olympian/Other Awards", path: "/awards/olympian" },
-      { label: "HOA Awards", path: "/awards/hoa" },
+      {
+        label: "Rajiv Gandhi khel Ratna Award",
+        path: "/rajiv-gandhi-khel-ratan-awards",
+      },
+      { label: "Dronacharya Awards", path: "/dronacharya-awards" },
+      // { label: "Dhyanchand Awards", path: "/dhyanchand-awards" },
+      // { label: "Arjuna Awards", path: "/arjuna-awards" },
+      // { label: "HOA Awards", path: "/awards/hoa" },
     ],
   },
   {

@@ -31,11 +31,7 @@ const membersData = [
   },
   {
     title: "Joint Secretary",
-    members: [
-      "Sh. Vikarm, IAS",
-      "Sh. Ravinder Pannu",
-      "Sh. Narender Singh",
-    ],
+    members: ["Sh. Vikarm, IAS", "Sh. Ravinder Pannu", "Sh. Narender Singh"],
   },
   {
     title: "Executive Member",
@@ -57,7 +53,7 @@ const Members = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-blue-800 mb-3">
-            HOA Members
+            Executive Committee Haryana Olympic Association
           </h1>
           <p className="text-gray-700 text-lg">
             Dedicated leaders shaping the future of Haryana sports excellence.
@@ -75,9 +71,9 @@ const Members = () => {
               <h2 className="text-xl font-bold text-black mb-4 border-b border-gray-300 pb-2">
                 {section.title}
               </h2>
-              <ul className="space-y-2 text-gray-700 text-base leading-relaxed text-left">
+              <ul className="space-y-2 text-gray-700 text-base leading-relaxed ">
                 {section.members.map((member, idx) => (
-                  <li key={idx}>• {member}</li>
+                  <li key={idx}>{member}</li>
                 ))}
               </ul>
             </div>
