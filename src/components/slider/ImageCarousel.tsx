@@ -160,17 +160,21 @@ const carouselImages = [
     id: 1,
     src: "/images/banner.jpeg",
   },
-  {
-    id: 2,
-    src: "/images/banner-2.jpeg",
-  },
+  // {
+  //   id: 2,
+  //   src: "/images/banner-2.jpeg",
+  // },
   // More images can be added here
 ];
 
 export function ImageCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  const isMultiple = carouselImages.length > 1;
+
   useEffect(() => {
+    if (!isMultiple) return; // Agar ek hi image hai to slider mat chalao
+
     const timer = setInterval(() => {
       setCurrentIndex((prevIndex) =>
         prevIndex === carouselImages.length - 1 ? 0 : prevIndex + 1
@@ -178,7 +182,7 @@ export function ImageCarousel() {
     }, 3000); // Auto-advance every 3 seconds
 
     return () => clearInterval(timer);
-  }, []);
+  }, [isMultiple]);
 
   const goToPrevious = () => {
     setCurrentIndex(
@@ -209,7 +213,7 @@ export function ImageCarousel() {
           >
             <ImageWithFallback
               src={image.src}
-              className=" object-contain object-center "
+              className="object-contain object-center"
             />
 
             <div className="absolute inset-0 flex items-center justify-start px-3 sm:px-6 md:px-10 lg:px-16">
@@ -228,39 +232,43 @@ export function ImageCarousel() {
         ))}
       </div>
 
-      {/* Navigation Arrows */}
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={goToPrevious}
-        className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 rounded-full p-0"
-      >
-        <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
-      </Button>
+      {/* Navigation Arrows (sirf tab dikhe jab multiple images ho) */}
+      {isMultiple && (
+        <>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={goToPrevious}
+            className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 rounded-full p-0"
+          >
+            <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+          </Button>
 
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={goToNext}
-        className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 rounded-full p-0"
-      >
-        <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
-      </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={goToNext}
+            className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 rounded-full p-0"
+          >
+            <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+          </Button>
 
-      {/* Dots Indicator */}
-      <div className="absolute bottom-3 sm:bottom-5 left-1/2 transform -translate-x-1/2 flex space-x-2 sm:space-x-3">
-        {carouselImages.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSlide(index)}
-            className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
-              index === currentIndex
-                ? "bg-white scale-110"
-                : "bg-white/50 hover:bg-white/70"
-            }`}
-          />
-        ))}
-      </div>
+          {/* Dots Indicator */}
+          <div className="absolute bottom-3 sm:bottom-5 left-1/2 transform -translate-x-1/2 flex space-x-2 sm:space-x-3">
+            {carouselImages.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
+                  index === currentIndex
+                    ? "bg-white scale-110"
+                    : "bg-white/50 hover:bg-white/70"
+                }`}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }

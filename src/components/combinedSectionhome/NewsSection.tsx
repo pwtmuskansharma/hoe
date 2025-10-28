@@ -218,8 +218,8 @@
 //                 variant="ghost"
 //                 size="icon"
 //                 onClick={goToPrevious}
-//                 className="absolute left-2 top-1/2 transform -translate-y-1/2 
-//              bg-white/80 hover:bg-white text-gray-800 
+//                 className="absolute left-2 top-1/2 transform -translate-y-1/2
+//              bg-white/80 hover:bg-white text-gray-800
 //              h-9 w-9 rounded-full shadow z-20 block"
 //               >
 //                 <ChevronLeft className="h-5 w-5" />
@@ -229,8 +229,8 @@
 //                 variant="ghost"
 //                 size="icon"
 //                 onClick={goToNext}
-//                 className="absolute right-2 top-1/2 transform -translate-y-1/2 
-//              bg-white/80 hover:bg-white text-gray-800 
+//                 className="absolute right-2 top-1/2 transform -translate-y-1/2
+//              bg-white/80 hover:bg-white text-gray-800
 //              h-9 w-9 rounded-full shadow z-20 block"
 //               >
 //                 <ChevronRight className="h-5 w-5" />
@@ -244,14 +244,12 @@
 //   );
 // }
 
-
-
 import React, { useState, useEffect, useRef } from "react";
 import Slider from "react-slick";
-import { Badge } from "./ui/badge";
-import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { Badge } from "../ui/badge";
+import { ImageWithFallback } from "../figma/ImageWithFallback";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -259,33 +257,33 @@ import "slick-carousel/slick/slick-theme.css";
 const dignitaries = [
   {
     id: 1,
-    name: "Nayab Singh Saini",
+    name: " Sh.Nayab Singh Saini",
     position: "President",
-    organization: "Haryana Olympic Association",
+
     bio: "Mr. Meenu Beniwal has been appointed as the President of the Haryana Association (HOA). With his vision and leadership, we look forward to expanding opportunities in sports, strengthening community bonds, and creating new avenues of growth and development.",
     image: "images/d1.jpeg",
   },
   {
     id: 2,
-    name: "Manohar Lal Khattar",
+    name: " Sh.Manohar Lal Khattar",
     position: "Secretary General",
-    organization: "Haryana Olympic Association",
+
     bio: "Mr. Meenu Beniwal has been appointed as the President of the Haryana Association (HOA). With his vision and leadership, we look forward to expanding opportunities in sports, strengthening community bonds, and creating new avenues of growth and development.",
     image: "images/d3.jpeg",
   },
   {
     id: 3,
-    name: "Nayab Singh Saini",
+    name: " Sh.Nayab Singh Saini",
     position: "Director of Operations",
-    organization: "Haryana Olympic Association",
+
     bio: "Mr. Meenu Beniwal has been appointed as the President of the Haryana Association (HOA). With his vision and leadership, we look forward to expanding opportunities in sports, strengthening community bonds, and creating new avenues of growth and development.",
     image: "images/d4.jpeg",
   },
   {
     id: 4,
-    name: "Pt. Usha",
+    name: "Smt.Pt. Usha",
     position: "Director of Operations",
-    organization: "Haryana Olympic Association",
+
     bio: "Mr. Meenu Beniwal has been appointed as the President of the Haryana Association (HOA). With his vision and leadership, we look forward to expanding opportunities in sports, strengthening community bonds, and creating new avenues of growth and development.",
     image: "images/d2_.jpeg",
   },
@@ -458,9 +456,9 @@ export function CombinedHOASection() {
                       <h3 className="text-lg font-semibold text-gray-900">
                         {d.name}
                       </h3>
-                      <p className="text-sm text-gray-500 mb-2">
+                      {/* <p className="text-sm text-gray-500 mb-2">
                         {d.organization}
-                      </p>
+                      </p> */}
                       <p className="text-gray-600 text-sm leading-relaxed px-2 md:px-4">
                         {d.bio}
                       </p>
