@@ -2001,10 +2001,10 @@ export default HOARegistrationForm;
 // };
 
 // export default HOARegistrationForm;
-import React from "react";
+// import React from "react";
 
-function RegistrationForm() {
-  return <div>RegistrationForm</div>;
-}
+// function RegistrationForm() {
+//   return <div>RegistrationForm</div>;
+// }
 
-export default RegistrationForm;
+// export default RegistrationForm;

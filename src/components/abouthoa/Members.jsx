@@ -37,10 +37,10 @@ const membersData = [
     title: "Executive Member",
     members: [
       "Sh. Ajay Kumar, IAS",
-      "Ms. Neha Singh, IAS",
+      "Smt. Neha Singh, IAS",
       "Sh. Uttam Singh, IAS",
-      "Ms. Surekha",
-      "Ms. Priya",
+      "Smt. Surekha",
+      "Smt. Priya",
       "Sh. Rohit Pundir",
     ],
   },
