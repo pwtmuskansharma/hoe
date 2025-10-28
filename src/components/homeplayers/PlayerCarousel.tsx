@@ -140,6 +140,7 @@ export function PlayerCarousel() {
         const res = await fetch("https://hoa.premiercourses.in/api/players");
         const data = await res.json();
         console.log("Fetched Players Data:", data);
+        debugger;
         setPlayers(data?.data || []);
       } catch (error) {
         console.error("Error fetching players:", error);

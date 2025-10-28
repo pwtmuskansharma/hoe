@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import {
@@ -9,6 +10,8 @@ import {
   Mail,
   Phone,
   MapPin,
+  Linkedin,
+  X,
 } from "lucide-react";
 
 export function Footer() {
@@ -32,34 +35,80 @@ export function Footer() {
               promoting sporting excellence across all disciplines in the state.
             </p>
             <div className="flex space-x-3">
-              <Button
-                size="sm"
-                variant="ghost"
-                className="text-gray-400 hover:text-white p-2"
+              {/* Facebook */}
+              <a
+                href="https://www.facebook.com/HaryanaOlympicAssociation"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <Facebook className="h-5 w-5" />
-              </Button>
-              <Button
-                size="sm"
-                variant="ghost"
-                className="text-gray-400 hover:text-white p-2"
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="text-gray-400 hover:text-blue-500 p-2"
+                >
+                  <Facebook className="h-5 w-5" />
+                </Button>
+              </a>
+
+              {/* Twitter / X */}
+              <a
+                href="https://twitter.com/Haryana_olympic"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <Twitter className="h-5 w-5" />
-              </Button>
-              <Button
-                size="sm"
-                variant="ghost"
-                className="text-gray-400 hover:text-white p-2"
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="text-gray-400 hover:text-blue-500 p-2"
+                >
+                  <Twitter className="h-5 w-5" />
+                </Button>
+              </a>
+
+              {/* Instagram */}
+              <a
+                href="https://www.instagram.com/haryanaolympicassociation"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <Instagram className="h-5 w-5" />
-              </Button>
-              <Button
-                size="sm"
-                variant="ghost"
-                className="text-gray-400 hover:text-white p-2"
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="text-gray-400 hover:text-pink-500 p-2"
+                >
+                  <Instagram className="h-5 w-5" />
+                </Button>
+              </a>
+
+              {/* YouTube */}
+              <a
+                href="https://www.youtube.com/@HaryanaOlympicAssociation"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <Youtube className="h-5 w-5" />
-              </Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="text-gray-400 hover:text-red-500 p-2"
+                >
+                  <Youtube className="h-5 w-5" />
+                </Button>
+              </a>
+
+              {/* LinkedIn */}
+              <a
+                href="https://www.linkedin.com/company/haryanaolympicassociation"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="text-gray-400 hover:text-blue-500 p-2"
+                >
+                  <Linkedin className="h-5 w-5" />
+                </Button>
+              </a>
             </div>
           </div>
 
