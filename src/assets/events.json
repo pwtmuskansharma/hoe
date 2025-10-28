@@ -109,7 +109,7 @@
       { "gender": "Girls", "event": "80 Kg" }
     ]
   },
-    {
+  {
     "category": "Cycling (Track)",
     "events": [
       { "gender": "Boys", "event": "Sprint" },
@@ -158,7 +158,7 @@
       { "gender": "Girls", "event": "Fari Soti" }
     ]
   },
-    {
+  {
     "category": "Gymnastics",
     "events": [
       { "gender": "Boys", "event": "Floor Exercise" },
@@ -219,7 +219,7 @@
       { "gender": "Girls", "event": "Angathari" }
     ]
   },
-    {
+  {
     "category": "Kayaking & Canoeing",
     "events": [
       { "gender": "Boys", "event": "Kayaking 200m Single" },
@@ -272,7 +272,7 @@
       { "gender": "Mixed", "event": "10M Air Pistol Mixed Team" }
     ]
   },
-    {
+  {
     "category": "Swimming",
     "events": [
       { "gender": "Boys", "event": "50M Freestyle" },
@@ -347,7 +347,7 @@
       { "gender": "Girls", "event": "Team" }
     ]
   },
-    {
+  {
     "category": "Weightlifting",
     "events": [
       { "gender": "Boys", "event": "55Kg" },
