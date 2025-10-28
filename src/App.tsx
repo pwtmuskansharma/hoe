@@ -5,12 +5,14 @@ import { ImageCarousel } from "./components/slider/ImageCarousel";
 import { HeroSection } from "./components/HeroSection";
 import { CombinedHOASection as NewsSection } from "./components/NewsSection";
 import { DignitariesSection } from "./components/DignitariesSection";
-import { EventsSection } from "./components/EventsSection";
+import { EventsSection } from "./components/hoaUpComingEvents/EventsSection";
 import { SportsGallery } from "./components/SportsGallery";
 import { PlayerCarousel } from "./components/homeplayers/PlayerCarousel";
 import { PersonalityCard } from "./components/PersonalityCard";
 import Sports from "./components/Sports";
-import RegistrationForm from "./components/Register/RegistrationForm";
+import RegistrationForm from "./components/RegistrationForm";
+import About from "./components/abouthoa/history";
+import Members from "./components/abouthoa/Members";
 
 function HomePage() {
   return (
@@ -39,6 +41,9 @@ export default function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/sports" element={<Sports />} />
+            {/* ABOUT HOA */}
+            <Route path="/about/history" element={<About />} />
+            <Route path="/about/members" element={<Members />} />
             <Route
               path="/athletes/register"
               element={
