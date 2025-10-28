@@ -3,7 +3,7 @@ import { Header } from "./components/navbar/Header";
 import { Footer } from "./components/navbar/Footer";
 import { ImageCarousel } from "./components/slider/ImageCarousel";
 import { HeroSection } from "./components/HeroSection";
-import { CombinedHOASection as NewsSection } from "./components/NewsSection";
+import { CombinedHOASection as NewsSection } from "./components/combinedSectionhome/NewsSection";
 import { DignitariesSection } from "./components/DignitariesSection";
 import { EventsSection } from "./components/hoaUpComingEvents/EventsSection";
 import { HaryanaVenuesGallery } from "./components/venus&facilities/SportsGallery";
@@ -38,8 +38,6 @@ function HomePage() {
 export default function App() {
   return (
     <Router>
-      {/* ✅ Inline CSS for the registration route background */}
-
       <div className="min-h-screen flex flex-col">
         <Header />
 

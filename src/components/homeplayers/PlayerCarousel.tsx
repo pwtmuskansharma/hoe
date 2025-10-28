@@ -108,6 +108,7 @@ import { useState, useEffect } from "react";
 import { Button } from "../ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ImageWithFallback } from "../figma/ImageWithFallback";
+import { apiFetch } from "../../services/api/Dashboard";
 
 // Define types
 interface SportData {
@@ -137,13 +138,20 @@ export function PlayerCarousel() {
   useEffect(() => {
     const fetchPlayers = async () => {
       try {
-        const res = await fetch("https://hoa.premiercourses.in/api/players");
-        const data = await res.json();
+        const res = await apiFetch("players");
+        const data = res;
         console.log("Fetched Players Data:", data);
-        debugger;
-        setPlayers(data?.data || []);
+
+        // ✅ Ensure it's an array
+        if (Array.isArray(data?.data?.data)) {
+          setPlayers(data.data?.data);
+        } else {
+          console.warn("Unexpected data format:", data);
+          setPlayers([]);
+        }
       } catch (error) {
         console.error("Error fetching players:", error);
+        setPlayers([]);
       }
     };
 
@@ -163,26 +171,18 @@ export function PlayerCarousel() {
     const interval = setInterval(goToNext, 3000);
     return () => clearInterval(interval);
   }, [players]);
+  // console.log("players.length", players.length);
 
   return (
-    <div className="relative w-full max-w-full mx-auto mb-16 px-4 max-h-full  ">
-      <div className="bg-gradient-to-br from-blue-900 via-gray-900 to-black rounded-3xl p-8 shadow-2xl">
-        <h2 className="text-4xl font-bold text-center text-white mb-6 drop-shadow-md">
+    <div className="relative ">
+      <div className="bg-gradient-to-br from-blue-900 via-gray-900 to-black  p-6 sm:p-8 shadow-2xl">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center text-white mb-6 sm:mb-8 drop-shadow-md">
           Champions in Action
         </h2>
-        <div className="flex items-center justify-center gap-4">
-          {/* Left Arrow */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={goToPrevious}
-            className="bg-white/70 hover:bg-white/90 text-black h-12 w-12 rounded-full shrink-0"
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </Button>
 
+        <div className="flex items-center justify-center gap-2 sm:gap-4">
           {/* Player Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 transition-all duration-500 w-full">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 transition-all duration-500 w-full">
             {players.length > 0 ? (
               players
                 .slice(
@@ -196,50 +196,42 @@ export function PlayerCarousel() {
                   return (
                     <div
                       key={player.id}
-                      className="flex flex-col items-center text-center border border-gray-700 bg-gray-800/80 hover:bg-gray-700/90 transition-all duration-300 rounded-2xl shadow-lg p-4"
+                      className="flex flex-col items-center text-center border border-gray-700 bg-gray-800/80 hover:bg-gray-700/90 transition-all duration-300 rounded-2xl shadow-lg p-3 sm:p-4"
                     >
-                      <div className="w-full h-72 overflow-hidden rounded-xl">
+                      <div className="w-full aspect-[3/4] overflow-hidden rounded-xl">
                         <ImageWithFallback
                           src={player.profile_image}
                           alt={player.name}
                           className="w-full h-full object-cover transform hover:scale-105 transition-all duration-500"
                         />
                       </div>
-                      <p className="mt-3 text-lg font-semibold text-white">
+                      <p className="mt-3 text-sm sm:text-base md:text-lg font-semibold text-white">
                         {player.name}
                       </p>
-                      <p className="text-sm text-gray-300">
+                      <p className="text-xs sm:text-sm text-gray-300">
                         {player.position || "—"}
                       </p>
-                      <p className="text-sm text-yellow-400 font-medium">
+                      <p className="text-xs sm:text-sm text-yellow-400 font-medium">
                         {sportName}
                       </p>
                     </div>
                   );
                 })
             ) : (
-              <p className="text-white text-center col-span-4">
+              <p className="text-white text-center col-span-full py-8 text-sm sm:text-base">
                 Loading players...
               </p>
             )}
           </div>
-
-          {/* Right Arrow */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={goToNext}
-            className="bg-white/70 hover:bg-white/90 text-black h-12 w-12 rounded-full shrink-0"
-          >
-            <ChevronRight className="h-6 w-6" />
-          </Button>
         </div>
-        <div className="flex justify-center py-7 space-x-2">
+
+        {/* Dots Indicator */}
+        <div className="flex justify-center py-6 sm:py-8 space-x-2">
           {Array.from({ length: totalSlides }).map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
                 index === currentIndex
                   ? "bg-yellow-400 scale-110"
                   : "bg-gray-500 hover:bg-yellow-300"

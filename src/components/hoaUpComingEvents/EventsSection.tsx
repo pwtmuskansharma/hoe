@@ -482,7 +482,13 @@ export function EventsSection() {
   return (
     <section id="events" className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="events" className="py-16 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">HOA Events</h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Explore Haryana’s premier sports events and championships.
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">HOA Events</h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -652,3 +658,127 @@ export function EventsSection() {
     </section>
   );
 }
+
+// dummy code to Show
+// import { Card, CardContent } from "../ui/card";
+// import { Button } from "../ui/button";
+// import {
+//   MapPin,
+//   Users,
+//   Medal,
+//   CalendarDays,
+//   MapPinned,
+//   Trophy,
+//   Image as ImageIcon,
+//   ListChecks,
+//   Calendar,
+// } from "lucide-react";
+
+// export function EventsSection() {
+//   const quickActions = [
+//     { name: "Sports", icon: <Medal className="h-6 w-6" /> },
+//     { name: "Schedule", icon: <CalendarDays className="h-6 w-6" /> },
+//     { name: "Venues", icon: <MapPinned className="h-6 w-6" /> },
+//     { name: "Results", icon: <Trophy className="h-6 w-6" /> },
+//     { name: "Medal Tally", icon: <ListChecks className="h-6 w-6" /> },
+//     { name: "Match Fixtures", icon: <CalendarDays className="h-6 w-6" /> },
+//     { name: "Media & Gallery", icon: <ImageIcon className="h-6 w-6" /> },
+//   ];
+
+//   return (
+//     <section id="events" className="py-12 bg-gray-50">
+//       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+//         {/* Section Title */}
+//         <div className="text-center mb-10">
+//           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+//             HOA Events
+//           </h2>
+//           <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
+//             27th Haryana Events
+//           </p>
+//         </div>
+
+//         {/* Event Card */}
+//         <Card className="overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 bg-white">
+//           <div className="flex flex-col md:flex-row items-center md:items-stretch">
+//             {/* Left Side: Event Logo */}
+//             <div className="md:w-1/3 w-full bg-gradient-to-br from-yellow-100 to-orange-200 flex justify-center items-center p-6">
+//               <div className="w-36 h-36 md:w-40 md:h-40 rounded-full bg-white flex items-center justify-center shadow-md overflow-hidden">
+//                 <img
+//                   src="/images/logo approved.png"
+//                   alt="Event Logo"
+//                   className="w-28 h-28 md:w-32 md:h-32 object-contain"
+//                 />
+//               </div>
+//             </div>
+
+//             {/* Right Side: Event Info + Quick Actions */}
+//             <CardContent className="md:w-2/3 w-full p-5 md:p-6">
+//               <h3 className="text-xl md:text-2xl font-semibold mb-3 text-gray-900">
+//                 27th Haryana State Games
+//               </h3>
+
+//               <div className="space-y-2 mb-4">
+//                 <div className="flex items-center space-x-2 text-gray-600">
+//                   <Calendar className="h-4 w-4 text-orange-500" />
+//                   <span className="text-sm md:text-base">02/11/2025</span>
+//                 </div>
+//                 <div className="flex items-center space-x-2 text-gray-600">
+//                   <MapPin className="h-4 w-4 text-orange-500" />
+//                   <span className="text-sm md:text-base">Haryana, India</span>
+//                 </div>
+//                 <div className="flex items-center space-x-2 text-gray-600">
+//                   <Users className="h-4 w-4 text-orange-500" />
+//                   <span className="text-sm md:text-base">
+//                     5000+ Athletes Participating
+//                   </span>
+//                 </div>
+//               </div>
+
+//               <p className="text-gray-600 text-xs md:text-sm mb-5 leading-relaxed">
+//                 The 27th Haryana State Games celebrate excellence in sports with
+//                 participation from across districts, promoting talent and
+//                 teamwork for the upcoming national events.
+//               </p>
+
+//               {/* Buttons */}
+//               <div className="flex flex-wrap gap-2 mb-6">
+//                 <Button
+//                   size="sm"
+//                   className="flex-1 md:flex-none bg-orange-500 hover:bg-orange-600 text-xs md:text-sm"
+//                 >
+//                   Learn More
+//                 </Button>
+//                 <Button
+//                   size="sm"
+//                   variant="outline"
+//                   className="border-orange-500 text-orange-500 hover:bg-orange-100 text-xs md:text-sm"
+//                 >
+//                   Follow Updates
+//                 </Button>
+//               </div>
+//             </CardContent>
+//           </div>
+//           <div className="border-t border-gray-200 px-4 md:px-5 pb-4 md:pb-5 pt-3 md:pt-4 bg-gray-50">
+//             <h4 className="text-center text-xs md:text-sm font-semibold text-gray-800 mb-3 md:mb-4">
+//               Quick Actions
+//             </h4>
+//             <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-4 gap-2.5 md:gap-3">
+//               {quickActions.map((item) => (
+//                 <div
+//                   key={item.name}
+//                   className="bg-gradient-to-br from-orange-400 to-yellow-400 text-white py-1.5 md:py-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transform transition duration-300 flex flex-col items-center justify-center"
+//                 >
+//                   <div className="mb-0.5">{item.icon}</div>
+//                   <span className="text-[9px] md:text-[10px] font-medium text-center px-1 leading-tight">
+//                     {item.name}
+//                   </span>
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+//         </Card>
+//       </div>
+//     </section>
+//   );
+// }
