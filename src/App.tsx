@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useParams,
+} from "react-router-dom";
 import { Header } from "./components/navbar/Header";
 import { Footer } from "./components/navbar/Footer";
 import { ImageCarousel } from "./components/slider/ImageCarousel";
@@ -18,7 +23,6 @@ import { DronacharyaAwardsPage } from "./components/awards/DronacharyaAward";
 import { DhyanchandAwardsPage } from "./components/awards/DhyanchandAwards";
 import { ArjunaAwardsPage } from "./components/awards/ArjunaAwards";
 import { UpcomingEvents } from "./components/hoaUpComingEvents/Events";
-
 
 function HomePage() {
   return (
@@ -59,10 +63,7 @@ export default function App() {
             />
 
             {/* Awards */}
-            <Route
-              path="/rajiv-gandhi-khel-ratan-awards"
-              element={<RajivGandhiAwardsPage />}
-            />
+            <Route path="/award/:slug" element={<RajivGandhiAwardsPage />} />
             <Route
               path="/dronacharya-awards"
               element={<DronacharyaAwardsPage />}

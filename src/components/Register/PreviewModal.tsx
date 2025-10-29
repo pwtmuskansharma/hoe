@@ -7,7 +7,11 @@ interface PreviewModalProps {
   onCancel: () => void;
 }
 
-const PreviewModal: React.FC<PreviewModalProps> = ({ form, onConfirm, onCancel }) => {
+const PreviewModal: React.FC<PreviewModalProps> = ({
+  form,
+  onConfirm,
+  onCancel,
+}) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-50">
       <div className="relative bg-white rounded-2xl shadow-xl w-[90%] max-w-lg p-6 animate-fadeIn">
@@ -27,17 +31,42 @@ const PreviewModal: React.FC<PreviewModalProps> = ({ form, onConfirm, onCancel }
 
         {/* Data Display */}
         <div className="text-sm space-y-2">
-          <p><span className="font-semibold">First Name:</span> {form.firstName}</p>
-          <p><span className="font-semibold">Middle Name:</span> {form.middleName}</p>
-          <p><span className="font-semibold">Last Name:</span> {form.lastName}</p>
-          <p><span className="font-semibold">Date of Birth:</span> {form.dob}</p>
-          <p><span className="font-semibold">Gender:</span> {form.gender}</p>
-          <p><span className="font-semibold">Mobile:</span> {form.mobile}</p>
-          <p><span className="font-semibold">Email:</span> {form.email}</p>
-          <p><span className="font-semibold">Sports:</span> {Array.isArray(form.sportCategory) ? form.sportCategory.join(", ") : form.sportCategory}</p>
-          <p><span className="font-semibold">Event:</span> {form.event || "—"}</p>
-          <p><span className="font-semibold">Username:</span> {form.username}</p>
-          <p><span className="font-semibold">Terms Accepted:</span> {form.terms ? "Yes" : "No"}</p>
+          <p>
+            <span className="font-semibold">First Name:</span> {form.firstName}
+          </p>
+          <p>
+            <span className="font-semibold">Middle Name:</span>{" "}
+            {form.middleName}
+          </p>
+          <p>
+            <span className="font-semibold">Last Name:</span> {form.lastName}
+          </p>
+          <p>
+            <span className="font-semibold">Date of Birth:</span> {form.dob}
+          </p>
+          <p>
+            <span className="font-semibold">Gender:</span> {form.gender}
+          </p>
+          <p>
+            <span className="font-semibold">Mobile:</span> {form.mobile}
+          </p>
+          <p>
+            <span className="font-semibold">Email:</span> {form.email}
+          </p>
+          <p>
+            <span className="font-semibold">Sports:</span>{" "}
+            {Array.isArray(form.sportCategory)
+              ? form.sportCategory.join(", ")
+              : form.sportCategory}
+          </p>
+          {/* <p><span className="font-semibold">Event:</span> {form.event || "—"}</p> */}
+          <p>
+            <span className="font-semibold">Username:</span> {form.username}
+          </p>
+          <p>
+            <span className="font-semibold">Terms Accepted:</span>{" "}
+            {form.terms ? "Yes" : "No"}
+          </p>
         </div>
 
         {/* Buttons */}
