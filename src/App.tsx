@@ -22,12 +22,9 @@ import { RajivGandhiAwardsPage } from "./components/awards/RajivGandhiAward";
 import { DronacharyaAwardsPage } from "./components/awards/DronacharyaAward";
 import { DhyanchandAwardsPage } from "./components/awards/DhyanchandAwards";
 import { ArjunaAwardsPage } from "./components/awards/ArjunaAwards";
-<<<<<<< Updated upstream
-
-=======
 import { UpcomingEvents } from "./components/hoaUpComingEvents/Events";
 // import { useParams } from "react-router-dom";
->>>>>>> Stashed changes
+
 function HomePage() {
   return (
     <>
@@ -56,6 +53,7 @@ export default function App() {
             {/* ABOUT HOA */}
             <Route path="/about/history" element={<About />} />
             <Route path="/about/members" element={<Members />} />
+            <Route path="/competitions/upcoming" element={<UpcomingEvents />} />
             <Route
               path="/athletes/register"
               element={
