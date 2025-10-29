@@ -23,7 +23,6 @@ import { DronacharyaAwardsPage } from "./components/awards/DronacharyaAward";
 import { DhyanchandAwardsPage } from "./components/awards/DhyanchandAwards";
 import { ArjunaAwardsPage } from "./components/awards/ArjunaAwards";
 import { UpcomingEvents } from "./components/hoaUpComingEvents/Events";
-// import { useParams } from "react-router-dom";
 
 function HomePage() {
   return (
