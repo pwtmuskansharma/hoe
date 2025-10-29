@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useParams,
+} from "react-router-dom";
 import { Header } from "./components/navbar/Header";
 import { Footer } from "./components/navbar/Footer";
 import { ImageCarousel } from "./components/slider/ImageCarousel";
@@ -17,7 +22,12 @@ import { RajivGandhiAwardsPage } from "./components/awards/RajivGandhiAward";
 import { DronacharyaAwardsPage } from "./components/awards/DronacharyaAward";
 import { DhyanchandAwardsPage } from "./components/awards/DhyanchandAwards";
 import { ArjunaAwardsPage } from "./components/awards/ArjunaAwards";
+<<<<<<< Updated upstream
 
+=======
+import { UpcomingEvents } from "./components/hoaUpComingEvents/Events";
+// import { useParams } from "react-router-dom";
+>>>>>>> Stashed changes
 function HomePage() {
   return (
     <>
@@ -56,10 +66,7 @@ export default function App() {
             />
 
             {/* Awards */}
-            <Route
-              path="/rajiv-gandhi-khel-ratan-awards"
-              element={<RajivGandhiAwardsPage />}
-            />
+            <Route path="/award/:slug" element={<RajivGandhiAwardsPage />} />
             <Route
               path="/dronacharya-awards"
               element={<DronacharyaAwardsPage />}
