@@ -14,7 +14,7 @@ import { EventsSection } from "./components/hoaUpComingEvents/EventsSection";
 import { HaryanaVenuesGallery } from "./components/venus&facilities/SportsGallery";
 import { PlayerCarousel } from "./components/homeplayers/PlayerCarousel";
 import { PersonalityCard } from "./components/PersonalityCard";
-import Sports from "./components/Sports";
+import Sports from "./components/sports/Sports";
 import RegistrationForm from "./components/Register/RegistrationForm";
 import About from "./components/abouthoa/history";
 import Members from "./components/abouthoa/Members";
@@ -23,6 +23,7 @@ import { DronacharyaAwardsPage } from "./components/awards/DronacharyaAward";
 import { DhyanchandAwardsPage } from "./components/awards/DhyanchandAwards";
 import { ArjunaAwardsPage } from "./components/awards/ArjunaAwards";
 import { UpcomingEvents } from "./components/hoaUpComingEvents/Events";
+import { Venues } from "./components/venus&facilities/Venues";
 
 function HomePage() {
   return (
@@ -73,6 +74,9 @@ export default function App() {
               element={<DhyanchandAwardsPage />}
             />
             <Route path="/arjuna-awards" element={<ArjunaAwardsPage />} />
+
+            {/* Venues Page */}   
+            <Route path="/venues" element={<Venues />} />
           </Routes>
         </div>
 
