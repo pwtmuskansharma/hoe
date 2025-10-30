@@ -14,8 +14,6 @@ import {
 } from "lucide-react";
 import { apiFetch } from "../../services/api/Events";
 
-
-
 interface EventItem {
   title: string;
   date: string;
@@ -47,12 +45,36 @@ export function UpcomingEvents() {
 
   const quickActions = [
     { name: "Sports", key: "sport_link", icon: <Medal className="h-6 w-6" /> },
-    { name: "Schedule", key: "schedule_link", icon: <CalendarDays className="h-6 w-6" /> },
-    { name: "Venues", key: "venue_link", icon: <MapPinned className="h-6 w-6" /> },
-    { name: "Results", key: "result_link", icon: <Trophy className="h-6 w-6" /> },
-    { name: "Medal Tally", key: "medal_tally_link", icon: <ListChecks className="h-6 w-6" /> },
-    { name: "Match Fixtures", key: "match_fixtures_link", icon: <CalendarDays className="h-6 w-6" /> },
-    { name: "Media & Gallery", key: "media_gallery_link", icon: <ImageIcon className="h-6 w-6" /> },
+    {
+      name: "Schedule",
+      key: "schedule_link",
+      icon: <CalendarDays className="h-6 w-6" />,
+    },
+    {
+      name: "Venues",
+      key: "venue_link",
+      icon: <MapPinned className="h-6 w-6" />,
+    },
+    {
+      name: "Results",
+      key: "result_link",
+      icon: <Trophy className="h-6 w-6" />,
+    },
+    {
+      name: "Medal Tally",
+      key: "medal_tally_link",
+      icon: <ListChecks className="h-6 w-6" />,
+    },
+    {
+      name: "Match Fixtures",
+      key: "match_fixtures_link",
+      icon: <CalendarDays className="h-6 w-6" />,
+    },
+    {
+      name: "Media & Gallery",
+      key: "media_gallery_link",
+      icon: <ImageIcon className="h-6 w-6" />,
+    },
   ];
 
   // Fetch events on mount
@@ -106,14 +128,18 @@ export function UpcomingEvents() {
   }, [events]);
 
   return (
-    <section id="events" className="py-16 bg-gray-50">
+    <section
+      id="events"
+      className="py-16 bg-gradient-to-b from-sky-100 to-sky-300 "
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">HOA Events</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <h2 className="text-4xl font-bold text-blue-800 mb-3">HOA Events</h2>
+          <p className="text-gray-700 text-lg">
             Explore Haryana’s premier sports events and championships.
           </p>
+          <div className="w-24 h-1 bg-blue-600 mx-auto mt-4 rounded-full"></div>
         </div>
 
         {/* Loader */}
@@ -137,7 +163,13 @@ export function UpcomingEvents() {
 
         {/* Event Grid */}
         {!loading && !error && events.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          <div
+            className={`grid gap-6 md:gap-8 ${
+              events.length === 1
+                ? "place-items-center grid-cols-1"
+                : "grid-cols-1 md:grid-cols-2"
+            }`}
+          >
             {events.map((event, index) => (
               <Card
                 key={event.title}
@@ -168,11 +200,15 @@ export function UpcomingEvents() {
                       </div>
                       <div className="flex items-center space-x-2 text-gray-600">
                         <MapPin className="h-4 w-4 text-orange-500" />
-                        <span className="text-xs md:text-sm">{event.location}</span>
+                        <span className="text-xs md:text-sm">
+                          {event.location}
+                        </span>
                       </div>
                       <div className="flex items-center space-x-2 text-gray-600">
                         <Users className="h-4 w-4 text-orange-500" />
-                        <span className="text-xs md:text-sm">{event.athletes}</span>
+                        <span className="text-xs md:text-sm">
+                          {event.athletes}
+                        </span>
                       </div>
                     </div>
 
@@ -180,7 +216,7 @@ export function UpcomingEvents() {
                     <div
                       ref={(el) => {
                         descRefs.current[index] = el;
-                        }}
+                      }}
                       className={`text-gray-600 text-[11px] md:text-xs leading-relaxed transition-all duration-300 ${
                         expanded[index]
                           ? "max-h-[400px]"
@@ -225,7 +261,9 @@ export function UpcomingEvents() {
                   </h4>
                   <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-2.5 md:gap-3">
                     {quickActions.map((item) => {
-                      const link = event[item.key as keyof EventItem] as string | null;
+                      const link = event[item.key as keyof EventItem] as
+                        | string
+                        | null;
                       const isActive = Boolean(link);
 
                       return (
@@ -255,9 +293,7 @@ export function UpcomingEvents() {
             ))}
           </div>
         )}
-
       </div>
-
     </section>
   );
 }
