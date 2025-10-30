@@ -158,7 +158,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const carouselImages = [
   {
     id: 1,
-    src: "/images/banner.jpeg",
+    src: "/images/banner image.jpeg",
   },
   // {
   //   id: 2,
