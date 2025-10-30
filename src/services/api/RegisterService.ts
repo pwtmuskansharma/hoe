@@ -1,28 +1,8 @@
-// src/services/apiService.ts
-// import { API_BASE_URL } from '../../config';
-
-// export const apiFetch = async (endpoint: string, body?: any) => {
-//   const response = await fetch(`${API_BASE_URL}/${endpoint}`, {
-//     method: body ? 'POST' : 'GET', // POST if body is provided
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: body ? JSON.stringify(body) : undefined, // only send body if provided
-//   });
-
-//   if (!response.ok) {
-//     const errorText = await response.text();
-//     throw new Error(`API Error (${response.status}): ${errorText}`);
-//   }
-
-//   // return only the response data
-//   return response.json();
-// };
-
-
-// src/services/apiService.ts
 import { API_BASE_URL } from "../../config";
 
+/**
+ * Generic POST API call
+ */
 export const apiFetch = async (endpoint: string, formData: FormData) => {
   console.log("API Base URL:", API_BASE_URL);
 
@@ -32,19 +12,17 @@ export const apiFetch = async (endpoint: string, formData: FormData) => {
       body: formData,
     });
 
-    // Parse JSON from backend
     let data: any = {};
     try {
       data = await response.json();
     } catch (e) {
-      // If backend returns no JSON
       data = { message: "No response body" };
     }
 
     return {
       status: response.status,
       ok: response.ok,
-      data, // ✅ parsed backend response
+      data,
     };
   } catch (error: any) {
     console.error("API Error:", error);
@@ -56,4 +34,46 @@ export const apiFetch = async (endpoint: string, formData: FormData) => {
   }
 };
 
+/**
+ * ✅ Fetch all Sports
+ */
+export const fetchSports = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/sports`);
+    const data = await response.json();
+    return {
+      ok: response.ok,
+      status: response.status,
+      data,
+    };
+  } catch (error: any) {
+    console.error("Fetch Sports Error:", error);
+    return {
+      ok: false,
+      status: 0,
+      data: { message: error.message || "Failed to fetch sports" },
+    };
+  }
+};
 
+/**
+ * ✅ Fetch Sport Categories by Sport ID
+ */
+export const fetchSportCategories = async (sportId: number) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/categories?sport_id=${sportId}`);
+    const data = await response.json();
+    return {
+      ok: response.ok,
+      status: response.status,
+      data,
+    };
+  } catch (error: any) {
+    console.error("Fetch Sport Categories Error:", error);
+    return {
+      ok: false,
+      status: 0,
+      data: { message: error.message || "Failed to fetch categories" },
+    };
+  }
+};
