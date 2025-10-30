@@ -177,7 +177,7 @@ export function PlayerCarousel() {
     <div className="relative ">
       <div className="bg-gradient-to-br from-blue-900 via-gray-900 to-black  p-6 sm:p-8 shadow-2xl">
         <h2 className="text-3xl sm:text-4xl font-bold text-center text-white mb-6 sm:mb-8 drop-shadow-md">
-          Champions in Action
+          Haryana Hero's
         </h2>
 
         <div className="flex items-center justify-center gap-2 sm:gap-4">

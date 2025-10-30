@@ -158,7 +158,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const carouselImages = [
   {
     id: 1,
-    src: "/images/banner.jpeg",
+    src: "/images/banner image.jpeg",
   },
   // {
   //   id: 2,
@@ -213,7 +213,7 @@ export function ImageCarousel() {
           >
             <ImageWithFallback
               src={image.src}
-              className="object-contain object-center"
+              className=" object-contain object-center"
             />
 
             <div className="absolute inset-0 flex items-center justify-start px-3 sm:px-6 md:px-10 lg:px-16">

@@ -301,16 +301,16 @@ const newsArticles = [
     readTime: "5 min read",
     image: "images/news1.jpg",
   },
-  {
-    id: 2,
-    title: "Haryana Olympic Association Launches Youth Sports Initiative",
-    excerpt:
-      "HOA introduces a new program to nurture young athletes across Haryana, providing training, mentorship, and scholarships.",
-    category: "Youth Development",
-    date: "2024-09-18",
-    readTime: "3 min read",
-    image: "images/d2_.jpeg",
-  },
+  // {
+  //   id: 2,
+  //   title: "Haryana Olympic Association Launches Youth Sports Initiative",
+  //   excerpt:
+  //     "HOA introduces a new program to nurture young athletes across Haryana, providing training, mentorship, and scholarships.",
+  //   category: "Youth Development",
+  //   date: "2024-09-18",
+  //   readTime: "3 min read",
+  //   image: "images/d2_.jpeg",
+  // },
   {
     id: 3,
     title: "Haryana Hosts State-Level Athletics Championship",
@@ -448,17 +448,9 @@ export function CombinedHOASection() {
                         alt={d.name}
                         className="object-contain rounded-lg"
                       />
-                      <Badge className="absolute top-4 left-4 bg-green-600 text-white text-sm font-medium">
-                        {d.position}
-                      </Badge>
                     </div>
                     <div className="mt-4">
-                      <h3 className="text-lg font-semibold text-gray-900">
-                        {d.name}
-                      </h3>
-                      {/* <p className="text-sm text-gray-500 mb-2">
-                        {d.organization}
-                      </p> */}
+                      <h3 className="text-lg font-semibold text-gray-900">{d.name}</h3>
                       <p className="text-gray-600 text-sm leading-relaxed px-2 md:px-4">
                         {d.bio}
                       </p>
@@ -466,30 +458,22 @@ export function CombinedHOASection() {
                   </div>
                 ))}
               </div>
-
-              {/* Navigation Arrows */}
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={goToPrevious}
-                className="absolute left-2 top-1/2 transform -translate-y-1/2 
-             bg-white/80 hover:bg-white text-gray-800 
-             h-9 w-9 rounded-full shadow z-20 block"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </Button>
-
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={goToNext}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 
-             bg-white/80 hover:bg-white text-gray-800 
-             h-9 w-9 rounded-full shadow z-20 block"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </Button>
             </div>
+
+            {/* ✅ Dots below */}
+            <div className="flex justify-center mt-4 space-x-2">
+              {dignitaries.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`w-2 h-2 mt-14 rounded-full transition-all duration-300 ${currentIndex === index
+                      ? "bg-gray-600 scale-110"
+                      : "bg-gray-300 hover:bg-gray-400"
+                    }`}
+                ></button>
+              ))}
+            </div>
+
           </div>
         </div>
       </div>
