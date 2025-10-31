@@ -34,7 +34,7 @@ function HomePage() {
       <DignitariesSection />
       <EventsSection />
       <HaryanaVenuesGallery />
-      <PlayerCarousel />
+      {/* <PlayerCarousel /> */}
       <PersonalityCard />
     </>
   );

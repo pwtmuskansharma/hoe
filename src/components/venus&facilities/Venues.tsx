@@ -172,7 +172,7 @@ export function Venues() {
         </div>
 
         {/* Pagination Controls */}
-        {meta && meta.last_page > 1 && (
+        {/* {meta && meta.last_page > 1 && (
           <div className="flex justify-center items-center mt-10 space-x-2">
             <Button
               variant="outline"
@@ -202,7 +202,7 @@ export function Venues() {
                 >
                   {link.label}
                 </Button>
-              ))}
+           ))}
 
             <Button
               variant="outline"
@@ -213,7 +213,76 @@ export function Venues() {
               Next
             </Button>
           </div>
+        )} */}
+
+        {/* Stylish Responsive Pagination */}
+        {meta && meta.last_page > 1 && (
+          <div className="flex flex-wrap justify-center items-center mt-10 gap-2 sm:gap-3">
+            {/* Prev button */}
+            <Button
+              variant="outline"
+              className="px-4 py-2 text-sm rounded-full border-oragne-600 text-orange-700 hover:bg-orange-600 hover:text-white transition"
+              disabled={page === 1}
+              onClick={() => handlePageChange(page - 1)}
+            >
+              ← Prev
+            </Button>
+
+            {/* Dynamic page buttons with dots */}
+            {(() => {
+              const pages = Array.from({ length: meta.last_page }, (_, i) => i + 1)
+                .filter((num) => {
+                  return (
+                    num === 1 ||
+                    num === meta.last_page ||
+                    (num >= page - 1 && num <= page + 1)
+                  );
+                })
+                .reduce<(number | string)[]>((acc, curr, idx, arr) => {
+                  if (idx > 0 && arr[idx - 1] !== curr - 1) acc.push("...");
+                  acc.push(curr);
+                  return acc;
+                }, []);
+
+              return pages.map((num, idx) =>
+                num === "..." ? (
+                  <span
+                    key={idx}
+                    className="text-gray-600 font-semibold px-2 select-none"
+                  >
+                    ...
+                  </span>
+                ) : (
+                  <Button
+                    key={idx}
+                    variant={num === page ? "default" : "outline"}
+                    className={`px-4 py-2 text-sm rounded-full transition ${num === page
+                        ? "bg-orange-600 text-white border-orange-600 shadow-md"
+                        : "border-orange-600 text-orange-700 hover:bg-orange-600 hover:text-white"
+                      }`}
+                    onClick={() => {
+                      if (typeof num === "number") handlePageChange(num);
+                    }}
+                  >
+                    {num}
+                  </Button>
+                )
+              );
+            })()}
+
+            {/* Next button */}
+            <Button
+              variant="outline"
+              className="px-4 py-2 text-sm rounded-full border-oragne-600 text-orange-700 hover:bg-orange-600 hover:text-white transition"
+              disabled={page === meta.last_page}
+              onClick={() => handlePageChange(page + 1)}
+            >
+              Next →
+            </Button>
+          </div>
         )}
+
+
       </div>
     </section>
   );

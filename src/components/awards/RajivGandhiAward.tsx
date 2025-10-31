@@ -62,6 +62,8 @@
 //   );
 // }
 
+// code without pagination
+
 // import { useEffect, useState } from "react";
 // import { useParams } from "react-router-dom";
 // import { Trophy, Medal, Calendar } from "lucide-react";
@@ -201,6 +203,10 @@
 //   );
 // }
 
+
+
+
+// working code 
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Trophy, Medal, Calendar } from "lucide-react";
@@ -296,6 +302,24 @@ export function RajivGandhiAwardsPage() {
     }
   };
 
+  // 🧠 Smart Pagination Range with dots (...)
+  const getPaginationRange = () => {
+    if (!meta) return [];
+    const totalPages = meta.last_page;
+    const current = meta.current_page;
+    const delta = 2;
+    const range: (number | string)[] = [];
+
+    for (let i = 1; i <= totalPages; i++) {
+      if (i === 1 || i === totalPages || (i >= current - delta && i <= current + delta)) {
+        range.push(i);
+      } else if (range[range.length - 1] !== "...") {
+        range.push("...");
+      }
+    }
+    return range;
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-sky-100 to-sky-300 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
@@ -350,52 +374,45 @@ export function RajivGandhiAwardsPage() {
               ))}
             </div>
 
-            {/* Pagination */}
+            {/* Stylish Responsive Pagination */}
             {meta && meta.last_page > 1 && (
-              <div className="flex justify-center items-center mt-10 space-x-2">
+              <div className="flex flex-wrap justify-center items-center mt-10 gap-2 sm:gap-3">
                 <Button
                   variant="outline"
-                  className="px-4 py-2 text-sm"
+                  className="px-4 py-2 text-sm rounded-full border-blue-600 text-blue-700 hover:bg-blue-600 hover:text-white transition"
                   disabled={page === 1}
                   onClick={() => handlePageChange(page - 1)}
                 >
-                  Previous
+                  ← Prev
                 </Button>
 
-                {meta.links
-                  .filter(
-                    (link) =>
-                      !link.label.includes("&laquo;") &&
-                      !link.label.includes("&raquo;")
-                  )
-                  .map((link, idx) => (
+                {getPaginationRange().map((item, idx) =>
+                  item === "..." ? (
+                    <span key={idx} className="text-gray-600 font-semibold px-2">
+                      ...
+                    </span>
+                  ) : (
                     <Button
                       key={idx}
-                      variant={link.active ? "default" : "outline"}
-                      className={`px-4 py-2 text-sm ${
-                        link.active
-                          ? "bg-blue-700 text-white"
-                          : "text-blue-700"
-                      }`}
-                      onClick={() => {
-                        const url = link.url;
-                        const newPage = url
-                          ? parseInt(url.split("page=")[1] || "1")
-                          : 1;
-                        handlePageChange(newPage);
-                      }}
+                      onClick={() => handlePageChange(item as number)}
+                      className={`px-4 py-2 text-sm rounded-full ${
+                        page === item
+                          ? "bg-blue-700 text-white shadow-md"
+                          : "bg-white text-blue-700 border border-blue-600 hover:bg-blue-600 hover:text-white"
+                      } transition`}
                     >
-                      {link.label}
+                      {item}
                     </Button>
-                  ))}
+                  )
+                )}
 
                 <Button
                   variant="outline"
-                  className="px-4 py-2 text-sm"
+                  className="px-4 py-2 text-sm rounded-full border-blue-600 text-blue-700 hover:bg-blue-600 hover:text-white transition"
                   disabled={page === meta.last_page}
                   onClick={() => handlePageChange(page + 1)}
                 >
-                  Next
+                  Next →
                 </Button>
               </div>
             )}

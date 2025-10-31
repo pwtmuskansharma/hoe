@@ -605,7 +605,7 @@ const navigate = useNavigate();
            <Button
         variant="outline"
         size="lg"
-        // onClick={() => navigate("/venues")}
+        onClick={() => navigate("/venues")}
       >
         Explore More Venues
       </Button>
