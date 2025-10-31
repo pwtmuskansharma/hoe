@@ -19,20 +19,20 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
   onConfirm,
   onCancel,
 }) => {
-  console.log("formrmmr",form );
-  debugger
-  // ✅ Prevent crashes if form is undefined
-  if (!form) {
-    return null;
-  }
+  console.log("formrmmr", form);
+  debugger;
+
+  if (!form) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl p-6 overflow-y-auto max-h-[90vh]">
-        <h2 className="text-2xl font-bold mb-4 text-center">Registration Preview</h2>
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 px-3 sm:px-5">
+      <div className="bg-white rounded-lg shadow-xl w-full max-w-5xl p-4 sm:p-6 overflow-y-auto max-h-[90vh]">
+        <h2 className="text-xl sm:text-2xl font-bold mb-4 text-center">
+          Registration Preview
+        </h2>
 
         {/* ===== Personal Details ===== */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-gray-700">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm sm:text-base text-gray-700">
           <p><span className="font-semibold">First Name:</span> {form?.firstName || "—"}</p>
           <p><span className="font-semibold">Middle Name:</span> {form?.middleName || "—"}</p>
           <p><span className="font-semibold">Last Name:</span> {form?.lastName || "—"}</p>
@@ -53,141 +53,141 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
           <p><span className="font-semibold">Registration Category:</span> {form?.regCategory || "—"}</p>
           <p><span className="font-semibold">Instagram:</span> {form?.instagram || "—"}</p>
           <p><span className="font-semibold">Username:</span> {form?.username || "—"}</p>
-<p><span className="font-semibold">Event:</span>   {form?.categoryId && Array.isArray(form?.categoryId) && form.categoryId.length > 0
-    ? form.categoryId.map((cat: any) => cat.name).join(", ")
-    : "—"}</p>
-<p><span className="font-semibold">Sport:</span> {form?.sportId?.name || "—"}</p>
-<p>
-  <span className="font-semibold">Sport Categories:</span>{" "}
-  {form?.categoryId && Array.isArray(form?.categoryId) && form.categoryId.length > 0
-    ? form.categoryId.map((cat: any) => cat.name).join(", ")
-    : "—"}
-</p>
-
-        </div>
-
-
-{/* ===== Uploaded Documents ===== */}
-<div className="mt-8 bg-gray-50 rounded-lg p-4 shadow-sm">
-  <h3 className="text-lg font-semibold mb-3 text-gray-700 text-center">
-    Uploaded Documents
-  </h3>
-  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-    {photoUrl && (
-      <div className="text-center">
-        <p className="font-semibold mb-1">Passport Photo</p>
-        <img
-          src={photoUrl}
-          alt="Passport"
-          className="w-24 h-24 object-cover rounded-md mx-auto border"
-        />
-      </div>
-    )}
-    {aadharFrontUrl && (
-      <div className="text-center">
-        <p className="font-semibold mb-1">Aadhar Front</p>
-        <img
-          src={aadharFrontUrl}
-          alt="Aadhar Front"
-          className="w-24 h-24 object-cover rounded-md mx-auto border"
-        />
-      </div>
-    )}
-    {aadharBackUrl && (
-      <div className="text-center">
-        <p className="font-semibold mb-1">Aadhar Back</p>
-        <img
-          src={aadharBackUrl}
-          alt="Aadhar Back"
-          className="w-24 h-24 object-cover rounded-md mx-auto border"
-        />
-      </div>
-    )}
-    {signatureUrl && (
-      <div className="text-center">
-        <p className="font-semibold mb-1">Signature</p>
-        <img
-          src={signatureUrl}
-          alt="Signature"
-          className="w-24 h-24 object-cover rounded-md mx-auto border"
-        />
-      </div>
-    )}
-  </div>
-</div>
-
-{/* ===== Achievements Section ===== */}
-{(form.achievements.districtText ||
-  form.achievements.stateText ||
-  form.achievements.nationalText ||
-  form.achievements.intlText ||
-  form.achievements.otherAch) && (
-  <div className="mt-8 bg-gray-50 rounded-lg p-4 shadow-sm">
-    <h3 className="text-lg font-semibold mb-3 text-gray-700 text-center">
-      Achievements
-    </h3>
-
-    <div className="space-y-4">
-      {form.achievements.districtText && (
-        <div>
-          <p className="font-medium text-gray-700"> District Level</p>
-          <p className="mt-1 whitespace-pre-line text-gray-600 bg-white p-2 rounded border">
-            {form.achievements.districtText}
+          <p>
+            <span className="font-semibold">Event:</span>{" "}
+            {form?.categoryId && Array.isArray(form?.categoryId) && form.categoryId.length > 0
+              ? form.categoryId.map((cat: any) => cat.name).join(", ")
+              : "—"}
+          </p>
+          <p><span className="font-semibold">Sport:</span> {form?.sportId?.name || "—"}</p>
+          <p>
+            <span className="font-semibold">Sport Categories:</span>{" "}
+            {form?.categoryId && Array.isArray(form?.categoryId) && form.categoryId.length > 0
+              ? form.categoryId.map((cat: any) => cat.name).join(", ")
+              : "—"}
           </p>
         </div>
-      )}
 
-      {form.achievements.stateText && (
-        <div>
-          <p className="font-medium text-gray-700"> State Level</p>
-          <p className="mt-1 whitespace-pre-line text-gray-600 bg-white p-2 rounded border">
-            {form.achievements.stateText}
-          </p>
+        {/* ===== Uploaded Documents ===== */}
+        <div className="mt-8 bg-gray-50 rounded-lg p-4 shadow-sm">
+          <h3 className="text-lg font-semibold mb-3 text-gray-700 text-center">
+            Uploaded Documents
+          </h3>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            {photoUrl && (
+              <div className="text-center">
+                <p className="font-semibold mb-1">Passport Photo</p>
+                <img
+                  src={photoUrl}
+                  alt="Passport"
+                  className="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-md mx-auto border"
+                />
+              </div>
+            )}
+            {aadharFrontUrl && (
+              <div className="text-center">
+                <p className="font-semibold mb-1">Aadhar Front</p>
+                <img
+                  src={aadharFrontUrl}
+                  alt="Aadhar Front"
+                  className="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-md mx-auto border"
+                />
+              </div>
+            )}
+            {aadharBackUrl && (
+              <div className="text-center">
+                <p className="font-semibold mb-1">Aadhar Back</p>
+                <img
+                  src={aadharBackUrl}
+                  alt="Aadhar Back"
+                  className="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-md mx-auto border"
+                />
+              </div>
+            )}
+            {signatureUrl && (
+              <div className="text-center">
+                <p className="font-semibold mb-1">Signature</p>
+                <img
+                  src={signatureUrl}
+                  alt="Signature"
+                  className="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-md mx-auto border"
+                />
+              </div>
+            )}
+          </div>
         </div>
-      )}
 
-      {form.achievements.nationalText && (
-        <div>
-          <p className="font-medium text-gray-700"> National Level</p>
-          <p className="mt-1 whitespace-pre-line text-gray-600 bg-white p-2 rounded border">
-            {form.achievements.nationalText}
-          </p>
-        </div>
-      )}
+        {/* ===== Achievements Section ===== */}
+        {(form.achievements?.districtText ||
+          form.achievements?.stateText ||
+          form.achievements?.nationalText ||
+          form.achievements?.intlText ||
+          form.achievements?.otherAch) && (
+          <div className="mt-8 bg-gray-50 rounded-lg p-4 shadow-sm">
+            <h3 className="text-lg font-semibold mb-3 text-gray-700 text-center">
+              Achievements
+            </h3>
 
-      {form.achievements.intlText  && (
-        <div>
-          <p className="font-medium text-gray-700"> International Level</p>
-          <p className="mt-1 whitespace-pre-line text-gray-600 bg-white p-2 rounded border">
-            {form.achievements.intlText }
-          </p>
-        </div>
-      )}
+            <div className="space-y-4">
+              {form.achievements?.districtText && (
+                <div>
+                  <p className="font-medium text-gray-700">District Level</p>
+                  <p className="mt-1 whitespace-pre-line text-gray-600 bg-white p-2 rounded border break-words">
+                    {form.achievements.districtText}
+                  </p>
+                </div>
+              )}
 
-      {form.achievements.otherAch && (
-        <div>
-          <p className="font-medium text-gray-700"> Other Achievements</p>
-          <p className="mt-1 whitespace-pre-line text-gray-600 bg-white p-2 rounded border">
-            {form.achievements.otherAch}
-          </p>
-        </div>
-      )}
-    </div>
-  </div>
-)}
+              {form.achievements?.stateText && (
+                <div>
+                  <p className="font-medium text-gray-700">State Level</p>
+                  <p className="mt-1 whitespace-pre-line text-gray-600 bg-white p-2 rounded border break-words">
+                    {form.achievements.stateText}
+                  </p>
+                </div>
+              )}
 
+              {form.achievements?.nationalText && (
+                <div>
+                  <p className="font-medium text-gray-700">National Level</p>
+                  <p className="mt-1 whitespace-pre-line text-gray-600 bg-white p-2 rounded border break-words">
+                    {form.achievements.nationalText}
+                  </p>
+                </div>
+              )}
+
+              {form.achievements?.intlText && (
+                <div>
+                  <p className="font-medium text-gray-700">International Level</p>
+                  <p className="mt-1 whitespace-pre-line text-gray-600 bg-white p-2 rounded border break-words">
+                    {form.achievements.intlText}
+                  </p>
+                </div>
+              )}
+
+              {form.achievements?.otherAch && (
+                <div>
+                  <p className="font-medium text-gray-700">Other Achievements</p>
+                  <p className="mt-1 whitespace-pre-line text-gray-600 bg-white p-2 rounded border break-words">
+                    {form.achievements.otherAch}
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* ===== Buttons ===== */}
-        <div className="flex justify-end gap-3 mt-8">
+        <div className="flex flex-col sm:flex-row justify-end gap-3 mt-8">
           <button
             onClick={onCancel}
-            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-lg"
+            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-lg w-full sm:w-auto"
           >
             Cancel
           </button>
           <button
             onClick={onConfirm}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg w-full sm:w-auto"
           >
             Confirm & Submit
           </button>

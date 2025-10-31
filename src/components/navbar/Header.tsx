@@ -429,7 +429,7 @@ interface MenuItem extends MenuChild {}
 const staticMenuItems: MenuItem[] = [
   {
     label: "About HOA",
-    path: "/home",
+    // path: "/home",
     children: [
       { label: "History", path: "/about/history" },
       { label: "Members", path: "/about/members" },
@@ -442,7 +442,7 @@ const staticMenuItems: MenuItem[] = [
   },
   {
     label: "ATHLETES",
-    path: "/athletes",
+    // path: "/athletes",
     children: [
       { label: "Register New", path: "/athletes/register" },
       { label: "Athlete Login", path: "/athletes/login" },
@@ -452,7 +452,7 @@ const staticMenuItems: MenuItem[] = [
   },
   {
     label: "COMPETITIONS",
-    path: "/competitions",
+    // path: "/competitions",
     children: [
       { label: "Upcoming Events", path: "/competitions/upcoming" },
       { label: "Results", path: "/competitions/results" },
@@ -461,13 +461,13 @@ const staticMenuItems: MenuItem[] = [
   },
   {
     label: "AWARDS", // placeholder — will be replaced by API data
-    path: "/awards",
+    // path: "/awards",
     children: [], // dynamically replaced
   },
 
   {
     label: "MEDIA",
-    path: "/media",
+    // path: "/media",
     children: [
       { label: "Press Releases", path: "/media/press" },
       { label: "Galleries", path: "/media/galleries" },

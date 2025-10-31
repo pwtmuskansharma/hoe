@@ -241,39 +241,53 @@ const [showPassword, setShowPassword] = useState(false);
     return { ok: true, msg: '' };
   };
 
-  // Helper function to build preview URLs
-  const buildPreview = (file: File | undefined, setUrl: React.Dispatch<React.SetStateAction<string | null>>) => {
-    if (!file) {
-      setUrl(null)
-      return null
-    }
-
-    if (!ALLOWED_IMG.includes(file.type)) {
-      alert("Only JPG/PNG/WebP allowed.")
-      return null
-    }
-
-    if (file.size > MAX_IMG_MB * 1024 * 1024) {
-      alert(`Max ,${MAX_IMG_MB}, MB.`);
-      return null
-    }
-
-    const url = URL.createObjectURL(file)
-    setUrl(url)
-    return url
+  // ✅ Helper for building previews
+const buildPreview = (
+  file: File | undefined,
+  setUrl: React.Dispatch<React.SetStateAction<string | null>>
+) => {
+  if (!file) {
+    setUrl(null);
+    return null;
   }
 
-  const handleFileUpload = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    setUrl: React.Dispatch<React.SetStateAction<string | null>>,
-    setName: React.Dispatch<React.SetStateAction<string>>,
-  ) => {
-    const file = e.target.files?.[0]
-    if (file) {
-      buildPreview(file, setUrl)
-      setName(file.name)
-    }
+  if (!ALLOWED_IMG.includes(file.type)) {
+    alert("Only JPG/PNG/WebP allowed.");
+    return null;
   }
+
+  if (file.size > MAX_IMG_MB * 1024 * 1024) {
+    alert(`Max ${MAX_IMG_MB} MB.`);
+    return null;
+  }
+
+  const url = URL.createObjectURL(file);
+  setUrl(url);
+  return url;
+};
+
+
+const handleFileUpload = (
+  e: React.ChangeEvent<HTMLInputElement>,
+  setUrl: React.Dispatch<React.SetStateAction<string | null>>,
+  setName: React.Dispatch<React.SetStateAction<string>>
+) => {
+  const file = e.target.files?.[0];
+  if (file) {
+    buildPreview(file, setUrl);
+    setName(file.name);
+  }
+};
+
+
+  // ✅ Cleanup object URLs on unmount
+  useEffect(() => {
+    return () => {
+      [photoUrl, aadharFrontUrl, aadharBackUrl, signatureUrl].forEach(u => {
+        if (u) URL.revokeObjectURL(u);
+      });
+    };
+  }, [photoUrl, aadharFrontUrl, aadharBackUrl, signatureUrl]);
 
   // Field-level helper
   const touch = (key: keyof ErrorState, valid: boolean, msg: string) => {
@@ -560,7 +574,8 @@ if (c.id !== null) {
           type="file"
           accept="image/*"
           className={errors.passportPhoto ? 'error' : ''}
-          onChange={(e) => handleFileUpload(e, setPhotoUrl, setPassportPhotoName)}
+       onChange={e => handleFileUpload(e, setPhotoUrl, setPassportPhotoName)}
+          
           aria-invalid={!!errors.passportPhoto}
           aria-describedby={errors.passportPhoto ? 'passportPhoto-error' : undefined}
         />
@@ -780,7 +795,7 @@ if (c.id !== null) {
       type="file"
       accept="image/*"
       className="hidden"
-    onChange={(e) => handleFileUpload(e, setAadharFrontUrl,setAadharFrontName)}
+      onChange={e => handleFileUpload(e, setAadharFrontUrl, setAadharFrontName)}
     />
     <div className="flex items-center justify-between text-sm">
       <div
@@ -843,7 +858,7 @@ if (c.id !== null) {
       type="file"
       accept="image/*"
       className="hidden"
-                  onChange={(e) => handleFileUpload(e, setAadharBackUrl, setAadharBackName)}
+     onChange={e => handleFileUpload(e, setAadharBackUrl, setAadharBackName)}
     />
     <div className="flex items-center justify-between text-sm">
       <div
@@ -1018,7 +1033,7 @@ if (c.id !== null) {
 {/* 📏 Height */}
 <div className="field mb-4">
   <label className="block mb-1 font-medium">
-    Height at time of registration (in cm)<span className="text-red-500">*</span>
+    Height at time of registration<span className="text-red-500">*</span>
   </label>
   <input
     className={`w-full rounded-md border px-3 py-2 outline-none transition-all
@@ -1400,7 +1415,7 @@ if (c.id !== null) {
             type="file"
             accept="image/*"
             style={{ display: 'none' }}
-                  onChange={(e) => handleFileUpload(e, setSignatureUrl, setSignatureName)}
+         onChange={e => handleFileUpload(e, setSignatureUrl, setSignatureName)}
           />
           <div className="id-actions" style={{ justifyContent: 'center' }}>
             <div className="id-file-name" title={signatureName || 'No file chosen'}>
