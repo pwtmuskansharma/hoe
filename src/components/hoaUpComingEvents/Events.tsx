@@ -610,51 +610,69 @@ export function UpcomingEvents() {
         )}
 
         {/* ✅ Pagination Controls */}
-        {meta && meta.last_page > 1 && (
-          <div className="flex justify-center items-center mt-10 space-x-2">
-            <Button
-              variant="outline"
-              className="px-4 py-2 text-sm"
-              disabled={page === 1}
-              onClick={() => handlePageChange(page - 1)}
-            >
-              Previous
-            </Button>
+       {meta && meta.last_page > 1 && (
+  <div className="flex flex-wrap justify-center items-center gap-1 sm:gap-2 mt-10">
+    <Button
+      variant="outline"
+      className="px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-full"
+      disabled={page === 1}
+      onClick={() => handlePageChange(page - 1)}
+    >
+      Previous
+    </Button>
 
-            {meta.links
-              .filter(
-                (link) =>
-                  !link.label.includes("&laquo;") && !link.label.includes("&raquo;")
-              )
-              .map((link, idx) => (
-                <Button
-                  key={idx}
-                  variant={link.active ? "default" : "outline"}
-                  className={`px-4 py-2 text-sm ${
-                    link.active ? "bg-orange-700 text-white" : "text-orange-700"
-                  }`}
-                  onClick={() => {
-                    const url = link.url;
-                    const newPage = url
-                      ? parseInt(url.split("page=")[1] || "1")
-                      : 1;
-                    handlePageChange(newPage);
-                  }}
-                >
-                  {link.label}
-                </Button>
-              ))}
+    {/* Generate dynamic pagination with dots */}
+    {Array.from({ length: meta.last_page }, (_, i) => i + 1)
+      .filter((num) => {
+        return (
+          num === 1 ||
+          num === meta.last_page ||
+          (num >= page - 1 && num <= page + 1)
+        );
+      })
+      .reduce((acc: (number | string)[], curr, idx, arr) => {
+        if (idx > 0 && arr[idx - 1] !== curr - 1) acc.push("...");
+        acc.push(curr);
+        return acc;
+      }, [])
+      .map((num, idx) =>
+        num === "..." ? (
+          <span
+            key={idx}
+            className="px-3 py-1 text-gray-400 select-none text-sm sm:text-base"
+          >
+            ...
+          </span>
+        ) : (
+          <Button
+            key={idx}
+            variant={num === page ? "default" : "outline"}
+            className={`px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-lg transition-all duration-300 ${
+              num === page
+                ? "bg-orange-600 text-white shadow-md"
+                : "text-orange-600 hover:bg-orange-100"
+            }`}
+            onClick={() => {
+  if (typeof num === "number") handlePageChange(num);
+}}
 
-            <Button
-              variant="outline"
-              className="px-4 py-2 text-sm"
-              disabled={page === meta.last_page}
-              onClick={() => handlePageChange(page + 1)}
-            >
-              Next
-            </Button>
-          </div>
-        )}
+          >
+            {num}
+          </Button>
+        )
+      )}
+
+    <Button
+      variant="outline"
+      className="px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-full"
+      disabled={page === meta.last_page}
+      onClick={() => handlePageChange(page + 1)}
+    >
+      Next
+    </Button>
+  </div>
+)}
+
       </div>
     </section>
   );
