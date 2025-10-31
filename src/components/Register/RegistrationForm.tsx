@@ -1273,6 +1273,11 @@ if (c.id !== null) {
               Para Athlete
             </label>
           </div>
+            {errors.regCategory && (
+    <div id="college-error" className="mt-1 text-sm text-red-500">
+      {errors.regCategory}
+    </div>
+  )}
         </div>
 
         <div className="field">
