@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { apiFetch } from "../../services/api/RegisterService";
 import SportsSelect from "./Sport";
 import SportCategorySelect from "./SportCategory";
+import { Eye, EyeOff } from "lucide-react"; // ← install lucide-react if not already
 
 // ---------- Types ----------
 interface EventRow { gender: 'Boys' | 'Girls' | 'Mixed'; event: string; }
@@ -81,9 +82,14 @@ type ErrorState = Partial<Record<
   | 'height' | 'bloodGroup'
   | 'sportCategory' | 'events'
   | 'username' | 'password'
-  | 'passportPhoto' | 'aadharFront' | 'aadharBack' | 'signature' | 'sportId' | 'categoryId' | 'permanentAddress' | 'tempAddress' | 'idMark' 
-  | 'bloodGroup' | 'qualification' | 'college' | 'regCategory' 
+  | 'passportPhoto' | 'aadharFront' | 'aadharBack' | 'signature'
+  | 'sportId' | 'categoryId'
+  | 'permanentAddress' | 'tempAddress' | 'idMark'
+  | 'qualification' | 'college' | 'regCategory'
+  | 'districtText' | 'stateText' | 'nationalText' | 'intlText' | 'otherAch'
+  | 'districtFile' | 'stateFile' | 'nationalFile' | 'intlFile' | 'otherFile'
 , string>>;
+
 
 const MAX_IMG_MB = 2;
 const ALLOWED_IMG = ['image/jpeg', 'image/png', 'image/webp'];
@@ -180,6 +186,8 @@ const HOARegistrationForm: React.FC = () => {
   const [showPreview, setShowPreview] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  // Inside your component:
+const [showPassword, setShowPassword] = useState(false);
 
   // react-select
   const categoryOptions = categoryList.map(v => ({ value: v, label: v }));
@@ -340,6 +348,22 @@ const HOARegistrationForm: React.FC = () => {
     if (!aadharFrontUrl) newErrors.aadharFront = "Aadhar front is required.";
     if (!aadharBackUrl) newErrors.aadharBack = "Aadhar back is required.";
     if (!signatureUrl) newErrors.signature = "Signature is required.";
+    // if (!form.achievements.districtText) newErrors.districtText = "District Level is required.";
+    // if (!form.achievements.stateText) newErrors.stateText = "State Level is required.";
+    // if (!form.achievements.nationalText) newErrors.nationalText = "National Level is required.";
+    // if (!form.achievements.intlText) newErrors.intlText = "International Level is required.";
+    // ✅ Achievements (text + file validation)
+achievementLevels.forEach((level) => {
+  const textValue = form.achievements[level.textKey];
+  const fileValue = achievementFiles[level.fileKey];
+
+  // Skip required check for "Other Achievements"
+  if (level.textKey !== "otherAch") {
+    if (!textValue.trim()) newErrors[level.textKey] = `${level.name} description is required.`;
+    if (!fileValue) newErrors[level.fileKey] = `${level.name} file is required.`;
+  }
+});
+
 
     // --- Apply all errors ---
     setErrors(newErrors);
@@ -1175,21 +1199,74 @@ if (c.id !== null) {
 
     </div>
 
-        {/* Achievements */}
-        <label className="achievements-block">Upload Achievement Documents</label>
-        {achievementLevels.map((level) => (
-          <div key={level.fileKey} className="achievement-section">
-            <label>{level.name}</label>
-            <textarea
-              placeholder="Mention achievements with dates and location"
-              value={form.achievements[level.textKey]}
-              onChange={e =>
-                setForm(prev => ({ ...prev, achievements: { ...prev.achievements, [level.textKey]: e.target.value } }))
-              }
-            />
-            <input className="achievement-file" type="file" />
-          </div>
-        ))}
+{/* Achievements Section */}
+<label className="achievements-block font-semibold text-lg mt-6 mb-2 block">
+  Upload Achievement Documents 
+</label>
+
+{achievementLevels.map((level) => (
+  <div key={level.fileKey} className="achievement-section mb-5">
+    {/* Label */}
+    <label className="block font-medium mb-1">
+      {level.name}
+      {level.textKey !== "otherAch" && <span className="text-red-500"> *</span>}
+    </label>
+
+    {/* Textarea for Achievement Description */}
+    <textarea
+      placeholder="Mention achievements with dates and location"
+      value={form.achievements[level.textKey]}
+      onChange={(e) =>
+        setForm((prev) => ({
+          ...prev,
+          achievements: {
+            ...prev.achievements,
+            [level.textKey]: e.target.value,
+          },
+        }))
+      }
+      className={`w-full rounded-md border px-3 py-2 outline-none transition-all ${
+        errors[level.textKey]
+          ? "border-red-500 focus:ring-2 focus:ring-red-400"
+          : "border-gray-300 focus:ring-2 focus:ring-orange-400"
+      }`}
+    />
+
+    {/* File Upload */}
+    <input
+      type="file"
+      accept="application/pdf,image/*"
+      className={`achievement-file mt-2 w-full rounded-md border px-3 py-2 ${
+        errors[level.fileKey]
+          ? "border-red-500 focus:ring-2 focus:ring-red-400"
+          : "border-gray-300 focus:ring-2 focus:ring-orange-400"
+      }`}
+      onChange={(e) => {
+        const file = e.target.files?.[0] || null;
+        setAchievementFiles((prev) => ({
+          ...prev,
+          [level.fileKey]: file ?? undefined,
+        }));
+
+        // ✅ Remove error when user uploads file
+        setErrors((prev) => {
+          const newErr = { ...prev };
+          delete newErr[level.fileKey];
+          return newErr;
+        });
+      }}
+    />
+
+    {/* Error Message */}
+    {(errors[level.textKey] || errors[level.fileKey]) && (
+      <p className="mt-1 text-sm font-medium text-red-500">
+        {errors[level.textKey] || errors[level.fileKey]}
+      </p>
+    )}
+  </div>
+))}
+
+
 
 {/* 🎓 Qualification */}
 <div className="field mb-4">
@@ -1301,19 +1378,46 @@ if (c.id !== null) {
           {errors.username && <div id="username-error" className="error-text">{errors.username}</div>}
         </div>
 
-        <div className="field">
-          <label>Login Password<span className="text-red-500">*</span></label>
-          <input
-            className={errors.password ? 'error' : ''}
-            value={form.password}
-            onChange={e => setForm({ ...form, password: e.target.value })}
-            onBlur={() => touch('password', isStrongPassword(form.password), 'Password must be 8+ chars with at least 1 letter & 1 number.')}
-            type="password" required
-            aria-invalid={!!errors.password}
-            aria-describedby={errors.password ? 'password-error' : undefined}
-          />
-          {errors.password && <div id="password-error" className="error-text">{errors.password}</div>}
-        </div>
+<div className="field relative">
+  <label>
+    Login Password <span className="text-red-500">*</span>
+  </label>
+
+  <div className="relative">
+    <input
+      className={`w-full pr-10 ${errors.password ? "error" : ""}`}
+      value={form.password}
+      onChange={(e) => setForm({ ...form, password: e.target.value })}
+      onBlur={() =>
+        touch(
+          "password",
+          isStrongPassword(form.password),
+          "Password must be 8+ chars with at least 1 letter & 1 number."
+        )
+      }
+      type={showPassword ? "text" : "password"}
+      required
+      aria-invalid={!!errors.password}
+      aria-describedby={errors.password ? "password-error" : undefined}
+    />
+
+    {/* 👁️ Toggle button */}
+    <button
+      type="button"
+      onClick={() => setShowPassword(!showPassword)}
+      className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700"
+      tabIndex={-1}
+    >
+      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+    </button>
+  </div>
+
+  {errors.password && (
+    <div id="password-error" className="error-text">
+      {errors.password}
+    </div>
+  )}
+</div>
 
         {/* Signature */}
         <label style={{ marginTop: 20 }}>Signature<span className="text-red-500">*</span></label>
