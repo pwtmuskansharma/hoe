@@ -33,36 +33,108 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
 
         {/* ===== Personal Details ===== */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm sm:text-base text-gray-700">
-          <p><span className="font-semibold">First Name:</span> {form?.firstName || "—"}</p>
-          <p><span className="font-semibold">Middle Name:</span> {form?.middleName || "—"}</p>
-          <p><span className="font-semibold">Last Name:</span> {form?.lastName || "—"}</p>
-          <p><span className="font-semibold">Father’s Name:</span> {form?.fathersName || "—"}</p>
-          <p><span className="font-semibold">Mother’s Name:</span> {form?.mothersName || "—"}</p>
-          <p><span className="font-semibold">Date of Birth:</span> {form?.dob || "—"}</p>
-          <p><span className="font-semibold">Gender:</span> {form?.gender || "—"}</p>
-          <p><span className="font-semibold">Permanent Address:</span> {form?.permanentAddress || "—"}</p>
-          <p><span className="font-semibold">Temporary Address:</span> {form?.tempAddress || "—"}</p>
-          <p><span className="font-semibold">Mobile:</span> {form?.mobile || "—"}</p>
-          <p><span className="font-semibold">Email:</span> {form?.email || "—"}</p>
-          <p><span className="font-semibold">Identification Mark:</span> {form?.idMark || "—"}</p>
-          <p><span className="font-semibold">Height:</span> {form?.height || "—"} cm</p>
-          <p><span className="font-semibold">Blood Group:</span> {form?.bloodGroup || "—"}</p>
-          <p><span className="font-semibold">Qualification:</span> {form?.qualification || "—"}</p>
-          <p><span className="font-semibold">College:</span> {form?.college || "—"}</p>
-          <p><span className="font-semibold">College Address:</span> {form?.collegeAddress || "—"}</p>
-          <p><span className="font-semibold">Registration Category:</span> {form?.regCategory || "—"}</p>
-          <p><span className="font-semibold">Instagram:</span> {form?.instagram || "—"}</p>
-          <p><span className="font-semibold">Username:</span> {form?.username || "—"}</p>
+          <p>
+            <span className="font-semibold">First Name:</span>{" "}
+            {form?.firstName || "—"}
+          </p>
+          <p>
+            <span className="font-semibold">Middle Name:</span>{" "}
+            {form?.middleName || "—"}
+          </p>
+          <p>
+            <span className="font-semibold">Last Name:</span>{" "}
+            {form?.lastName || "—"}
+          </p>
+          <p>
+            <span className="font-semibold">Father’s Name:</span>{" "}
+            {form?.fathersName || "—"}
+          </p>
+          <p>
+            <span className="font-semibold">Mother’s Name:</span>{" "}
+            {form?.mothersName || "—"}
+          </p>
+          <p>
+            <span className="font-semibold">Date of Birth:</span>{" "}
+            {form?.dob || "—"}
+          </p>
+          <p>
+            <span className="font-semibold">Gender:</span> {form?.gender || "—"}
+          </p>
+          <p>
+            <span className="font-semibold">Permanent Address:</span>{" "}
+            {form?.permanentAddress || "—"}
+          </p>
+          <p>
+            <span className="font-semibold">Temporary Address:</span>{" "}
+            {form?.tempAddress || "—"}
+          </p>
+          <p>
+            <span className="font-semibold">Mobile:</span> {form?.mobile || "—"}
+          </p>
+          <p>
+            <span className="font-semibold">Email:</span> {form?.email || "—"}
+          </p>
+          <p>
+            <span className="font-semibold">Identification Mark:</span>{" "}
+            {form?.idMark || "—"}
+          </p>
+          <p>
+            <span className="font-semibold">Height:</span> {form?.height || "—"}{" "}
+            cm
+          </p>
+          <p>
+            <span className="font-semibold">Blood Group:</span>{" "}
+            {form?.bloodGroup || "—"}
+          </p>
+          <p>
+            <span className="font-semibold">Qualification:</span>{" "}
+            {form?.qualification || "—"}
+          </p>
+          <p>
+            <span className="font-semibold">College:</span>{" "}
+            {form?.college || "—"}
+          </p>
+          <p>
+            <span className="font-semibold">College Address:</span>{" "}
+            {form?.collegeAddress || "—"}
+          </p>
+          <p>
+            <span className="font-semibold">Registration Category:</span>{" "}
+            {form?.regCategory || "—"}
+          </p>
+          <p>
+            <span className="font-semibold">Instagram:</span>{" "}
+            {form?.instagram || "—"}
+          </p>
+          <p>
+            <span className="font-semibold">Facebook:</span>{" "}
+            {form?.facebook || "—"}
+          </p>
+          <p>
+            <span className="font-semibold">Twitter:</span>{" "}
+            {form?.twitter || "—"}
+          </p>
+          <p>
+            <span className="font-semibold">Username:</span>{" "}
+            {form?.username || "—"}
+          </p>
           <p>
             <span className="font-semibold">Event:</span>{" "}
-            {form?.categoryId && Array.isArray(form?.categoryId) && form.categoryId.length > 0
+            {form?.categoryId &&
+            Array.isArray(form?.categoryId) &&
+            form.categoryId.length > 0
               ? form.categoryId.map((cat: any) => cat.name).join(", ")
               : "—"}
           </p>
-          <p><span className="font-semibold">Sport:</span> {form?.sportId?.name || "—"}</p>
+          <p>
+            <span className="font-semibold">Sport:</span>{" "}
+            {form?.sportId?.name || "—"}
+          </p>
           <p>
             <span className="font-semibold">Sport Categories:</span>{" "}
-            {form?.categoryId && Array.isArray(form?.categoryId) && form.categoryId.length > 0
+            {form?.categoryId &&
+            Array.isArray(form?.categoryId) &&
+            form.categoryId.length > 0
               ? form.categoryId.map((cat: any) => cat.name).join(", ")
               : "—"}
           </p>
@@ -158,7 +230,9 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
 
               {form.achievements?.intlText && (
                 <div>
-                  <p className="font-medium text-gray-700">International Level</p>
+                  <p className="font-medium text-gray-700">
+                    International Level
+                  </p>
                   <p className="mt-1 whitespace-pre-line text-gray-600 bg-white p-2 rounded border break-words">
                     {form.achievements.intlText}
                   </p>
@@ -167,7 +241,9 @@ const PreviewModal: React.FC<PreviewModalProps> = ({
 
               {form.achievements?.otherAch && (
                 <div>
-                  <p className="font-medium text-gray-700">Other Achievements</p>
+                  <p className="font-medium text-gray-700">
+                    Other Achievements
+                  </p>
                   <p className="mt-1 whitespace-pre-line text-gray-600 bg-white p-2 rounded border break-words">
                     {form.achievements.otherAch}
                   </p>

@@ -174,12 +174,12 @@ export function EventsSection() {
               >
                 <div className="flex flex-col sm:flex-row items-center sm:items-stretch">
                   {/* Left: Event Image */}
-                  <div className="sm:w-1/3 w-full bg-gradient-to-br from-yellow-100 to-orange-200 flex justify-center items-center p-5 md:p-6">
-                    <div className="w-28 h-28 md:w-32 md:h-32 rounded-full bg-white flex items-center justify-center shadow-md overflow-hidden">
+                  <div className="sm:w-1/3 w-full bg-[url('https://png.pngtree.com/thumb_back/fh260/background/20240806/pngtree-sport-stadium-soccer-game-with-spotlight-midfield-image_16142785.jpg')] flex justify-center items-center p-5 md:p-6">
+                    <div className="h-48 w-48 rounded-full  flex items-center justify-center shadow-md overflow-hidden">
                       <img
                         src={event.image}
                         alt="Event Logo"
-                        className="object-contain w-24 h-24 md:w-28 md:h-28"
+                        className="object-cover"
                       />
                     </div>
                   </div>
@@ -272,7 +272,7 @@ export function EventsSection() {
                           className={`${
                             isActive
                               ? "cursor-pointer hover:scale-105"
-                              : "hover:scale-105 cursor-not-allowed"
+                              : "hover:scale-105 cursor-pointer"
                           } bg-gradient-to-br from-orange-400 to-yellow-400 text-white py-1.5 md:py-2 rounded-lg shadow-sm transition duration-300 flex flex-col items-center justify-center`}
                         >
                           <div className="mb-0.5 flex items-center gap-0.5">

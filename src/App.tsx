@@ -49,6 +49,7 @@ export default function App() {
         <div className="flex-grow">
           <Routes>
             <Route path="/" element={<HomePage />} />
+
             <Route path="/sports" element={<Sports />} />
             {/* ABOUT HOA */}
             <Route path="/about/history" element={<About />} />
@@ -75,7 +76,7 @@ export default function App() {
             />
             <Route path="/arjuna-awards" element={<ArjunaAwardsPage />} />
 
-            {/* Venues Page */}   
+            {/* Venues Page */}
             <Route path="/venues" element={<Venues />} />
           </Routes>
         </div>

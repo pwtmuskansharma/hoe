@@ -138,7 +138,7 @@ export function Venues() {
               {/* Content Section */}
               <CardContent className="relative pb-5">
                 <div
-                  className="text-sm text-gray-600 mb-4"
+                  className="text-sm text-gray-600 mb-4 mt-6"
                   dangerouslySetInnerHTML={{ __html: venue.description }}
                 />
 
@@ -230,7 +230,10 @@ export function Venues() {
 
             {/* Dynamic page buttons with dots */}
             {(() => {
-              const pages = Array.from({ length: meta.last_page }, (_, i) => i + 1)
+              const pages = Array.from(
+                { length: meta.last_page },
+                (_, i) => i + 1
+              )
                 .filter((num) => {
                   return (
                     num === 1 ||
@@ -256,10 +259,11 @@ export function Venues() {
                   <Button
                     key={idx}
                     variant={num === page ? "default" : "outline"}
-                    className={`px-4 py-2 text-sm rounded-full transition ${num === page
+                    className={`px-4 py-2 text-sm rounded-full transition ${
+                      num === page
                         ? "bg-orange-600 text-white border-orange-600 shadow-md"
                         : "border-orange-600 text-orange-700 hover:bg-orange-600 hover:text-white"
-                      }`}
+                    }`}
                     onClick={() => {
                       if (typeof num === "number") handlePageChange(num);
                     }}
@@ -281,8 +285,6 @@ export function Venues() {
             </Button>
           </div>
         )}
-
-
       </div>
     </section>
   );
