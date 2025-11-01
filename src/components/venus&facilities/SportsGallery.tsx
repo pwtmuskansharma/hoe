@@ -324,22 +324,22 @@
 //         </div>
 
 //         {/* ✅ Swiper Section */}
-        // <Swiper
-        //   spaceBetween={24}
-        //   slidesPerView={1}
-        //   pagination={{ clickable: true }}
-        //   autoplay={{
-        //     delay: 2500,
-        //     disableOnInteraction: false,
-        //   }}
-        //   breakpoints={{
-        //     640: { slidesPerView: 1 },
-        //     768: { slidesPerView: 2 },
-        //     1024: { slidesPerView: 3 },
-        //   }}
-        //   modules={[Autoplay, Pagination]}
-        //   className="pb-8"
-        // >
+// <Swiper
+//   spaceBetween={24}
+//   slidesPerView={1}
+//   pagination={{ clickable: true }}
+//   autoplay={{
+//     delay: 2500,
+//     disableOnInteraction: false,
+//   }}
+//   breakpoints={{
+//     640: { slidesPerView: 1 },
+//     768: { slidesPerView: 2 },
+//     1024: { slidesPerView: 3 },
+//   }}
+//   modules={[Autoplay, Pagination]}
+//   className="pb-8"
+// >
 //           {venues.map((venue) => (
 //             <SwiperSlide key={venue.id}>
 //               <Card className="group hover:shadow-lg transition-all mb-8 duration-300 overflow-hidden">
@@ -412,7 +412,6 @@
 //   );
 // }
 
-
 import { useState, useEffect } from "react";
 import { Card, CardContent } from "../ui/card";
 import { Badge } from "../ui/badge";
@@ -440,7 +439,7 @@ interface Venue {
 export function HaryanaVenuesGallery() {
   const [venues, setVenues] = useState<Venue[]>([]);
   const [loading, setLoading] = useState(true);
-const navigate = useNavigate();
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchVenues = async () => {
       try {
@@ -540,7 +539,7 @@ const navigate = useNavigate();
 
                   {/* Text overlay */}
                   <div className="absolute inset-0 flex flex-col justify-center pl-5 text-left translate-y-12 z-10">
-                    <h3 className="text-lg font-semibold text-white drop-shadow-md leading-snug">
+                    <h3 className="text-lg font-semibold text-white drop-shadow-md leading-snug ">
                       {venue.title}
                     </h3>
                     <p className="text-sm text-gray-200">{venue.location}</p>
@@ -550,7 +549,7 @@ const navigate = useNavigate();
                 {/* Card Content */}
                 <CardContent className="relative pb-5">
                   <p
-                    className="text-sm text-gray-600 mb-4"
+                    className="text-sm text-gray-600 mb-4 mt-6"
                     dangerouslySetInnerHTML={{ __html: venue.description }}
                   />
 
@@ -602,13 +601,13 @@ const navigate = useNavigate();
         {/* Show button only if >6 venues */}
         {venues.length > 4 && (
           <div className="text-center mt-10">
-           <Button
-        variant="outline"
-        size="lg"
-        onClick={() => navigate("/venues")}
-      >
-        Explore More Venues
-      </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => navigate("/venues")}
+            >
+              Explore More Venues
+            </Button>
           </div>
         )}
       </div>

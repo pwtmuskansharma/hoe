@@ -40,7 +40,7 @@ export function HeroSection() {
             <div className="grid grid-cols-3 gap-8 mt-12 pt-8 border-t border-blue-300">
               <div className="text-center">
                 <Users className="h-8 w-8 mx-auto mb-2 text-blue-300" />
-                <div className="text-2xl font-bold">500+</div>
+                <div className="text-2xl font-bold">6000+</div>
                 <div className="text-sm text-blue-200">Active Athletes</div>
               </div>
               <div className="text-center">
