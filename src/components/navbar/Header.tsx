@@ -695,7 +695,13 @@
 import { useState, useEffect } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { Menu, Search, ChevronDown, ChevronUp } from "lucide-react";
+import {
+  Menu,
+  Search,
+  ChevronDown,
+  ChevronUp,
+  ChevronRight,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import { apiFetch } from "../../services/api/Navbar";
 
@@ -714,46 +720,123 @@ interface MenuItem extends MenuChild {}
 // ====== Static Fallback Menu ======
 const staticMenuItems: MenuItem[] = [
   {
-    label: "About HOA",
+    label: "HOME",
+    path: "/",
+  },
+  {
+    label: "HOA",
     children: [
-      { label: "History", path: "/about/history" },
-      { label: "Members", path: "/about/members" },
-      { label: "Organisation", path: "/about/organisation" },
+      {
+        label: "About HOA",
+        path: "/about",
+        children: [
+          { label: "Introduction", path: "/about/history" },
+          { label: "Message from President", path: "/about/president" },
+          {
+            label: "Message from Secretary General",
+            path: "/about/executive-council",
+          },
+        ],
+      },
+
+      {
+        label: "Organisation",
+        path: "/about/organisation",
+        children: [
+          { label: "Executive Committee", path: "/" },
+          { label: "Commissions", path: "/commision" },
+        ], // if no sub submenu
+      },
+
+      {
+        label: "Members",
+        path: "/about/members",
+        children: [
+          {
+            label: "Affiliated State Sports Associations",
+            path: "/Affiliated State Sports Associations",
+          },
+          {
+            label: "Associated Units",
+            path: "/Affiliated State Sports Associations",
+          },
+        ], // no sub submenu
+      },
     ],
   },
   {
     label: "SPORTS",
     path: "/sports",
+    children: [
+      {
+        label: "Olympic Sports Discipline",
+        path: "/olympic sports discipline",
+        children: [],
+      },
+      {
+        label: "Non-Olympic Sports Discipline",
+        path: "/non-olympic sports discipline",
+        children: [],
+      },
+    ],
   },
   {
     label: "ATHLETES",
     children: [
-      { label: "Register New", path: "/athletes/register" },
-      { label: "Athlete Login", path: "/athletes/login" },
-      { label: "Staff Register", path: "/staff/register" },
-      { label: "Staff Login", path: "/staff/login" },
+      // { label: "Register New", path: "/athletes/register" },
+      {
+        label: "Our Atheletes",
+        children: [],
+      },
+      {
+        label: "AWARDS",
+        children: [],
+      },
     ],
   },
   {
     label: "COMPETITIONS",
     children: [
+      { label: "27th HSG", path: "https://haryanastategames.com/" },
       { label: "Upcoming Events", path: "/competitions/upcoming" },
-      { label: "Results", path: "/competitions/results" },
-      { label: "Participation", path: "/competitions/participation" },
     ],
   },
+  // {
+  //   label: "AWARDS",
+  //   children: [],
+  // },
   {
-    label: "AWARDS",
-    children: [],
+    label: "SPORTS POLICIES",
+    children: [
+      { label: "Sai/Myas", path: "/Sai/Myas", children: [] },
+      {
+        label: "Sports Department Haryan",
+        path: "/Sports Department Haryan",
+        children: [],
+      },
+      {
+        label: "Others",
+        path: "/Sports Department Haryan",
+        children: [],
+      },
+    ],
   },
   {
     label: "MEDIA",
     children: [
-      { label: "Press Releases", path: "/media/press" },
-      { label: "Galleries", path: "/media/galleries" },
+      { label: "Press Release", path: "/media/press" },
+      { label: "Gallery", path: "/media/galleries" },
+      { label: "News", path: "/media/galleries" },
     ],
   },
   { label: "CONTACT", path: "#contact" },
+  {
+    label: "USEFUL LINKS",
+    children: [
+      { label: "Document", path: "/", children: [] },
+      { label: "Recources", path: "/", children: [] },
+    ],
+  },
 ];
 
 // ====== Component ======
@@ -764,7 +847,9 @@ export function Header() {
   const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState<number | null>(
     null
   );
-
+  const [mobileSubSubmenuOpen, setMobileSubSubmenuOpen] = useState<
+    number | null
+  >(null);
   useEffect(() => {
     const fetchAwardsMenu = async () => {
       setLoading(true);
@@ -853,14 +938,14 @@ export function Header() {
                     <a
                       href="#contact"
                       onClick={handleContactClick}
-                      className="text-gray-700 font-bold hover:text-blue-600 transition-colors flex items-center space-x-1 cursor-pointer"
+                      className="text-gray-700 font-bold text-sm hover:text-blue-600 transition-colors flex items-center space-x-1 cursor-pointer"
                     >
                       <span>{item.title || item.label}</span>
                     </a>
                   ) : (
                     <Link
                       to={item.url || item.path || "#"}
-                      className="text-gray-700 font-bold hover:text-blue-600 transition-colors flex items-center space-x-1"
+                      className="text-gray-700 font-bold text-sm hover:text-blue-600 transition-colors flex items-center space-x-1"
                     >
                       <span>{item.title || item.label}</span>
                       {item.children && item.children.length > 0 && (
@@ -870,19 +955,47 @@ export function Header() {
                   )}
 
                   {/* Submenu */}
+                  {/* Submenu Level-1 */}
                   {item.children && item.children.length > 0 && (
                     <div
-                      className="absolute left-0 mt-2 w-52 bg-white shadow-lg rounded-md z-50
-                      transition-all duration-300 opacity-0 invisible group-hover:visible group-hover:opacity-100"
+                      className="absolute left-0 mt-3 bg-white shadow-lg rounded-md z-50
+    transition-all duration-300 opacity-0 invisible group-hover:visible w-44 group-hover:opacity-100"
                     >
                       {item.children.map((sub) => (
-                        <Link
+                        <div
                           key={sub.id || sub.title || sub.label}
-                          to={sub.url || sub.path || "#"}
-                          className="block px-4 py-2 font-bold text-gray-700 hover:bg-blue-50 hover:text-blue-600 "
+                          className="relative group/sub"
                         >
-                          {sub.title || sub.label}
-                        </Link>
+                          <Link
+                            to={sub.url || sub.path || "#"}
+                            className="block px-4 py-2 font-bold text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 flex justify-between items-center"
+                          >
+                            {sub.title || sub.label}
+
+                            {/* 👉 If sub-submenu exists then show arrow */}
+                            {sub.children && sub.children.length > 0 && (
+                              <ChevronRight className="w-3 h-3 ml-2" />
+                            )}
+                          </Link>
+
+                          {/* Submenu Level-2 */}
+                          {sub.children && sub.children.length > 0 && (
+                            <div
+                              className="absolute left-full top-0  bg-white shadow-lg rounded-md z-50
+            transition-all duration-300 opacity-0 invisible group-hover/sub:visible group-hover/sub:opacity-100"
+                            >
+                              {sub.children.map((third) => (
+                                <Link
+                                  key={third.id || third.title || third.label}
+                                  to={third.url || third.path || "#"}
+                                  className="block px-4 py-2 w-48 text-sm font-bold text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                                >
+                                  {third.title || third.label}
+                                </Link>
+                              ))}
+                            </div>
+                          )}
+                        </div>
                       ))}
                     </div>
                   )}
@@ -893,13 +1006,12 @@ export function Header() {
 
           {/* Search + Mobile Menu Button */}
           <div className="flex items-center space-x-4">
-            <div className="relative hidden md:block">
-              <Input
-                type="text"
-                placeholder="Search..."
-                className="pl-10 pr-4 py-2 w-40 bg-gray-50 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
-              />
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <div className="hidden lg:block">
+              <Link to="/athletes/register">
+                <button className="px-4 -mr-5 py-2 bg-[#0e276b] hover:bg-blue-700 text-white rounded-md font-semibold transition">
+                  Register Now
+                </button>
+              </Link>
             </div>
 
             <Button
@@ -938,7 +1050,7 @@ export function Header() {
                           setMobileMenuOpen(false);
                         }
                       }}
-                      className="flex justify-between items-center px-4 py-3 text-left font-bold text-gray-700 hover:bg-gray-50"
+                      className="flex justify-between items-center px-4 py-3 text-left font-bold text-gray-700 hover:bg-blue-50 hover:text-blue-600"
                     >
                       {item.path || item.url ? (
                         <Link
@@ -952,6 +1064,7 @@ export function Header() {
                         <span>{item.title || item.label}</span>
                       )}
 
+                      {/* Level 1 arrow */}
                       {item.children &&
                         item.children.length > 0 &&
                         (mobileSubmenuOpen === idx ? (
@@ -961,19 +1074,57 @@ export function Header() {
                         ))}
                     </button>
 
+                    {/* Level 1 submenu */}
                     {item.children &&
                       item.children.length > 0 &&
                       mobileSubmenuOpen === idx && (
                         <div className="flex flex-col bg-gray-50 transition-all duration-300">
-                          {item.children.map((sub) => (
-                            <Link
-                              key={sub.id || sub.title || sub.label}
-                              to={sub.url || sub.path || "#"}
-                              className="px-6 py-2 text-gray-700 hover:bg-gray-100"
-                              onClick={() => setMobileMenuOpen(false)}
-                            >
-                              {sub.title || sub.label}
-                            </Link>
+                          {item.children.map((sub, subIdx) => (
+                            <div key={subIdx} className="flex flex-col">
+                              <button
+                                className="px-6 py-2 text-gray-700 font-bold flex justify-between items-center text-left hover:bg-blue-50 hover:text-blue-600"
+                                onClick={() => {
+                                  if (sub.children && sub.children.length > 0) {
+                                    setMobileSubSubmenuOpen(
+                                      mobileSubSubmenuOpen === subIdx
+                                        ? null
+                                        : subIdx
+                                    );
+                                  } else {
+                                    setMobileMenuOpen(false);
+                                  }
+                                }}
+                              >
+                                <span>{sub.title || sub.label}</span>
+
+                                {/* Level 2 Arrow */}
+                                {sub.children &&
+                                  sub.children.length > 0 &&
+                                  (mobileSubSubmenuOpen === subIdx ? (
+                                    <ChevronUp className="w-4 h-4" />
+                                  ) : (
+                                    <ChevronRight className="w-4 h-4" />
+                                  ))}
+                              </button>
+
+                              {/* Level 2 submenu → 3rd level */}
+                              {sub.children &&
+                                sub.children.length > 0 &&
+                                mobileSubSubmenuOpen === subIdx && (
+                                  <div className="flex flex-col bg-gray-100">
+                                    {sub.children.map((third) => (
+                                      <Link
+                                        key={third.label}
+                                        to={third.path || third.url || "#"}
+                                        className="px-10 py-2 text-gray-700 font-bold hover:bg-blue-50 hover:text-blue-600"
+                                        onClick={() => setMobileMenuOpen(false)}
+                                      >
+                                        {third.label}
+                                      </Link>
+                                    ))}
+                                  </div>
+                                )}
+                            </div>
                           ))}
                         </div>
                       )}
@@ -981,6 +1132,11 @@ export function Header() {
                 ))}
               </div>
             )}
+            <Link to="/athletes/register">
+              <button className="px-4 w-full -mr-5 mb-5 py-2 bg-[#0e276b] hover:bg-blue-700 text-white rounded-md font-semibold transition">
+                Register Now
+              </button>
+            </Link>
           </div>
         )}
       </div>

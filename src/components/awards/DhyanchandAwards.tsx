@@ -1,17 +1,34 @@
-import { Trophy, Medal, Calendar } from "lucide-react";
+import { Trophy, Calendar } from "lucide-react";
 
 const awards = [
-  { id: 1, player: "Om Parkash", game: "Volleyball", year: "2003" },
-  { id: 2, player: "Girraj Singh", game: "Para Athletic", year: "2013" },
-  { id: 3, player: "Bhupender Singh", game: "Athletic", year: "2017" },
-  { id: 4, player: "Netrapal Singh", game: "Wrestling", year: "2020" },
-  { id: 5, player: "Jagraj Singh", game: "Athletic", year: "2012" },
-  { id: 6, player: "Manoj Kumar", game: "Wrestling", year: "2019" },
-  { id: 7, player: "Kuldeep Singh", game: "Wrestling", year: "2010" },
-  { id: 8, player: "Sukhbir Singh", game: "Paralympic", year: "2012" },
-  { id: 9, player: "Shamsher Singh", game: "Kabaddi", year: "—" },
-  { id: 10, player: "Vikash Kumar", game: "Kabaddi", year: "2021" },
-  { id: 11, player: "Sajjan Singh ", game: "Wrestling", year: "2021" },
+  {
+    id: 1,
+    player: "Om Parkash",
+    game: "Volleyball",
+    year: "2003",
+    age: "34",
+    achievement: "National level gold medalist",
+    image: "/images/sports-images/Om Parkash.jpg",
+  },
+  {
+    id: 2,
+    player: "Girraj Singh",
+    game: "Para Athletic",
+    year: "2013",
+    age: "29",
+    achievement: "Asian Para Games Silver Medalist",
+    image: "/images/sports-images/girraj singh.jpg",
+  },
+  {
+    id: 3,
+    player: "Bhupender Singh",
+    game: "Athletic",
+    year: "2017",
+    age: "32",
+    achievement: "National Champion – Javelin",
+    image: "/images/sports-images/Bhupender Singh.jfif",
+  },
+  // ---- बाकी players भी इसी तरह add कर दें ----
 ];
 
 export function DhyanchandAwardsPage() {
@@ -37,21 +54,56 @@ export function DhyanchandAwardsPage() {
           {awards.map((award, index) => (
             <div
               key={award.id}
-              className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-5 sm:p-6 text-center transform hover:-translate-y-1"
+              className="relative bg-gradient-to-r from-sky-400 via-sky-500 to-blue-600 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group"
               style={{
                 animation: `fadeIn 0.4s ease-out ${index * 0.08}s both`,
               }}
             >
-              <div className="flex justify-center mb-3">
-                <Medal className="w-8 h-8 sm:w-10 sm:h-10 text-yellow-500" />
+              {/* Player Image */}
+              <img
+                src={award.image}
+                alt={award.player}
+                className=" w-full h-[360px] object-cover transition-all duration-300 group-hover:opacity-20"
+              />
+
+              {/* Overlay Details on Hover */}
+              <div className="absolute inset-0 flex flex-col mt-20 text-center px-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                <h2 className="text-xl font-bold text-black mb-1">
+                  {award.player}
+                </h2>
+
+                <p className="text-black text-sm mb-1">
+                  <span className="font-semibold text-black">Age:</span>{" "}
+                  {award.age}
+                </p>
+
+                <p className="text-black text-sm mb-1">
+                  <span className="font-semibold text-black">Sport:</span>{" "}
+                  {award.game}
+                </p>
+
+                <p className="text-black text-sm mb-3">
+                  <span className="font-semibold text-black">Achievement:</span>{" "}
+                  {award.achievement}
+                </p>
+
+                <div className="flex items-center justify-center gap-2 text-black font-medium">
+                  <Calendar className="w-4 h-4" />
+                  <span>{award.year}</span>
+                </div>
               </div>
-              <h2 className="text-lg sm:text-xl font-semibold text-blue-800 mb-1">
-                {award.player}
-              </h2>
-              <p className="text-gray-700 text-sm sm:text-base">{award.game}</p>
-              <div className="flex justify-center items-center gap-2 mt-3 text-blue-600 font-medium text-sm sm:text-base">
-                <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span>{award.year}</span>
+
+              {/* Bottom Default Info */}
+              <div className="p-4 text-center bg-white group-hover:opacity-0 transition-all duration-200">
+                <h3 className="text-lg sm:text-xl font-semibold text-blue-800">
+                  {award.player}
+                </h3>
+                <p className="text-gray-700 text-sm">{award.game}</p>
+
+                <div className="flex justify-center items-center gap-2 mt-2 text-blue-600 font-medium text-sm">
+                  <Calendar className="w-4 h-4" />
+                  <span>{award.year}</span>
+                </div>
               </div>
             </div>
           ))}
