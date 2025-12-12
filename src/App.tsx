@@ -4,6 +4,7 @@ import {
   Route,
   useParams,
 } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";  // <-- REQUIRED FOR TOAST TO SHOW
 import { Header } from "./components/navbar/Header";
 import { Footer } from "./components/navbar/Footer";
 import { ImageCarousel } from "./components/slider/ImageCarousel";
@@ -16,6 +17,7 @@ import { PlayerCarousel } from "./components/homeplayers/PlayerCarousel";
 import { PersonalityCard } from "./components/PersonalityCard";
 import Sports from "./components/sports/Sports";
 import RegistrationForm from "./components/Register/RegistrationForm";
+import RegistrationFormDummy from "./components/Register/RegistrationFormDummy";
 import About from "./components/abouthoa/history";
 import Members from "./components/abouthoa/Members";
 import { RajivGandhiAwardsPage } from "./components/awards/RajivGandhiAward";
@@ -59,8 +61,16 @@ export default function App() {
               path="/athletes/register"
               element={
                 <div className="registration-page">
-                  <RegistrationForm />
+                  <RegistrationFormDummy />
                 </div>
+              }
+            />
+            <Route
+              path="/athletes/register/dummy"
+              element={
+
+                  <RegistrationForm />
+
               }
             />
 

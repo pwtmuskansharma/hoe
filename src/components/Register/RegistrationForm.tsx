@@ -11,6 +11,12 @@ import { apiFetch } from "../../services/api/RegisterService";
 import SportsSelect from "./Sport";
 import SportCategorySelect from "./SportCategory";
 import { Eye, EyeOff } from "lucide-react"; // ← install lucide-react if not already
+import AddressForm from"./Address";
+import AchievementForm from"./Achivement";
+import Education from"./Education";
+import SocialMediaForm from"./SocialMedia";
+import AddharCardUpload from"./AddharCard";
+import BasicDetails from"./BasicDetails";
 
 // ---------- Types ----------
 interface EventRow {
@@ -1149,6 +1155,7 @@ const HOARegistrationForm: React.FC = () => {
               inputMode="numeric"
               placeholder="e.g. 9876543210"
               aria-invalid={!!errors.mobile}
+              max={10}
               aria-describedby={errors.mobile ? "mobile-error" : undefined}
             />
             {errors.mobile && (
@@ -1237,9 +1244,9 @@ const HOARegistrationForm: React.FC = () => {
       }`}
             type="number"
             value={form.height || ""}
-            placeholder="Height (cm) must be between 50 and 250."
-            min={50}
-            max={250}
+            placeholder="Height (cm) must be between 125 and 275."
+            min={125}
+            max={275}
             onChange={(e) => {
               const value = e.target.value ? Number(e.target.value) : 0;
               setForm({ ...form, height: value });
@@ -1248,8 +1255,8 @@ const HOARegistrationForm: React.FC = () => {
               if (form.height)
                 touch(
                   "height",
-                  form.height >= 50 && form.height <= 250,
-                  "Height (cm) must be between 50 and 250."
+                  form.height >= 125 && form.height <= 275,
+                  "Height (cm) must be between 125 and 275."
                 );
             }}
             aria-invalid={!!errors.height}
