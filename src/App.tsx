@@ -4,7 +4,7 @@ import {
   Route,
   useParams,
 } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";  // <-- REQUIRED FOR TOAST TO SHOW
+import "react-toastify/dist/ReactToastify.css"; // <-- REQUIRED FOR TOAST TO SHOW
 import { Header } from "./components/navbar/Header";
 import { Footer } from "./components/navbar/Footer";
 import { ImageCarousel } from "./components/slider/ImageCarousel";
@@ -26,6 +26,8 @@ import { DhyanchandAwardsPage } from "./components/awards/DhyanchandAwards";
 import { ArjunaAwardsPage } from "./components/awards/ArjunaAwards";
 import { UpcomingEvents } from "./components/hoaUpComingEvents/Events";
 import { Venues } from "./components/venus&facilities/Venues";
+import LoginForm from "./components/Register/LoginForm";
+import ForgotPassword from "./components/Register/ForgotPassword";
 
 function HomePage() {
   return (
@@ -51,6 +53,8 @@ export default function App() {
         <div className="flex-grow">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/athletes/login" element={<LoginForm />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
 
             <Route path="/sports" element={<Sports />} />
             {/* ABOUT HOA */}
@@ -67,13 +71,8 @@ export default function App() {
             />
             <Route
               path="/athletes/register/dummy"
-              element={
-
-                  <RegistrationForm />
-
-              }
+              element={<RegistrationForm />}
             />
-
             {/* Awards */}
             <Route path="/award/:slug" element={<RajivGandhiAwardsPage />} />
             <Route
@@ -85,7 +84,6 @@ export default function App() {
               element={<DhyanchandAwardsPage />}
             />
             <Route path="/arjuna-awards" element={<ArjunaAwardsPage />} />
-
             {/* Venues Page */}
             <Route path="/venues" element={<Venues />} />
           </Routes>
