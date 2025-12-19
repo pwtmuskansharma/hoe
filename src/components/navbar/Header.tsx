@@ -833,7 +833,7 @@ const staticMenuItems: MenuItem[] = [
   {
     label: "USEFUL LINKS",
     children: [
-      { label: "Document", path: "/", children: [] },
+      { label: "Document", path: "/document", children: [] },
       { label: "Recources", path: "/", children: [] },
     ],
   },

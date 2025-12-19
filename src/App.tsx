@@ -28,6 +28,7 @@ import { UpcomingEvents } from "./components/hoaUpComingEvents/Events";
 import { Venues } from "./components/venus&facilities/Venues";
 import LoginForm from "./components/Register/LoginForm";
 import ForgotPassword from "./components/Register/ForgotPassword";
+import DocumentsPage from "./components/ddocument/DocumentsPage";
 
 function HomePage() {
   return (
@@ -79,6 +80,7 @@ export default function App() {
               path="/dronacharya-awards"
               element={<DronacharyaAwardsPage />}
             />
+            <Route path="/document" element={<DocumentsPage />} />
             <Route
               path="/dhyanchand-awards"
               element={<DhyanchandAwardsPage />}
