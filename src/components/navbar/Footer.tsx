@@ -117,52 +117,52 @@ export function Footer() {
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <a
-                  href="#"
+                <Link
+                  to="#"
                   className="text-gray-300 hover:text-white transition-colors"
                 >
                   About Us
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#news"
+                <Link
+                  to="#news"
                   className="text-gray-300 hover:text-white transition-colors"
                 >
                   Latest News
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#events"
+                <Link
+                  to="#events"
                   className="text-gray-300 hover:text-white transition-colors"
                 >
                   Upcoming Events
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#gallery"
+                <Link
+                  to="#gallery"
                   className="text-gray-300 hover:text-white transition-colors"
                 >
                   Sports Gallery
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  to="#"
                   className="text-gray-300 hover:text-white transition-colors"
                 >
                   Olympic Values
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  to="#"
                   className="text-gray-300 hover:text-white transition-colors"
                 >
                   Anti-Doping
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -216,24 +216,24 @@ export function Footer() {
               © 2024 Haryana Olympic Association. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <a
-                href="#"
+              <Link
+                to="#"
                 className="text-sm text-gray-400 hover:text-white transition-colors"
               >
                 Privacy Policy
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="#"
                 className="text-sm text-gray-400 hover:text-white transition-colors"
               >
                 Terms of Use
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="#"
                 className="text-sm text-gray-400 hover:text-white transition-colors"
               >
                 Cookie Policy
-              </a>
+              </Link>
             </div>
           </div>
         </div>

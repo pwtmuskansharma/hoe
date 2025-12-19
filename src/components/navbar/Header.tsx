@@ -833,7 +833,7 @@ const staticMenuItems: MenuItem[] = [
   {
     label: "USEFUL LINKS",
     children: [
-      { label: "Document", path: "/", children: [] },
+      { label: "Document", path: "/document", children: [] },
       { label: "Recources", path: "/", children: [] },
     ],
   },
@@ -850,47 +850,119 @@ export function Header() {
   const [mobileSubSubmenuOpen, setMobileSubSubmenuOpen] = useState<
     number | null
   >(null);
+  // useEffect(() => {
+  //   const fetchAwardsMenu = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const res = await apiFetch("menu");
+  //       console.log("🔍 Full menu API response:", res);
+
+  //       const menuItemsData = res?.data?.data?.items || [];
+
+  //       const awardsSection = menuItemsData.find(
+  //         (item: any) => item.title?.toUpperCase() === "AWARDS"
+  //       );
+
+  //       if (awardsSection && Array.isArray(awardsSection.children)) {
+  //         const updatedMenu = staticMenuItems.map((item) =>
+  //           item.label === "AWARDS"
+  //             ? {
+  //                 ...item,
+  //                 children: awardsSection.children.map((sub: any) => ({
+  //                   id: sub.id,
+  //                   title: sub.title,
+  //                   url: sub.url || "#",
+  //                   children:
+  //                     sub.children?.map((nested: any) => ({
+  //                       id: nested.id,
+  //                       title: nested.title,
+  //                       url: nested.url || "#",
+  //                     })) || [],
+  //                 })),
+  //               }
+  //             : item
+  //         );
+
+  //         setMenuItems(updatedMenu);
+  //         console.log("✅ Dynamic AWARDS Menu:", awardsSection.children);
+  //       } else {
+  //         console.warn("⚠️ Using static AWARDS menu fallback");
+  //         setMenuItems(staticMenuItems);
+  //       }
+  //     } catch (error) {
+  //       console.error("❌ Error fetching awards menu:", error);
+  //       setMenuItems(staticMenuItems);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchAwardsMenu();
+  // }, []);
+
+  // ====== Scroll to footer handler ======
+
   useEffect(() => {
     const fetchAwardsMenu = async () => {
       setLoading(true);
+
       try {
         const res = await apiFetch("menu");
         console.log("🔍 Full menu API response:", res);
 
         const menuItemsData = res?.data?.data?.items || [];
 
-        const awardsSection = menuItemsData.find(
-          (item: any) => item.title?.toUpperCase() === "AWARDS"
-        );
+        // 🔍 Find AWARDS from API (recursively)
+        const findAwards = (items: any[]): any | null => {
+          for (const item of items) {
+            if (item.title?.toUpperCase() === "AWARDS") return item;
 
-        if (awardsSection && Array.isArray(awardsSection.children)) {
-          const updatedMenu = staticMenuItems.map((item) =>
-            item.label === "AWARDS"
-              ? {
-                  ...item,
-                  children: awardsSection.children.map((sub: any) => ({
-                    id: sub.id,
-                    title: sub.title,
-                    url: sub.url || "#",
-                    children:
-                      sub.children?.map((nested: any) => ({
-                        id: nested.id,
-                        title: nested.title,
-                        url: nested.url || "#",
-                      })) || [],
-                  })),
-                }
-              : item
-          );
+            if (Array.isArray(item.children)) {
+              const found = findAwards(item.children);
+              if (found) return found;
+            }
+          }
+          return null;
+        };
 
-          setMenuItems(updatedMenu);
-          console.log("✅ Dynamic AWARDS Menu:", awardsSection.children);
-        } else {
-          console.warn("⚠️ Using static AWARDS menu fallback");
+        const awardsSection = findAwards(menuItemsData);
+
+        if (!awardsSection) {
+          console.warn("⚠️ Awards not found, using static menu.");
           setMenuItems(staticMenuItems);
+          return;
         }
-      } catch (error) {
-        console.error("❌ Error fetching awards menu:", error);
+
+        console.log("🎯 FOUND AWARDS →", awardsSection.children);
+
+        // 🔥 Now update AWARDS inside ATHLETES only
+        const updatedMenu = staticMenuItems.map((item) => {
+          if (item.label === "ATHLETES") {
+            return {
+              ...item,
+              children: item.children?.map((sub) => {
+                if (sub.label === "AWARDS") {
+                  return {
+                    ...sub,
+                    children: awardsSection.children?.map((award: any) => ({
+                      id: award.id,
+                      label: award.title,
+                      title: award.title,
+                      url: award.url || "#",
+                    })),
+                  };
+                }
+                return sub;
+              }),
+            };
+          }
+          return item;
+        });
+
+        setMenuItems(updatedMenu);
+        console.log("✅ Updated ATHLETES → AWARDS menu:", updatedMenu);
+      } catch (err) {
+        console.error("❌ Error fetching menu:", err);
         setMenuItems(staticMenuItems);
       } finally {
         setLoading(false);
@@ -900,7 +972,6 @@ export function Header() {
     fetchAwardsMenu();
   }, []);
 
-  // ====== Scroll to footer handler ======
   const handleContactClick = (e: React.MouseEvent) => {
     e.preventDefault();
     const footer = document.querySelector("footer");
