@@ -1,3 +1,4 @@
+import { ok } from "assert";
 import { API_BASE_URL } from "../../config";
 
 export const apiFetch = async (endpoint: string) => {

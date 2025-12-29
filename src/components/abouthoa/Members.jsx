@@ -12,6 +12,7 @@ const membersData = [
       "Cabinet Minister, Development & Panchayats, Government of Haryana",
     ],
   },
+
   {
     title: "Treasurer",
     members: ["Sh. Manjeet Singh"],

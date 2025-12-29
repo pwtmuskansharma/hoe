@@ -15,12 +15,12 @@ export function HeroSection() {
             <h1 className="text-4xl lg:text-6xl font-bold leading-tight text-white">
               Haryana's Journey to Olympic Glory
             </h1>
-            <p className="text-xl text-blue-100 leading-relaxed">
+            <p className="m-3 sm:m-0 text-xl text-blue-100 leading-relaxed">
               Leading India's Olympic aspirations through world-class training,
               dedicated athletes, and unwavering commitment to sporting
               excellence in Haryana.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="m-3 sm:m-0 flex flex-col sm:flex-row gap-4">
               <Button
                 size="lg"
                 className="bg-white text-blue-900 hover:bg-blue-50"

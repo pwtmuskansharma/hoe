@@ -87,7 +87,9 @@ export function ArjunaAwardsPage() {
           </div>
           <p className="mt-6 text-gray-700 text-base sm:text-lg max-w-2xl mx-auto px-3">
             Celebrating India’s elite athletes whose dedication and achievements
-            have illuminated the nation’s sporting history.
+            have illuminated the nation’s sporting history..... i want to learn
+            and go out side this office to explore some more places and i want
+            to fire this office with some one
           </p>
         </div>
 

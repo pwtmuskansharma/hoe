@@ -40,12 +40,13 @@ export function DhyanchandAwardsPage() {
           <div className="inline-flex flex-wrap items-center justify-center gap-2 bg-gradient-to-r from-sky-400 via-sky-500 to-blue-600 text-white px-5 py-3 rounded-full shadow-md">
             <Trophy className="w-6 h-6  text-white" />
             <h2 className="text-xl sm:text-xl font-bold tracking-wide uppercase text-center">
-              Dhyanchand Awards
+              Dhyanchand Awards className hello world is a line where we test
+              everything from starting.
             </h2>
           </div>
           <p className="mt-6 text-gray-700 text-base sm:text-lg max-w-2xl mx-auto px-3">
             Celebrating India’s elite athletes whose dedication and achievements
-            have illuminated the nation’s sporting history.
+            have illuminated the nation’s sporting history.ucfbbsdllidjjssoopaj
           </p>
         </div>
 
@@ -83,7 +84,9 @@ export function DhyanchandAwardsPage() {
                 </p>
 
                 <p className="text-black text-sm mb-3">
-                  <span className="font-semibold text-black">Achievement:</span>{" "}
+                  <span className="font-semibold text-black">
+                    Achievement:{" "}
+                  </span>{" "}
                   {award.achievement}
                 </p>
 
