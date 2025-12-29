@@ -29,6 +29,12 @@ import { Venues } from "./components/venus&facilities/Venues";
 import LoginForm from "./components/Register/LoginForm";
 import ForgotPassword from "./components/Register/ForgotPassword";
 import DocumentsPage from "./components/ddocument/DocumentsPage";
+import GalleryPage from "./components/media/gallery/GalleryPage";
+import NewsPage from "./components/media/newssection/NewsPage";
+import NewsDetailPage from "./components/media/newssection/NewsDetail";
+import PressReleasesPage from "./components/media/pressrelease/PressReleasesPage";
+import PressReleaseDetailPage from "./components/media/pressrelease/PressReleaseDetailPage";
+import PdfPoliciesPage from "./components/ddocument/PdfPoliciesPage";
 
 function HomePage() {
   return (
@@ -59,9 +65,32 @@ export default function App() {
 
             <Route path="/sports" element={<Sports />} />
             {/* ABOUT HOA */}
-            <Route path="/about/history" element={<About />} />
-            <Route path="/about/members" element={<Members />} />
-            <Route path="/competitions/upcoming" element={<UpcomingEvents />} />
+            <Route path="/pages/:slug" element={<About />} />
+
+            {/* document */}
+            <Route path="/documents" element={<DocumentsPage />} />
+
+            {/* Pdf Policeies */}
+            <Route path="/pdf-policies" element={<PdfPoliciesPage />} />
+
+            {/* gallery */}
+            <Route path="/gallery" element={<GalleryPage />} />
+
+            {/* events */}
+            <Route path="/events" element={<UpcomingEvents />} />
+
+            {/* news */}
+            <Route path="/news" element={<NewsPage />} />
+            <Route path="/news/:slug" element={<NewsDetailPage />} />
+
+            {/* Press Release */}
+            <Route path="/press-releases" element={<PressReleasesPage />} />
+
+            <Route
+              path="/press-releases/:slug"
+              element={<PressReleaseDetailPage />}
+            />
+
             <Route
               path="/athletes/register"
               element={

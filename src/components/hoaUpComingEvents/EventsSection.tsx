@@ -29,6 +29,7 @@ interface EventItem {
   medal_tally_link?: string | null;
   match_fixtures_link?: string | null;
   media_gallery_link?: string | null;
+  slug: string;
 }
 
 export function EventsSection() {
@@ -89,6 +90,7 @@ export function EventsSection() {
           response?.data?.data?.events?.data || []
         ).map((item: any) => ({
           title: item.title,
+          slug: item.slug,
           date: item.event_date,
           location: item.location,
           athletes: `${item.registered_count}+ Registered`,
@@ -292,28 +294,30 @@ export function EventsSection() {
         )}
       </div>
       {/* View All Events Button */}
-      <div className="text-center cursor-pointer mt-10">
-        <Link
-          to="/competitions/upcoming"
-          className="inline-flex items-center gap-2 bg-gradient-to-br from-orange-400 to-yellow-400 hover:from-orange-500 hover:to-yellow-500 text-white font-medium text-sm md:text-base px-6 py-2.5 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105 cursor-pointer"
-        >
-          View All Events
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-            className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+      {events[0] && (
+        <div className="text-center cursor-pointer mt-10">
+          <Link
+            to={`/events`} // use the first event slug
+            className="inline-flex items-center gap-2 bg-gradient-to-br from-orange-400 to-yellow-400 hover:from-orange-500 hover:to-yellow-500 text-white font-medium text-sm md:text-base px-6 py-2.5 rounded-lg shadow-md transition-all duration-300 transform hover:scale-105 cursor-pointer"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </Link>
-      </div>
+            View All Events
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </Link>
+        </div>
+      )}
     </section>
   );
 }

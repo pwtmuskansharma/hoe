@@ -1032,7 +1032,7 @@ export function Header() {
                   {/* Level 1 */}
                   {item.children?.length ? (
                     <div
-                      className="absolute left-0 mt-2 w-52 bg-white shadow-lg rounded-md z-50
+                      className="absolute left-0 mt-[16px]  w-52 bg-white shadow-lg rounded-md z-50
                       transition-all duration-300 opacity-0 invisible group-hover:visible group-hover:opacity-100"
                     >
                       {item.children.map((sub) => (
@@ -1093,58 +1093,94 @@ export function Header() {
         </div>
 
         {/* ================= Mobile Menu ================= */}
+        {/* ================= Mobile Menu ================= */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t">
-            {menuItems.map((item, idx) => (
-              <div key={idx} className="border-b">
-                <button
-                  className="w-full px-4 py-3 font-bold flex justify-between"
-                  onClick={() =>
-                    setMobileSubmenuOpen(mobileSubmenuOpen === idx ? null : idx)
-                  }
-                >
-                  {item.title || item.label}
-                  {item.children?.length ? (
-                    mobileSubmenuOpen === idx ? (
-                      <ChevronUp />
-                    ) : (
-                      <ChevronDown />
-                    )
-                  ) : null}
-                </button>
+          <div className="lg:hidden border-t bg-white">
+            {menuItems.map((item, idx) => {
+              const hasChildren = item.children && item.children.length > 0;
 
-                {mobileSubmenuOpen === idx &&
-                  item.children?.map((sub, sIdx) => (
-                    <div key={sIdx} className="bg-gray-50">
-                      <button
-                        className="w-full px-6 py-2 font-bold flex justify-between"
-                        onClick={() =>
-                          setMobileSubSubmenuOpen(
-                            mobileSubSubmenuOpen === sIdx ? null : sIdx
-                          )
-                        }
-                      >
-                        {sub.title}
-                        {sub.children?.length ? <ChevronRight /> : null}
-                      </button>
+              return (
+                <div key={idx} className="border-b">
+                  {/* LEVEL 1 */}
+                  {hasChildren ? (
+                    <button
+                      className="w-full px-4 py-3 font-bold flex justify-between items-center"
+                      onClick={() =>
+                        setMobileSubmenuOpen(
+                          mobileSubmenuOpen === idx ? null : idx
+                        )
+                      }
+                    >
+                      {item.title || item.label}
+                      {mobileSubmenuOpen === idx ? (
+                        <ChevronUp />
+                      ) : (
+                        <ChevronDown />
+                      )}
+                    </button>
+                  ) : (
+                    <Link
+                      to={item.path || item.url || "#"}
+                      className="block px-4 py-3 font-bold"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {item.title || item.label}
+                    </Link>
+                  )}
 
-                      {mobileSubSubmenuOpen === sIdx &&
-                        sub.children?.map((third) => (
-                          <Link
-                            key={third.id}
-                            to={third.url || "#"}
-                            className="block px-10 py-2 font-bold"
-                            onClick={() => setMobileMenuOpen(false)}
-                          >
-                            {third.title}
-                          </Link>
-                        ))}
-                    </div>
-                  ))}
-              </div>
-            ))}
+                  {/* LEVEL 2 */}
+                  {mobileSubmenuOpen === idx &&
+                    item.children?.map((sub, sIdx) => {
+                      const hasSubChildren =
+                        sub.children && sub.children.length > 0;
 
-            <Link to="/athletes/register">
+                      return (
+                        <div key={sIdx} className="bg-gray-50">
+                          {hasSubChildren ? (
+                            <button
+                              className="w-full px-6 py-2 font-bold flex justify-between items-center"
+                              onClick={() =>
+                                setMobileSubSubmenuOpen(
+                                  mobileSubSubmenuOpen === sIdx ? null : sIdx
+                                )
+                              }
+                            >
+                              {sub.title}
+                              <ChevronRight />
+                            </button>
+                          ) : (
+                            <Link
+                              to={sub.url || "#"}
+                              className="block px-6 py-2 font-bold"
+                              onClick={() => setMobileMenuOpen(false)}
+                            >
+                              {sub.title}
+                            </Link>
+                          )}
+
+                          {/* LEVEL 3 */}
+                          {mobileSubSubmenuOpen === sIdx &&
+                            sub.children?.map((third) => (
+                              <Link
+                                key={third.id}
+                                to={third.url || "#"}
+                                className="block px-10 py-2 font-bold text-sm"
+                                onClick={() => setMobileMenuOpen(false)}
+                              >
+                                {third.title}
+                              </Link>
+                            ))}
+                        </div>
+                      );
+                    })}
+                </div>
+              );
+            })}
+
+            <Link
+              to="/athletes/register"
+              onClick={() => setMobileMenuOpen(false)}
+            >
               <button className="w-full my-4 px-4 py-2 bg-[#0e276b] text-white rounded-md font-semibold">
                 Register Now
               </button>
