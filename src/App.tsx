@@ -35,6 +35,11 @@ import NewsDetailPage from "./components/media/newssection/NewsDetail";
 import PressReleasesPage from "./components/media/pressrelease/PressReleasesPage";
 import PressReleaseDetailPage from "./components/media/pressrelease/PressReleaseDetailPage";
 import PdfPoliciesPage from "./components/ddocument/PdfPoliciesPage";
+import PdfPoliciesPageWrapper from "./components/ddocument/PdfPoliciesPageWrapper";
+import SportCategoryPage from "./components/sports/SportCategoryPage";
+import SportDocumentsPage from "./components/sports/SportDocumentsPage";
+import MemberPage from "./components/member/Member";
+import OrganisationPage from "./components/organisation/Organisation";
 
 function HomePage() {
   return (
@@ -71,7 +76,11 @@ export default function App() {
             <Route path="/documents" element={<DocumentsPage />} />
 
             {/* Pdf Policeies */}
-            <Route path="/pdf-policies" element={<PdfPoliciesPage />} />
+            {/* <Route path="/pdf-policies/:slug" element={<PdfPoliciesPage />} /> */}
+            <Route
+              path="/pdf-policies/:slug"
+              element={<PdfPoliciesPageWrapper />}
+            />
 
             {/* gallery */}
             <Route path="/gallery" element={<GalleryPage />} />
@@ -90,6 +99,18 @@ export default function App() {
               path="/press-releases/:slug"
               element={<PressReleaseDetailPage />}
             />
+            {/* sport */}
+            <Route path="/sports/:slug" element={<SportCategoryPage />} />
+            <Route
+              path="/sport-documents/:slug"
+              element={<SportDocumentsPage />}
+            />
+
+            {/* member */}
+            <Route path="/members/:slug" element={<MemberPage />} />
+
+            {/* organisation */}
+            <Route path="/organisation/:slug" element={<OrganisationPage />} />
 
             <Route
               path="/athletes/register"

@@ -583,7 +583,6 @@ export function UpcomingEvents() {
                         <a
                           key={item.name}
                           href={isActive ? link! : undefined}
-                          target="_blank"
                           rel="noopener noreferrer"
                           className={`${
                             isActive
