@@ -959,6 +959,7 @@ const mapBackendMenu = (items: any[]): MenuItem[] => {
 export function Header() {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [logo, setLogo] = useState<string>("");
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState<number | null>(
@@ -976,7 +977,11 @@ export function Header() {
         const res = await apiFetch("menu");
         const backendItems = res?.data?.data?.items || [];
         const dynamicMenu = mapBackendMenu(backendItems);
-
+        /* 👉 YE ADD KARO */
+        const backendLogo = res?.data?.data?.settings?.logo;
+        if (backendLogo) {
+          setLogo(backendLogo);
+        }
         setMenuItems([...STATIC_ITEMS, ...dynamicMenu]);
       } catch (err) {
         console.error("Menu fetch error", err);
@@ -1002,8 +1007,13 @@ export function Header() {
         <div className="flex justify-between items-center h-28">
           {/* Logo */}
           <Link to="/">
-            <img
+            {/* <img
               src="/images/logo.png"
+              alt="HOA"
+              className="h-24 w-24 object-contain"
+            /> */}
+            <img
+              src={logo || "/images/logo.png"}
               alt="HOA"
               className="h-24 w-24 object-contain"
             />

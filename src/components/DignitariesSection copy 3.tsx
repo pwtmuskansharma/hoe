@@ -56,7 +56,9 @@ export function DignitariesSection() {
   };
 
   const goToPrevious = () => {
-    setCurrentIndex((prev) => (prev - 1 + dignitaries.length) % dignitaries.length);
+    setCurrentIndex(
+      (prev) => (prev - 1 + dignitaries.length) % dignitaries.length
+    );
   };
 
   // Get indices for left, center, right cards
@@ -82,9 +84,15 @@ export function DignitariesSection() {
           </p>
         </div>
 
-        <div className="relative flex items-center justify-center" style={{ minHeight: 400 }}>
+        <div
+          className="relative flex items-center justify-center"
+          style={{ minHeight: 400 }}
+        >
           {/* Left Card (blurred) */}
-          <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1/3 pointer-events-none opacity-50" style={{ zIndex: 1 }}>
+          <div
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1/3 pointer-events-none opacity-50"
+            style={{ zIndex: 1 }}
+          >
             <Card className="h-full filter blur-sm scale-90 transition-all duration-500 ease-in-out">
               <CardContent className="p-0 h-full flex flex-col">
                 <div className="h-full relative w-full">
@@ -99,7 +107,9 @@ export function DignitariesSection() {
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/10 rounded-t-lg" />
                 </div>
                 <div className="h-1/3 p-4 flex flex-col justify-between bg-white rounded-b-lg">
-                  <p className="text-gray-500 text-sm">{dignitaries[leftIdx].bio}</p>
+                  <p className="text-gray-500 text-sm">
+                    {dignitaries[leftIdx].bio}
+                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -121,14 +131,19 @@ export function DignitariesSection() {
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/10 rounded-t-lg" />
                 </div>
                 <div className="h-1/3 p-4 flex flex-col justify-between bg-white rounded-b-lg">
-                  <p className="text-gray-500 text-sm">{dignitaries[centerIdx].bio}</p>
+                  <p className="text-gray-500 text-sm">
+                    {dignitaries[centerIdx].bio}
+                  </p>
                 </div>
               </CardContent>
             </Card>
           </div>
 
           {/* Right Card (blurred) */}
-          <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-1/3 pointer-events-none opacity-50" style={{ zIndex: 1 }}>
+          <div
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 w-1/3 pointer-events-none opacity-50"
+            style={{ zIndex: 1 }}
+          >
             <Card className="h-full filter blur-sm scale-90 transition-all duration-500 ease-in-out">
               <CardContent className="p-0 h-full flex flex-col">
                 <div className="h-full relative w-full">
@@ -143,7 +158,9 @@ export function DignitariesSection() {
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/10 rounded-t-lg" />
                 </div>
                 <div className="h-1/3 p-4 flex flex-col justify-between bg-white rounded-b-lg">
-                  <p className="text-gray-500 text-sm">{dignitaries[rightIdx].bio}</p>
+                  <p className="text-gray-500 text-sm">
+                    {dignitaries[rightIdx].bio}
+                  </p>
                 </div>
               </CardContent>
             </Card>
