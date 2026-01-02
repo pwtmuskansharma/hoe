@@ -82,7 +82,7 @@ const SportCategoryPage: React.FC = () => {
 
 export default SportCategoryPage;
 
-// import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState, useMemo } from "react";
 // import { useParams, useNavigate } from "react-router-dom";
 // import { apiSportCategory } from "../../../src/services/api/Sports";
 
@@ -93,6 +93,7 @@ export default SportCategoryPage;
 //   icon: string;
 //   description: string;
 //   is_active: number;
+//   letter?: string;
 // }
 
 // type GroupedData = {
@@ -100,12 +101,11 @@ export default SportCategoryPage;
 // };
 
 // const SportCategoryPage: React.FC = () => {
-//   const { slug } = useParams(); // parent slug (judo etc)
+//   const { slug } = useParams();
 //   const navigate = useNavigate();
 
 //   const [data, setData] = useState<GroupedData>({});
 //   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState("");
 
 //   useEffect(() => {
 //     const fetchSportCategory = async () => {
@@ -114,7 +114,6 @@ export default SportCategoryPage;
 //         setData(response?.data?.data || {});
 //       } catch (err) {
 //         console.error(err);
-//         setError("Failed to load data.");
 //       } finally {
 //         setLoading(false);
 //       }
@@ -123,44 +122,65 @@ export default SportCategoryPage;
 //     if (slug) fetchSportCategory();
 //   }, [slug]);
 
+//   /* 🔑 FLATTEN DATA INTO SINGLE LIST */
+//   const flatList = useMemo(() => {
+//     const list: SportItem[] = [];
+//     Object.keys(data).forEach((letter) => {
+//       data[letter].forEach((item, index) => {
+//         list.push({
+//           ...item,
+//           letter: index === 0 ? letter : undefined,
+//         });
+//       });
+//     });
+//     return list;
+//   }, [data]);
+
 //   if (loading) {
 //     return <div className="text-center py-20">Loading...</div>;
 //   }
 
 //   return (
-//     <div className="container mx-auto px-4 py-8">
-//       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-//         {Object.keys(data).map((letter) => (
-//           <div key={letter}>
-//             <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] grid-flow-col auto-rows-max gap-6 justify-items-center">
-//               {/* LETTER — SAME GRID, FIRST ROW */}
-//               <h2 className="col-span-1 row-start-1 text-3xl font-bold mb-2">
-//                 {letter}
-//               </h2>
+//     <div className="max-w-7xl mx-auto px-4 py-10">
+//       {/* 🔥 SINGLE AUTO GRID */}
+//       <div
+//         className="grid gap-6
+//         grid-cols-[repeat(auto-fill,minmax(220px,1fr))]"
+//       >
+//         {flatList.map((item) => (
+//           <div
+//             key={item.id}
+//             onClick={() => navigate(`/sport-documents/${item.slug}`)}
+//             className="relative cursor-pointer h-[140px]
+//             rounded-2xl overflow-hidden
+//            bg-gradient-to-br from-indigo-600 via-blue-500 to-sky-400
+//             hover:scale-[1.03] transition-all duration-300 shadow-md"
+//           >
+//             {/* 🔤 ALPHABET BADGE */}
+//             {item.letter && (
+//               <span
+//                 className="absolute top-3 left-3 z-10
+//                 bg-white text-gray-900
+//                 font-bold text-base
+//                 px-3 py-1 rounded-lg shadow"
+//               >
+//                 {item.letter}
+//               </span>
+//             )}
 
-//               {/* CARDS — START FROM ROW 2 */}
-//               {data[letter].map((item) => (
-//                 <div
-//                   key={item.id}
-//                   onClick={() => navigate(`/sport-documents/${item.slug}`)}
-//                   className="row-start-2 cursor-pointer w-[220px] h-[140px]
-//           rounded-2xl overflow-hidden
-//           bg-gradient-to-r from-indigo-500 via-blue-400 to-teal-700 to-blue-400
-//           hover:shadow-xl transition relative"
-//                 >
-//                   <div className="absolute inset-0 flex flex-col items-center justify-center ">
-//                     <img
-//                       src={item.icon}
-//                       alt={item.name}
-//                       className="w-14 h-14 mb-3"
-//                     />
-//                     <h3 className="text-white font-semibold tracking-wide text-sm uppercase">
-//                       {item.name}
-//                     </h3>
-//                   </div>
-//                 </div>
-//               ))}
+//             {/* CONTENT */}
+//             <div
+//               className="absolute inset-0 flex flex-col
+//               items-center justify-center text-center"
+//             >
+//               <img src={item.icon} alt={item.name} className="w-14 h-14 mb-3" />
+//               <h3 className="text-white font-semibold text-sm uppercase">
+//                 {item.name}
+//               </h3>
 //             </div>
+
+//             {/* HOVER OVERLAY */}
+//             <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition" />
 //           </div>
 //         ))}
 //       </div>

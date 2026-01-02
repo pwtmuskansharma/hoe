@@ -40,6 +40,7 @@ import SportCategoryPage from "./components/sports/SportCategoryPage";
 import SportDocumentsPage from "./components/sports/SportDocumentsPage";
 import MemberPage from "./components/member/Member";
 import OrganisationPage from "./components/organisation/Organisation";
+import GalleryFolderPage from "./components/media/gallery/FolderImage";
 
 function HomePage() {
   return (
@@ -84,6 +85,7 @@ export default function App() {
 
             {/* gallery */}
             <Route path="/gallery" element={<GalleryPage />} />
+            <Route path="/gallery/:folder" element={<GalleryFolderPage />} />
 
             {/* events */}
             <Route path="/events" element={<UpcomingEvents />} />

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { apiSportCategory } from "../../../src/services/api/Sports";
 
 interface DocumentItem {
@@ -67,9 +67,9 @@ const SportDocumentsPage: React.FC = () => {
               {/* PDF FILES – CENTERED & BALANCED */}
               <div className="flex flex-wrap justify-center gap-4 mb-6 w-full">
                 {item.documents.map((doc, i) => (
-                  <a
+                  <Link
                     key={i}
-                    href={doc.download_link}
+                    to={doc.download_link}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-[120px] flex flex-col items-center border rounded-xl p-3 hover:bg-gray-50 transition"
@@ -85,19 +85,19 @@ const SportDocumentsPage: React.FC = () => {
                     <p className="text-xs text-center text-gray-700 line-clamp-2">
                       {doc.original_name}
                     </p>
-                  </a>
+                  </Link>
                 ))}
               </div>
 
               {/* BUTTON – NOT FULL WIDTH */}
-              <a
-                href={item.documents[0]?.download_link}
+              <Link
+                to={item.documents[0]?.download_link}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-[#0e276b] text-white rounded-md font-semibold hover:bg-blue-700  text-sm px-6 py-2  hover:opacity-90 transition"
               >
                 View Documents →
-              </a>
+              </Link>
             </div>
           ))}
         </div>
@@ -115,9 +115,9 @@ const SportDocumentsPage: React.FC = () => {
                 [item.link_1, item.link_2, item.link_3]
                   .filter(Boolean)
                   .map((link, index) => (
-                    <a
+                    <Link
                       key={`${item.id}-${index}`}
-                      href={link as string}
+                      to={link as string}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="bg-white border rounded-xl p-5 flex items-center gap-4 hover:shadow-md transition mx-auto max-w-[320px]"
@@ -133,7 +133,7 @@ const SportDocumentsPage: React.FC = () => {
                           {link}
                         </p>
                       </div>
-                    </a>
+                    </Link>
                   ))
               )}
             </div>
