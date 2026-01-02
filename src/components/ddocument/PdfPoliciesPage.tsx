@@ -107,7 +107,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import { pdfdocumentFetch } from "../../services/api/Pdf_Policies";
 /* ================= PDF ICON ================= */
 const PdfIcon: React.FC = () => (
   <img
@@ -149,25 +149,16 @@ const PdfPoliciesPage: React.FC<PdfPoliciesPageProps> = ({ slug }) => {
   const [category, setCategory] = useState<PolicyCategory | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
   useEffect(() => {
     const fetchCategory = async () => {
-      setLoading(true);
       try {
-        const res = await fetch(
-          `https://hoa.premiercourses.in/api/pdf-policies/${slug}`
-        );
-        const data = await res.json();
-        console.log("datapoliceise", data);
+        const response = await pdfdocumentFetch(`pdf-policies/${slug}`);
+        setCategory(response?.data?.data || []);
+        console.log("fsdf daata", response);
         debugger;
-        if (data.success && data.data) {
-          setCategory(data.data);
-        } else {
-          setError("No documents found for this category");
-        }
       } catch (err) {
-        console.error(err);
-        setError("Failed to load documents");
+        console.error("Error fetching documents:", err);
+        setError("Failed to load documents.");
       } finally {
         setLoading(false);
       }
