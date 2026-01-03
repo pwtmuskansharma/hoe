@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import { apiSportCategory } from "../../../src/services/api/Sports";
 
 interface DocumentItem {
@@ -22,6 +22,8 @@ const SportDocumentsPage: React.FC = () => {
   const { slug } = useParams(); // archery
   const [data, setData] = useState<SportDocument[]>([]);
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const fromCategory = location.state?.fromCategory;
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -49,6 +51,12 @@ const SportDocumentsPage: React.FC = () => {
         <h1 className="text-3xl md:text-4xl font-bold text-white uppercase">
           {slug}
         </h1>
+        <Link
+          to={fromCategory ? `/sports/${fromCategory}` : "/sport-category"}
+          className="text-blue-200 text-sm underline uppercase"
+        >
+          ← Back to {fromCategory}
+        </Link>
       </div>
 
       {/* ===== CONTENT ===== */}
