@@ -361,7 +361,213 @@
 
 // export default MemberPage;
 
-import React, { useEffect, useState, useMemo } from "react";
+// import React, { useEffect, useState, useMemo } from "react";
+// import { useParams } from "react-router-dom";
+// import { fetchHoaMembers } from "../../../src/services/api/Member";
+
+// /* ================= INTERFACE ================= */
+// interface HoaMember {
+//   id: number;
+//   name_of_association: string;
+//   president_name?: string;
+//   name_of_sec?: string;
+//   email?: string;
+//   another_email?: string;
+//   icon: string;
+// }
+
+// type GroupedData = {
+//   [key: string]: HoaMember[];
+// };
+
+// interface FlatItem extends HoaMember {
+//   letter?: string;
+// }
+
+// /* ================= COMPONENT ================= */
+// const MemberPage: React.FC = () => {
+//   const { slug } = useParams();
+//   const [data, setData] = useState<GroupedData>({});
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState("");
+
+//   /* 🔥 ACTIVE CARD STATE */
+//   const [activeId, setActiveId] = useState<number | null>(null);
+
+//   useEffect(() => {
+//     const fetchMembers = async () => {
+//       try {
+//         const response = await fetchHoaMembers(`hoa-members/${slug}`);
+//         let members: HoaMember[] = response?.data?.data?.[0]?.hoa_members || [];
+
+//         /* ✅ STEP 1: SORT MEMBERS BY NAME */
+//         members = members.sort((a, b) =>
+//           a.name_of_association.localeCompare(b.name_of_association)
+//         );
+
+//         /* ✅ STEP 2: GROUP BY FIRST LETTER */
+//         const grouped: GroupedData = {};
+//         members.forEach((item) => {
+//           const letter = item.name_of_association.charAt(0).toUpperCase();
+
+//           if (!grouped[letter]) grouped[letter] = [];
+//           grouped[letter].push(item);
+//         });
+
+//         setData(grouped);
+//       } catch (err) {
+//         setError("Failed to load data.");
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     if (slug) fetchMembers();
+//   }, [slug]);
+
+//   /* 🔑 FLATTEN DATA (A → Z ORDER) */
+//   const flatList = useMemo(() => {
+//     const list: FlatItem[] = [];
+
+//     Object.keys(data)
+//       .sort() // ✅ SORT LETTERS A-Z
+//       .forEach((letter) => {
+//         data[letter].forEach((item, index) => {
+//           list.push({
+//             ...item,
+//             letter: index === 0 ? letter : undefined,
+//           });
+//         });
+//       });
+
+//     return list;
+//   }, [data]);
+
+//   if (loading) return <div className="text-center py-20">Loading...</div>;
+//   if (error)
+//     return <div className="text-center text-red-500 py-10">{error}</div>;
+
+//   return (
+//     <div className="max-w-7xl mx-auto px-4 py-12">
+//       {/* 🔥 GRID */}
+//       <div className="grid gap-10 grid-cols-[repeat(auto-fill,minmax(260px,1fr))]">
+//         {flatList.map((item) => {
+//           const isOpen = activeId === item.id;
+
+//           return (
+//             <div key={item.id} className="relative">
+//               {/* 🔤 ALPHABET BADGE */}
+//               {item.letter && (
+//                 <span className="absolute -top-9 left-3 z-20 bg-white text-black font-bold text-base px-3 py-1 rounded-lg shadow">
+//                   {item.letter}
+//                 </span>
+//               )}
+
+//               {/* 🔹 CARD */}
+//               <div
+//                 onClick={() => setActiveId(isOpen ? null : item.id)}
+//                 className={`cursor-pointer rounded-2xl overflow-hidden
+//                 bg-gradient-to-br from-indigo-600 via-blue-500 to-sky-400
+//                 transition-all duration-300 shadow-md
+//                 ${isOpen ? "scale-[1.02]" : "hover:scale-[1.04]"}`}
+//               >
+//                 {/* TOP */}
+//                 <div className="h-[160px] flex flex-col items-center justify-center text-center px-4">
+//                   {/* <img
+//                     src={item.icon}
+//                     alt={item.name_of_association}
+//                     className="w-16 h-16 mb-3 object-contain"
+//                   /> */}
+//                   <h3 className="text-white font-semibold text-md uppercase line-clamp-2">
+//                     {item.name_of_association}
+//                   </h3>
+//                   <div className="border-t border-white/30 pt-3 space-y-1">
+//                     {item.email && (
+//                       <p>
+//                         <span className="font-semibold">Email:</span>{" "}
+//                         {item.email}
+//                       </p>
+//                     )}
+
+//                     {item.another_email && (
+//                       <p>
+//                         <span className="font-semibold">Alt:</span>{" "}
+//                         {item.another_email}
+//                       </p>
+//                     )}
+
+//                     {item.president_name && (
+//                       <p>
+//                         <span className="font-semibold">President:</span>{" "}
+//                         {item.president_name}
+//                       </p>
+//                     )}
+
+//                     {item.name_of_sec && (
+//                       <p>
+//                         <span className="font-semibold">Secretary:</span>{" "}
+//                         {item.name_of_sec}
+//                       </p>
+//                     )}
+//                   </div>
+
+//                   {/* <span className="text-sm text-white/80 mt-1"> */}
+//                   {/* {isOpen ? "Tap to close ▲" : "Tap for details ▼"}
+//                   </span> */}
+//                 </div>
+
+//                 {/* DETAILS */}
+//                 <div
+//                   className={`px-5 pb-4 text-sm text-white/90
+//                   transition-all duration-300
+//                   ${
+//                     isOpen
+//                       ? "max-h-[300px] opacity-100"
+//                       : "max-h-0 opacity-0 overflow-hidden"
+//                   }`}
+//                 >
+//                   <div className="border-t border-white/30 pt-3 space-y-1">
+//                     {item.email && (
+//                       <p>
+//                         <span className="font-semibold">Email:</span>{" "}
+//                         {item.email}
+//                       </p>
+//                     )}
+
+//                     {item.another_email && (
+//                       <p>
+//                         <span className="font-semibold">Alt:</span>{" "}
+//                         {item.another_email}
+//                       </p>
+//                     )}
+
+//                     {item.president_name && (
+//                       <p>
+//                         <span className="font-semibold">President:</span>{" "}
+//                         {item.president_name}
+//                       </p>
+//                     )}
+
+//                     {item.name_of_sec && (
+//                       <p>
+//                         <span className="font-semibold">Secretary:</span>{" "}
+//                         {item.name_of_sec}
+//                       </p>
+//                     )}
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+//           );
+//         })}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default MemberPage;
+
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchHoaMembers } from "../../../src/services/api/Member";
 
@@ -380,10 +586,6 @@ type GroupedData = {
   [key: string]: HoaMember[];
 };
 
-interface FlatItem extends HoaMember {
-  letter?: string;
-}
-
 /* ================= COMPONENT ================= */
 const MemberPage: React.FC = () => {
   const { slug } = useParams();
@@ -391,31 +593,27 @@ const MemberPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  /* 🔥 ACTIVE CARD STATE */
-  const [activeId, setActiveId] = useState<number | null>(null);
-
   useEffect(() => {
     const fetchMembers = async () => {
       try {
         const response = await fetchHoaMembers(`hoa-members/${slug}`);
         let members: HoaMember[] = response?.data?.data?.[0]?.hoa_members || [];
 
-        /* ✅ STEP 1: SORT MEMBERS BY NAME */
-        members = members.sort((a, b) =>
+        /* SORT A-Z */
+        members.sort((a, b) =>
           a.name_of_association.localeCompare(b.name_of_association)
         );
 
-        /* ✅ STEP 2: GROUP BY FIRST LETTER */
+        /* GROUP BY FIRST LETTER */
         const grouped: GroupedData = {};
         members.forEach((item) => {
           const letter = item.name_of_association.charAt(0).toUpperCase();
-
           if (!grouped[letter]) grouped[letter] = [];
           grouped[letter].push(item);
         });
 
         setData(grouped);
-      } catch (err) {
+      } catch {
         setError("Failed to load data.");
       } finally {
         setLoading(false);
@@ -425,113 +623,68 @@ const MemberPage: React.FC = () => {
     if (slug) fetchMembers();
   }, [slug]);
 
-  /* 🔑 FLATTEN DATA (A → Z ORDER) */
-  const flatList = useMemo(() => {
-    const list: FlatItem[] = [];
-
-    Object.keys(data)
-      .sort() // ✅ SORT LETTERS A-Z
-      .forEach((letter) => {
-        data[letter].forEach((item, index) => {
-          list.push({
-            ...item,
-            letter: index === 0 ? letter : undefined,
-          });
-        });
-      });
-
-    return list;
-  }, [data]);
-
   if (loading) return <div className="text-center py-20">Loading...</div>;
   if (error)
     return <div className="text-center text-red-500 py-10">{error}</div>;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
-      {/* 🔥 GRID */}
-      <div className="grid gap-10 grid-cols-[repeat(auto-fill,minmax(260px,1fr))]">
-        {flatList.map((item) => {
-          const isOpen = activeId === item.id;
+    <div className="max-w-7xl mx-auto px-8 lg:px-14 py-12 space-y-14">
+      {Object.keys(data)
+        .sort()
+        .map((letter) => (
+          <div key={letter}>
+            {/* ALPHABET TITLE */}
+            <h2 className="text-3xl font-bold mb-6 text-gray-800">{letter}</h2>
 
-          return (
-            <div key={item.id} className="relative">
-              {/* 🔤 ALPHABET BADGE */}
-              {item.letter && (
-                <span className="absolute -top-9 left-3 z-20 bg-white text-black font-bold text-base px-3 py-1 rounded-lg shadow">
-                  {item.letter}
-                </span>
-              )}
-
-              {/* 🔹 CARD */}
-              <div
-                onClick={() => setActiveId(isOpen ? null : item.id)}
-                className={`cursor-pointer rounded-2xl overflow-hidden
-                bg-gradient-to-br from-indigo-600 via-blue-500 to-sky-400
-                transition-all duration-300 shadow-md
-                ${isOpen ? "scale-[1.02]" : "hover:scale-[1.04]"}`}
-              >
-                {/* TOP */}
-                <div className="h-[160px] flex flex-col items-center justify-center text-center px-4">
-                  <img
-                    src={item.icon}
-                    alt={item.name_of_association}
-                    className="w-16 h-16 mb-3 object-contain"
-                  />
-                  <h3 className="text-white font-semibold text-md uppercase line-clamp-2">
-                    {item.name_of_association}
-                  </h3>
-
-                  <span className="text-sm text-white/80 mt-1">
-                    {isOpen ? "Tap to close ▲" : "Tap for details ▼"}
-                  </span>
-                </div>
-
-                {/* DETAILS */}
+            {/* ALPHABET GRID */}
+            <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+              {data[letter].map((item) => (
                 <div
-                  className={`px-5 pb-4 text-sm text-white/90
-                  transition-all duration-300
-                  ${
-                    isOpen
-                      ? "max-h-[300px] opacity-100"
-                      : "max-h-0 opacity-0 overflow-hidden"
-                  }`}
+                  key={item.id}
+                  className="rounded-2xl overflow-hidden shadow-md
+                  bg-gradient-to-br from-indigo-600 via-blue-500 to-sky-400
+                  hover:scale-[1.03] transition-transform duration-300"
                 >
-                  <div className="border-t border-white/30 pt-3 space-y-1">
-                    {item.email && (
-                      <p>
-                        <span className="font-semibold">Email:</span>{" "}
-                        {item.email}
-                      </p>
-                    )}
+                  <div className="p-5 text-white h-[220px] space-y-2">
+                    <h3 className="font-semibold text-center text-md uppercase line-clamp-2">
+                      {item.name_of_association}
+                    </h3>
 
-                    {item.another_email && (
-                      <p>
-                        <span className="font-semibold">Alt:</span>{" "}
-                        {item.another_email}
-                      </p>
-                    )}
+                    <div className="border-t border-white/30 pt-3 text-sm space-y-1">
+                      {item.email && (
+                        <p>
+                          <span className="font-semibold">Email:</span>{" "}
+                          {item.email}
+                        </p>
+                      )}
 
-                    {item.president_name && (
-                      <p>
-                        <span className="font-semibold">President:</span>{" "}
-                        {item.president_name}
-                      </p>
-                    )}
+                      {item.another_email && (
+                        <p>
+                          <span className="font-semibold">Alt Email:</span>{" "}
+                          {item.another_email}
+                        </p>
+                      )}
 
-                    {item.name_of_sec && (
-                      <p>
-                        <span className="font-semibold">Secretary:</span>{" "}
-                        {item.name_of_sec}
-                      </p>
-                    )}
+                      {item.president_name && (
+                        <p>
+                          <span className="font-semibold">President:</span>{" "}
+                          {item.president_name}
+                        </p>
+                      )}
+
+                      {item.name_of_sec && (
+                        <p>
+                          <span className="font-semibold">Secretary:</span>{" "}
+                          {item.name_of_sec}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
-          );
-        })}
-      </div>
+          </div>
+        ))}
     </div>
   );
 };

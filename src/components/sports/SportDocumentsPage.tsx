@@ -80,7 +80,7 @@ const SportDocumentsPage: React.FC = () => {
                     to={doc.download_link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-[120px] flex flex-col items-center border rounded-xl p-3 hover:bg-gray-50 transition"
+                    className="w-[120px] h-32 flex flex-col items-center border rounded-xl p-3 hover:bg-gray-50 transition"
                   >
                     {/* PDF ICON */}
                     <img
