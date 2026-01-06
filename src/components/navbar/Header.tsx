@@ -1103,7 +1103,7 @@ export function Header() {
         </div>
 
         {/* ================= Mobile Menu ================= */}
-        {/* ================= Mobile Menu ================= */}
+
         {mobileMenuOpen && (
           <div className="lg:hidden border-t bg-white">
             {menuItems.map((item, idx) => {

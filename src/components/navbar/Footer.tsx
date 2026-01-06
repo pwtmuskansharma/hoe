@@ -350,7 +350,7 @@ export function Footer() {
               {settings.facebook_url && (
                 <Link
                   to={settings.facebook_url}
-                  // target="_blank"
+                  target="_blank"
                   rel="noopener noreferrer"
                 >
                   <Button
@@ -367,7 +367,7 @@ export function Footer() {
               {settings.twitter_url && (
                 <Link
                   to={settings.twitter_url}
-                  // target="_blank"
+                  target="_blank"
                   rel="noopener noreferrer"
                 >
                   <Button
@@ -384,7 +384,7 @@ export function Footer() {
               {settings.instagram_url && (
                 <Link
                   to={settings.instagram_url}
-                  // target="_blank"
+                  target="_blank"
                   rel="noopener noreferrer"
                 >
                   <Button
@@ -401,7 +401,7 @@ export function Footer() {
               {settings.youtube_url && (
                 <Link
                   to={settings.youtube_url}
-                  // target="_blank"
+                  target="_blank"
                   rel="noopener noreferrer"
                 >
                   <Button
@@ -418,7 +418,7 @@ export function Footer() {
               {settings.linkedin_url && (
                 <Link
                   to={settings.linkedin_url}
-                  // target="_blank"
+                  target="_blank"
                   rel="noopener noreferrer"
                 >
                   <Button
