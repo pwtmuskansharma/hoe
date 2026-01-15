@@ -92,45 +92,49 @@ const OrganisationPage: React.FC = () => {
 
   /* ================= UI ================= */
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {cards.map((card, index) => (
-          <div
-            key={index}
-            className="rounded-xl overflow-hidden bg-white shadow hover:shadow-lg transition uppercase"
-          >
-            {/* IMAGE */}
-            <img
-              src={card.image}
-              alt={card.name}
-              className="w-full h-60 object-cover"
-            />
+    <div className="bg-gradient-to-b from-sky-200 to-sky-200">
+      <div className="container mx-auto px-4 py-8 ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {cards.map((card, index) => (
+            <div
+              key={index}
+              className="rounded-xl overflow-hidden bg-white shadow hover:shadow-lg transition uppercase"
+            >
+              {/* IMAGE */}
+              <img
+                src={card.image}
+                alt={card.name}
+                className="w-full h-60 object-cover"
+              />
 
-            {/* TEXT */}
-            <div className="p-3">
-              <h4 className="font-semibold text-gray-800 text-md">
-                {card.name}
-              </h4>
+              {/* TEXT */}
+              <div className="p-3 text-center">
+                <h4 className="font-semibold text-gray-800 text-md">
+                  {card.name}
+                </h4>
 
-              {card.member_type && (
-                <p className="text-xs text-blue-600 font-medium">
-                  {card.member_type}
-                </p>
-              )}
+                {card.member_type && (
+                  <p className="text-sm text-blue-600 font-medium">
+                    {card.member_type}
+                  </p>
+                )}
 
-              {card.designation && (
-                <p className="text-md text-gray-600">{card.designation}</p>
-              )}
+                {card.designation && (
+                  <p className="text-md text-gray-600">{card.designation}</p>
+                )}
 
-              <p className="text-sm text-gray-500">{card.organisation}</p>
+                <p className="text-sm text-gray-500">{card.organisation}</p>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      {cards.length === 0 && (
-        <div className="text-center text-gray-500 mt-10">No data available</div>
-      )}
+        {cards.length === 0 && (
+          <div className="text-center text-gray-500 mt-10">
+            No data available
+          </div>
+        )}
+      </div>
     </div>
   );
 };

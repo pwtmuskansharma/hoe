@@ -567,124 +567,291 @@
 
 // export default MemberPage;
 
+// import React, { useEffect, useState } from "react";
+// import { useParams } from "react-router-dom";
+// import { fetchHoaMembers } from "../../../src/services/api/Member";
+
+// /* ================= INTERFACE ================= */
+// interface HoaMember {
+//   id: number;
+//   name_of_association: string;
+//   president_name?: string;
+//   name_of_sec?: string;
+//   email?: string;
+//   another_email?: string;
+//   icon: string;
+// }
+
+// type GroupedData = {
+//   [key: string]: HoaMember[];
+// };
+
+// /* ================= COMPONENT ================= */
+// const MemberPage: React.FC = () => {
+//   const { slug } = useParams();
+//   const [data, setData] = useState<GroupedData>({});
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState("");
+
+//   useEffect(() => {
+//     const fetchMembers = async () => {
+//       try {
+//         const response = await fetchHoaMembers(`hoa-members/${slug}`);
+//         let members: HoaMember[] = response?.data?.data?.[0]?.hoa_members || [];
+
+//         /* SORT A-Z */
+//         members.sort((a, b) =>
+//           a.name_of_association.localeCompare(b.name_of_association)
+//         );
+
+//         /* GROUP BY FIRST LETTER */
+//         const grouped: GroupedData = {};
+//         members.forEach((item) => {
+//           const letter = item.name_of_association.charAt(0).toUpperCase();
+//           if (!grouped[letter]) grouped[letter] = [];
+//           grouped[letter].push(item);
+//         });
+
+//         setData(grouped);
+//       } catch {
+//         setError("Failed to load data.");
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     if (slug) fetchMembers();
+//   }, [slug]);
+
+//   if (loading) return <div className="text-center py-20">Loading...</div>;
+//   if (error)
+//     return <div className="text-center text-red-500 py-10">{error}</div>;
+
+//   return (
+//     <div className="max-w-7xl mx-auto px-8 lg:px-14 py-12 space-y-14">
+//       {Object.keys(data)
+//         .sort()
+//         .map((letter) => (
+//           <div key={letter}>
+//             {/* ALPHABET TITLE */}
+//             <h2 className="text-3xl font-bold mb-6 text-gray-800">{letter}</h2>
+
+//             {/* ALPHABET GRID */}
+//             <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+//               {data[letter].map((item) => (
+//                 <div
+//                   key={item.id}
+//                   className="rounded-2xl overflow-hidden shadow-md
+//                   bg-gradient-to-br from-indigo-600 via-blue-500 to-sky-400
+//                   hover:scale-[1.03] transition-transform duration-300"
+//                 >
+//                   <div className="p-5 text-white h-[220px] space-y-2">
+//                     <h3 className="font-semibold text-center text-md uppercase line-clamp-2">
+//                       {item.name_of_association}
+//                     </h3>
+
+//                     <div className="border-t border-white/30 pt-3 text-sm space-y-1">
+//                       {item.email && (
+//                         <p>
+//                           <span className="font-semibold">Email:</span>{" "}
+//                           {item.email}
+//                         </p>
+//                       )}
+
+//                       {item.another_email && (
+//                         <p>
+//                           <span className="font-semibold">Alt Email:</span>{" "}
+//                           {item.another_email}
+//                         </p>
+//                       )}
+
+//                       {item.president_name && (
+//                         <p>
+//                           <span className="font-semibold">President:</span>{" "}
+//                           {item.president_name}
+//                         </p>
+//                       )}
+
+//                       {item.name_of_sec && (
+//                         <p>
+//                           <span className="font-semibold">Secretary:</span>{" "}
+//                           {item.name_of_sec}
+//                         </p>
+//                       )}
+//                     </div>
+//                   </div>
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+//         ))}
+//     </div>
+//   );
+// };
+
+// export default MemberPage;
+
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchHoaMembers } from "../../../src/services/api/Member";
 
-/* ================= INTERFACE ================= */
 interface HoaMember {
   id: number;
   name_of_association: string;
+  icon?: string;
   president_name?: string;
   name_of_sec?: string;
+  address?: string;
   email?: string;
-  another_email?: string;
-  icon: string;
+  phone?: string;
+  website?: string;
 }
 
-type GroupedData = {
-  [key: string]: HoaMember[];
-};
-
-/* ================= COMPONENT ================= */
 const MemberPage: React.FC = () => {
   const { slug } = useParams();
-  const [data, setData] = useState<GroupedData>({});
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [members, setMembers] = useState<HoaMember[]>([]);
+  const [selectedMember, setSelectedMember] = useState<HoaMember | null>(null);
 
   useEffect(() => {
     const fetchMembers = async () => {
-      try {
-        const response = await fetchHoaMembers(`hoa-members/${slug}`);
-        let members: HoaMember[] = response?.data?.data?.[0]?.hoa_members || [];
+      const response = await fetchHoaMembers(`hoa-members/${slug}`);
+      console.log("data", response);
+      debugger;
+      const fetchedMembers = response?.data?.data?.[0]?.hoa_members || [];
 
-        /* SORT A-Z */
-        members.sort((a, b) =>
-          a.name_of_association.localeCompare(b.name_of_association)
-        );
+      const sortedMembers = [...fetchedMembers].sort((a, b) =>
+        a.name_of_association.localeCompare(b.name_of_association)
+      );
 
-        /* GROUP BY FIRST LETTER */
-        const grouped: GroupedData = {};
-        members.forEach((item) => {
-          const letter = item.name_of_association.charAt(0).toUpperCase();
-          if (!grouped[letter]) grouped[letter] = [];
-          grouped[letter].push(item);
-        });
-
-        setData(grouped);
-      } catch {
-        setError("Failed to load data.");
-      } finally {
-        setLoading(false);
-      }
+      setMembers(sortedMembers);
     };
-
     if (slug) fetchMembers();
   }, [slug]);
 
-  if (loading) return <div className="text-center py-20">Loading...</div>;
-  if (error)
-    return <div className="text-center text-red-500 py-10">{error}</div>;
-
   return (
-    <div className="max-w-7xl mx-auto px-8 lg:px-14 py-12 space-y-14">
-      {Object.keys(data)
-        .sort()
-        .map((letter) => (
-          <div key={letter}>
-            {/* ALPHABET TITLE */}
-            <h2 className="text-3xl font-bold mb-6 text-gray-800">{letter}</h2>
+    <div className="max-w-full mx-auto">
+      {/* PAGE HEADER */}
+      <div
+        className="py-8 text-center"
+        style={{
+          backgroundImage: "url('/bggg.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <h1 className="md:text-3xl text-2xl font-bold text-black uppercase">
+          {slug}
+        </h1>
+      </div>
 
-            {/* ALPHABET GRID */}
-            <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-              {data[letter].map((item) => (
-                <div
-                  key={item.id}
-                  className="rounded-2xl overflow-hidden shadow-md
-                  bg-gradient-to-br from-indigo-600 via-blue-500 to-sky-400
-                  hover:scale-[1.03] transition-transform duration-300"
-                >
-                  <div className="p-5 text-white h-[220px] space-y-2">
-                    <h3 className="font-semibold text-center text-md uppercase line-clamp-2">
-                      {item.name_of_association}
-                    </h3>
+      {/* MEMBERS GRID */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 py-12 md:px-16 px-5">
+        {members.map((item) => (
+          <div
+            key={item.id}
+            onClick={() => setSelectedMember(item)}
+            className="cursor-pointer bg-white rounded-lg border shadow-sm hover:shadow-lg transition"
+          >
+            <div
+              className="text-center py-3 font-semibold uppercase text-sm rounded-t-lg"
+              style={{
+                backgroundImage: "url('/bggg.jpg')",
+                backgroundSize: "cover",
+              }}
+            >
+              {item.name_of_association}
+            </div>
 
-                    <div className="border-t border-white/30 pt-3 text-sm space-y-1">
-                      {item.email && (
-                        <p>
-                          <span className="font-semibold">Email:</span>{" "}
-                          {item.email}
-                        </p>
-                      )}
-
-                      {item.another_email && (
-                        <p>
-                          <span className="font-semibold">Alt Email:</span>{" "}
-                          {item.another_email}
-                        </p>
-                      )}
-
-                      {item.president_name && (
-                        <p>
-                          <span className="font-semibold">President:</span>{" "}
-                          {item.president_name}
-                        </p>
-                      )}
-
-                      {item.name_of_sec && (
-                        <p>
-                          <span className="font-semibold">Secretary:</span>{" "}
-                          {item.name_of_sec}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
+            <div className="flex items-center justify-center h-[130px] p-4">
+              {item.icon ? (
+                <img src={item.icon} className="w-24 h-24 object-contain" />
+              ) : (
+                <span className="text-gray-400">No Logo</span>
+              )}
             </div>
           </div>
         ))}
+      </div>
+
+      {/* ================= MODAL ================= */}
+      {selectedMember && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4"
+          onClick={() => setSelectedMember(null)} // ✅ outside click close
+        >
+          <div
+            className="bg-white w-96 max-w-4xl rounded-lg shadow-lg overflow-hidden relative"
+            onClick={(e) => e.stopPropagation()} // ❌ prevent close on inside click
+          >
+            {/* CLOSE BUTTON */}
+            <button
+              onClick={() => setSelectedMember(null)}
+              className="absolute top-1 right-3 text-gray-600 hover:text-black text-2xl"
+            >
+              ×
+            </button>
+
+            {/* MODAL HEADER */}
+            <div
+              className="bg-[#0d1b4c] text-black text-center py-4 font-bold uppercase"
+              style={{
+                backgroundImage: "url('/bggg.jpg')",
+                backgroundSize: "cover",
+              }}
+            >
+              {selectedMember.name_of_association}
+            </div>
+
+            {/* MODAL BODY */}
+            <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* LEFT LOGO */}
+              <div className="flex justify-center">
+                {selectedMember.icon && (
+                  <img
+                    src={selectedMember.icon}
+                    className="w-32 h-32 object-contain"
+                  />
+                )}
+              </div>
+
+              {/* RIGHT DETAILS */}
+              <div className="md:col-span-2 space-y-3 text-sm ">
+                <p className="uppercase">
+                  <strong>President:</strong>{" "}
+                  {selectedMember.president_name || "—"}
+                </p>
+                <p className="uppercase">
+                  <strong>Secretary:</strong>{" "}
+                  {selectedMember.name_of_sec || "—"}
+                </p>
+                {/* <p>
+                  <strong>Address:</strong> {selectedMember.address || "—"}
+                </p> */}
+                <p>
+                  <strong className="uppercase">Email:</strong>{" "}
+                  {selectedMember.email || "—"}
+                </p>
+                {/* <p>
+                  <strong>Phone:</strong> {selectedMember.phone || "—"}
+                </p> */}
+                {/*
+                {selectedMember.website && (
+                  <p>
+                    <strong>Website:</strong>{" "}
+                    <a
+                      href={selectedMember.website}
+                      target="_blank"
+                      className="text-blue-600 underline"
+                    >
+                      Visit
+                    </a>
+                  </p>
+                )} */}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

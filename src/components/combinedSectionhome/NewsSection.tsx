@@ -375,7 +375,7 @@ export function CombinedHOASection() {
               <h2 className="text-3xl font-semibold text-[#1b1f24] mb-2 border-l-4 border-sky-600 pl-3">
                 Latest HOA News
               </h2>
-              <p className="text-gray-600 text-base">
+              <p className="text-gray-600 text-base text-justify">
                 Stay updated with the latest developments in the Olympic
                 movement, upcoming events, and inspiring stories from Haryana.
               </p>
@@ -397,7 +397,9 @@ export function CombinedHOASection() {
                       <h3 className="text-xl font-semibold text-gray-900 mb-2">
                         {article.title}
                       </h3>
-                      <p className="text-gray-600 text-sm">{article.excerpt}</p>
+                      <p className="text-gray-600 text-sm text-justify">
+                        {article.excerpt}
+                      </p>
                       <div className="mt-3 text-sm text-gray-500">
                         {article.date} • {article.readTime}
                       </div>
@@ -424,7 +426,7 @@ export function CombinedHOASection() {
               <h2 className="text-3xl font-semibold text-[#1b1f24] mb-2 border-l-4 border-green-600 pl-3">
                 Guiding Force Behind HOA
               </h2>
-              <p className="text-gray-600 text-base">
+              <p className="text-gray-600 text-base text-justify">
                 Meet the distinguished leaders guiding Haryana's Olympic journey
                 and inspiring sporting excellence across the state.
               </p>
@@ -450,8 +452,10 @@ export function CombinedHOASection() {
                       />
                     </div>
                     <div className="mt-4">
-                      <h3 className="text-lg font-semibold text-gray-900">{d.name}</h3>
-                      <p className="text-gray-600 text-sm leading-relaxed px-2 md:px-4">
+                      <h3 className="text-lg font-semibold text-gray-900">
+                        {d.name}
+                      </h3>
+                      <p className="text-gray-600 text-sm leading-relaxed px-2 md:px-4 text-justify">
                         {d.bio}
                       </p>
                     </div>
@@ -466,14 +470,14 @@ export function CombinedHOASection() {
                 <button
                   key={index}
                   onClick={() => setCurrentIndex(index)}
-                  className={`w-2 h-2 mt-14 rounded-full transition-all duration-300 ${currentIndex === index
+                  className={`w-2 h-2 mt-14 rounded-full transition-all duration-300 ${
+                    currentIndex === index
                       ? "bg-gray-600 scale-110"
                       : "bg-gray-300 hover:bg-gray-400"
-                    }`}
+                  }`}
                 ></button>
               ))}
             </div>
-
           </div>
         </div>
       </div>

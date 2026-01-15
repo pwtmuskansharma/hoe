@@ -33,7 +33,7 @@ export function PersonalityCard() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-white">
               {person.name}
             </h2>
-            <p className="text-base sm:text-lg md:text-lg leading-relaxed text-gray-100 whitespace-pre-line">
+            <p className="text-base sm:text-lg md:text-lg leading-relaxed text-gray-100 whitespace-pre-line text-justify">
               {person.description}
             </p>
           </div>

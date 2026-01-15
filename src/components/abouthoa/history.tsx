@@ -83,7 +83,7 @@ const About = () => {
 
         {/* Body Content */}
         <section
-          className="text-gray-700 text-base md:text-lg leading-relaxed space-y-5"
+          className="text-gray-700 text-base md:text-lg leading-relaxed space-y-5 text-justify"
           dangerouslySetInnerHTML={{ __html: page.body }}
         />
       </div>

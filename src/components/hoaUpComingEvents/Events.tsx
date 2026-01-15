@@ -511,7 +511,9 @@ export function UpcomingEvents() {
                     <div className="space-y-1.5 md:space-y-2 mb-3 md:mb-4">
                       <div className="flex items-center space-x-2 text-gray-600">
                         <Calendar className="h-4 w-4 text-orange-500" />
-                        <span className="text-xs md:text-sm">{event.date}</span>
+                        <span className="text-xs md:text-sm">
+                          {event.date || "Comming Soon"}
+                        </span>
                       </div>
                       <div className="flex items-center space-x-2 text-gray-600">
                         <MapPin className="h-4 w-4 text-orange-500" />
@@ -549,7 +551,7 @@ export function UpcomingEvents() {
                     )}
 
                     {/* Buttons */}
-                    <div className="flex flex-wrap gap-2 mt-3">
+                    {/* <div className="flex flex-wrap gap-2 mt-3">
                       <Button
                         size="sm"
                         className="flex-1 md:flex-none bg-orange-500 hover:bg-orange-600 text-[11px] md:text-xs px-3 py-1.5"
@@ -563,12 +565,12 @@ export function UpcomingEvents() {
                       >
                         Follow
                       </Button>
-                    </div>
+                    </div> */}
                   </CardContent>
                 </div>
 
                 {/* Quick Actions */}
-                <div className="border-t border-gray-200 px-4 md:px-5 pb-4 md:pb-5 pt-3 md:pt-4 bg-gray-50">
+                {/* <div className="border-t border-gray-200 px-4 md:px-5 pb-4 md:pb-5 pt-3 md:pt-4 bg-gray-50">
                   <h4 className="text-center text-xs md:text-sm font-semibold text-gray-800 mb-3 md:mb-4">
                     Quick Actions
                   </h4>
@@ -600,7 +602,7 @@ export function UpcomingEvents() {
                       );
                     })}
                   </div>
-                </div>
+                </div> */}
               </Card>
             ))}
           </div>
