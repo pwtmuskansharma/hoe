@@ -258,8 +258,8 @@ const SportCategoryPage: React.FC = () => {
             {/* 🔤 ALPHABET BADGE (CARD KE BAHAR) */}
             {item.letter && (
               <span
-                className="absolute -top-9 left-3 z-20
-                bg-white text-gray-900
+                className="absolute -top-10 left-3 z-20
+                bg-white text-gray-900 border border-gray-300
                 font-bold text-base
                 px-3 py-1 rounded-lg shadow"
               >
@@ -276,9 +276,16 @@ const SportCategoryPage: React.FC = () => {
                 })
               }
               className="relative cursor-pointer h-[140px]
-              rounded-2xl overflow-hidden
-              bg-gradient-to-br from-indigo-600 via-blue-500 to-sky-400
-              hover:scale-[1.03] transition-all duration-300 shadow-md"
+             overflow-hidden
+              backdrop-blur-xl rounded-2xl
+             border border-white/30
+             transition-all duration-300"
+              style={{
+                backgroundImage: "url('/bggg.jpg')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+              }}
             >
               {/* CONTENT */}
               <div
@@ -290,13 +297,13 @@ const SportCategoryPage: React.FC = () => {
                   alt={item.name}
                   className="w-16 h-16 mb-3"
                 />
-                <h3 className="text-white font-semibold text-md uppercase">
+                <h3 className="text-black font-semibold text-md uppercase">
                   {item.name}
                 </h3>
               </div>
 
               {/* HOVER OVERLAY */}
-              <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition" />
+              {/* <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition" /> */}
             </div>
           </div>
         ))}

@@ -42,6 +42,8 @@ import MemberPage from "./components/member/Member";
 import OrganisationPage from "./components/organisation/Organisation";
 import GalleryFolderPage from "./components/media/gallery/FolderImage";
 
+import MemberUnit from "./components/member/MemberASSOCIATEunit";
+
 function HomePage() {
   return (
     <>
@@ -110,6 +112,7 @@ export default function App() {
 
             {/* member */}
             <Route path="/members/:slug" element={<MemberPage />} />
+            <Route path="/:slug" element={<MemberUnit />} />
 
             {/* organisation */}
             <Route path="/organisation/:slug" element={<OrganisationPage />} />

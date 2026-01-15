@@ -1,6 +1,6 @@
 /* Page baseline */
 body {
-  background: linear-gradient(180deg, #e3f2fd 0%, #bbdefb 100%);
+  /* background: linear-gradient(180deg, #e3f2fd 0%, #bbdefb 100%); */
   font-family: "Segoe UI", "Poppins", sans-serif;
   min-height: 100vh;
   margin: 0;
