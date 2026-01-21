@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { useState } from "react";
 
-export default function PreviewModal({ show, onClose, data }) {
+export default function PreviewModal({ show, onClose, data, onSubmit }) {
   const [submitting, setSubmitting] = useState(false); // track submission
 
   if (!show) return null;
@@ -11,26 +11,127 @@ export default function PreviewModal({ show, onClose, data }) {
   const handleConfirm = async () => {
     try {
       setSubmitting(true);
-      console.log("Submitting data:", data); // for debugging
+      // 🔥 TRANSFORM PAYLOAD (Frontend ➜ Backend format)
+      const payload = {
+        /* ================= BASIC ================= */
+        firstName: data.firstName,
+        middleName: data.middleName || "",
+        lastName: data.lastName,
+        fatherName: data.fatherName || "",
+        motherName: data.motherName || "",
+        dob: data.dob,
+        gender: data.gender,
+        aadhar: data.aadhaar?.replace(/-/g, "") || "",
+
+        /* ================= CONTACT ================= */
+        mobile: data.mobile?.replace(/-/g, ""),
+        father_phone_no: data.fatherContact,
+        mother_phone_no: data.motherContact || "",
+        email: data.email,
+
+        /* ================= TEMP ADDRESS ================= */
+        temp_flat: data.tempAddress?.block,
+        temp_premises: data.tempAddress?.village || "",
+        temp_road: data.tempAddress?.postOffice,
+        temp_area: data.tempAddress?.area,
+        temp_city: data.tempAddress?.district,
+        temp_pincode: data.tempAddress?.zipcode,
+
+        /* ================= PERMANENT ADDRESS ================= */
+        is_permanent_same: data.sameAddress,
+
+        perm_flat: data.sameAddress
+          ? data.tempAddress?.block
+          : data.permAddress?.block,
+
+        perm_premises: data.sameAddress
+          ? data.tempAddress?.village
+          : data.permAddress?.village,
+
+        perm_road: data.sameAddress
+          ? data.tempAddress?.postOffice
+          : data.permAddress?.postOffice,
+
+        perm_area: data.sameAddress
+          ? data.tempAddress?.area
+          : data.permAddress?.area,
+
+        perm_city: data.sameAddress
+          ? data.tempAddress?.district
+          : data.permAddress?.district,
+
+        perm_pincode: data.sameAddress
+          ? data.tempAddress?.zipcode
+          : data.permAddress?.zipcode,
+
+        /* ================= PHYSICAL ================= */
+        idMark: data.idMark || "",
+        height: data.height || null,
+        bloodGroup: data.bloodGroup || "",
+
+        /* ================= SPORTS ================= */
+        sport_id: data.sportId?.id,
+        event_id: data.categoryId?.length
+          ? Number(data.categoryId[0].id)
+          : null,
+
+        /* ================= SOCIAL ================= */
+        instagram: data.socialMedia?.Instagram?.url || "",
+        facebook: data.socialMedia?.Facebook?.url || "",
+        twitter: data.socialMedia?.Twitter?.url || "",
+        youtube: data.socialMedia?.YouTube?.url || "",
+        linkdin: data.socialMedia?.LinkedIn?.url || "",
+
+        /* ================= AUTH ================= */
+        username: data.email,
+        password: data.password,
+        terms: true,
+
+        /* ================= QUALIFICATIONS ================= */
+        qualifications: data.education?.map((edu) => ({
+          education_level: edu.level,
+          institute_name: edu.institution,
+          district: edu.district || "",
+          state: edu.state || "",
+          city: edu.city || "",
+          pincode: edu.pincode || "",
+        })),
+
+        /* ================= ACHIEVEMENTS ================= */
+        achievements: Object.values(data.achievements || {})
+          .flat()
+          .filter(Boolean)
+          .map((a) => ({
+            tournament_name: a.tournamentName,
+            organization: a.organization,
+            place_of_competition: a.place,
+            competition_date: a.date,
+            achievement: a.achievement,
+          })),
+      };
+      console.log("Submitting data:", payload); // for debugging
       debugger;
+      await onSubmit(payload);
+      onClose();
+      // const apiUrl = "https://hoa.premiercourses.in/api/athlete-register"; // replace with your endpoint
+      // const response = await fetch(apiUrl, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(payload),
+      // });
 
-      const apiUrl = "https://your-api-endpoint.com/submit-form"; // replace with your endpoint
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      // const result = await response.json();
+      // console.log(result);
+      // debugger;
 
-      const result = await response.json();
-
-      if (response.ok) {
-        alert("Form submitted successfully!");
-        onClose(); // close modal after success
-      } else {
-        alert(result.message || "Failed to submit form.");
-      }
+      // if (response.ok && result.success) {
+      //   alert("Form submitted successfully!");
+      //   onClose(); // close modal after success
+      // } else {
+      //   alert(result.message || "Failed to submit form.");
+      // }
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("An error occurred while submitting the form.");
@@ -192,7 +293,7 @@ export default function PreviewModal({ show, onClose, data }) {
                         </p>
                       )}
                     </div>
-                  )
+                  ),
                 )}
                 <div className="mb-2">
                   <h4 className="text-lg font-bold mb-1">Other</h4>

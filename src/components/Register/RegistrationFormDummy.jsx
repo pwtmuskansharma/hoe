@@ -127,6 +127,81 @@ export default function MultiStepForm() {
       scale: 0.85,
     }),
   };
+  const validateStep = (step) => {
+    let validationErrors = {};
+
+    // STEP 1 – BASIC DETAILS
+    if (step === 1) {
+      if (!formData.firstName)
+        validationErrors.firstName = "First Name is required";
+
+      if (!formData.lastName)
+        validationErrors.lastName = "Last Name is required";
+
+      if (!formData.gender) validationErrors.gender = "Gender is required";
+
+      if (!formData.dob) validationErrors.dob = "Date of Birth is required";
+
+      if (!formData.mobile)
+        validationErrors.mobile = "Mobile number is required";
+
+      if (!formData.isMobileVerified)
+        validationErrors.isMobileVerified = "Mobile verification is required";
+
+      if (!formData.email) validationErrors.email = "Email is required";
+
+      if (!formData.isEmailVerified)
+        validationErrors.isEmailVerified = "Email verification is required";
+
+      if (!formData.sportId?.id)
+        validationErrors.sportId = "Sport selection is required";
+
+      if (!formData.categoryId || formData.categoryId.length === 0)
+        validationErrors.categoryId = "At least 1 category must be selected";
+
+      if (!formData.passportPhoto)
+        validationErrors.passportPhoto = "Passport photo is required";
+    }
+
+    // STEP 2 – ADDRESS
+    if (step === 2) {
+      const addr = formData.tempAddress || {};
+      if (!addr.block || !addr.village || !addr.zipcode) {
+        validationErrors.address = "Temporary address is incomplete";
+      }
+    }
+
+    // STEP 3 – AADHAAR
+    if (step === 3) {
+      if (!formData.aadhaar) validationErrors.aadhaar = "Aadhaar is required";
+
+      if (!formData.isAadhaarVerified)
+        validationErrors.isAadhaarVerified = "Aadhaar verification is required";
+    }
+
+    // STEP 4 – EDUCATION
+    if (step === 4) {
+      if (!formData.education || formData.education.length === 0) {
+        validationErrors.education = "Education details are required";
+      }
+    }
+
+    setErrors(validationErrors);
+
+    // Toast errors
+    if (Object.keys(validationErrors).length > 0) {
+      Object.values(validationErrors).forEach((msg) => toast.error(msg));
+      return false;
+    }
+
+    return true;
+  };
+  const handleNext = () => {
+    const isValid = validateStep(step);
+    if (!isValid) return;
+
+    nextStep();
+  };
 
   const handleSubmit = () => {
     let validationErrors = {};
@@ -182,19 +257,26 @@ export default function MultiStepForm() {
     setShowPreview(true);
   };
 
-  const handleApiSubmit = async () => {
+  const handleApiSubmit = async (payload) => {
+    console.log("", payload);
+    debugger;
     try {
-      const response = await fetch("https://your-api-endpoint.com/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://hoa.premiercourses.in/api/athlete-register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        },
+      );
 
       const result = await response.json();
-
-      if (response.ok) {
+      console.log("data", result);
+      debugger;
+      if (response.ok && result.success) {
         alert("Form submitted successfully!");
         setShowPreview(false); // close modal
+        setFormData([]);
       } else {
         alert(result.message || "Failed to submit form.");
       }
@@ -234,6 +316,7 @@ export default function MultiStepForm() {
               formData={formData}
               updateFormData={updateFormData}
               nextStep={nextStep}
+              errors={errors}
             />
           </motion.div>
         )}
@@ -351,8 +434,9 @@ export default function MultiStepForm() {
 
         {step < totalSteps && (
           <button
+            type="button"
+            onClick={handleNext}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded ml-auto"
-            onClick={nextStep}
           >
             Next
           </button>
@@ -376,9 +460,9 @@ export default function MultiStepForm() {
       />
       <ToastContainer position="top-right" autoClose={2000} />
       {/* Debug */}
-      <pre className="bg-gray-100 p-4 rounded mt-6">
+      {/* <pre className="bg-gray-100 p-4 rounded mt-6">
         {JSON.stringify(formData, null, 2)}
-      </pre>
+      </pre> */}
     </div>
   );
 }

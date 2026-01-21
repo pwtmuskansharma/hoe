@@ -11,12 +11,12 @@ import { apiFetch } from "../../services/api/RegisterService";
 import SportsSelect from "./Sport";
 import SportCategorySelect from "./SportCategory";
 import { Eye, EyeOff } from "lucide-react"; // ← install lucide-react if not already
-import AddressForm from"./Address";
-import AchievementForm from"./Achivement";
-import Education from"./Education";
-import SocialMediaForm from"./SocialMedia";
-import AddharCardUpload from"./AddharCard";
-import BasicDetails from"./BasicDetails";
+import AddressForm from "./Address";
+import AchievementForm from "./Achivement";
+import Education from "./Education";
+import SocialMediaForm from "./SocialMedia";
+import AddharCardUpload from "./AddharCard";
+import BasicDetails from "./BasicDetails";
 
 // ---------- Types ----------
 interface EventRow {
@@ -165,7 +165,7 @@ const HOARegistrationForm: React.FC = () => {
       "Rugby",
       "Sepaktakraw",
     ],
-    []
+    [],
   );
 
   const achievementLevels: AchievementLevel[] = [
@@ -272,7 +272,7 @@ const HOARegistrationForm: React.FC = () => {
       const match = data.find((e) => e.category === category);
       if (match) {
         const gendered = match.events.filter(
-          (ev) => ev.gender === gender || ev.gender === "Mixed"
+          (ev) => ev.gender === gender || ev.gender === "Mixed",
         );
         events.push(...gendered.map((ev) => `${match.category} - ${ev.event}`));
       }
@@ -318,7 +318,7 @@ const HOARegistrationForm: React.FC = () => {
   // Helper function to build preview URLs
   const buildPreview = (
     file: File | undefined,
-    setUrl: React.Dispatch<React.SetStateAction<string | null>>
+    setUrl: React.Dispatch<React.SetStateAction<string | null>>,
   ) => {
     if (!file) {
       setUrl(null);
@@ -343,7 +343,7 @@ const HOARegistrationForm: React.FC = () => {
   const handleFileUpload = (
     e: React.ChangeEvent<HTMLInputElement>,
     setUrl: React.Dispatch<React.SetStateAction<string | null>>,
-    setName: React.Dispatch<React.SetStateAction<string>>
+    setName: React.Dispatch<React.SetStateAction<string>>,
   ) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -367,7 +367,7 @@ const HOARegistrationForm: React.FC = () => {
     console.log(
       "foooorm",
       form.sportId,
-      form.sportId.id && form.categoryId.length === 0
+      form.sportId.id && form.categoryId.length === 0,
     );
     debugger;
 
@@ -539,7 +539,7 @@ const HOARegistrationForm: React.FC = () => {
 
       console.log("Submitting formData...");
       Array.from(formData.entries()).forEach(([k, v]) =>
-        console.log(k, v instanceof File ? v.name : v)
+        console.log(k, v instanceof File ? v.name : v),
       );
 
       // ---------- Submit to backend ----------
@@ -698,7 +698,7 @@ const HOARegistrationForm: React.FC = () => {
                 touch(
                   "firstName",
                   !!form.firstName.trim(),
-                  "First name is required."
+                  "First name is required.",
                 )
               }
               type="text"
@@ -747,7 +747,7 @@ const HOARegistrationForm: React.FC = () => {
                 touch(
                   "lastName",
                   !!form.lastName.trim(),
-                  "Last name is required."
+                  "Last name is required.",
                 )
               }
               type="text"
@@ -786,7 +786,7 @@ const HOARegistrationForm: React.FC = () => {
               touch(
                 "fathersName",
                 !!form.fathersName.trim(),
-                "Father’s name is required."
+                "Father’s name is required.",
               )
             }
             type="text"
@@ -821,7 +821,7 @@ const HOARegistrationForm: React.FC = () => {
               touch(
                 "mothersName",
                 !!form.mothersName.trim(),
-                "Mother’s name is required."
+                "Mother’s name is required.",
               )
             }
             type="text"
@@ -856,7 +856,7 @@ const HOARegistrationForm: React.FC = () => {
               touch(
                 "dob",
                 isValidDOB(form.dob),
-                "Athlete must be at least 5 years old."
+                "Athlete must be at least 5 years old.",
               )
             }
             type="date"
@@ -1078,7 +1078,7 @@ const HOARegistrationForm: React.FC = () => {
               touch(
                 "permanentAddress",
                 !!form.permanentAddress.trim(),
-                "Permanent address is required."
+                "Permanent address is required.",
               )
             }
             rows={2}
@@ -1116,7 +1116,7 @@ const HOARegistrationForm: React.FC = () => {
               touch(
                 "tempAddress",
                 !!form.tempAddress.trim(),
-                "Temporary address is required."
+                "Temporary address is required.",
               )
             }
             rows={2}
@@ -1147,7 +1147,7 @@ const HOARegistrationForm: React.FC = () => {
                 touch(
                   "mobile",
                   isMobile10(digits),
-                  "Enter a valid 10-digit mobile number."
+                  "Enter a valid 10-digit mobile number.",
                 );
               }}
               type="tel"
@@ -1178,7 +1178,7 @@ const HOARegistrationForm: React.FC = () => {
                 touch(
                   "email",
                   isEmail(form.email),
-                  "Enter a valid email address."
+                  "Enter a valid email address.",
                 )
               }
               type="email"
@@ -1214,7 +1214,7 @@ const HOARegistrationForm: React.FC = () => {
               touch(
                 "idMark",
                 !!form.idMark.trim(),
-                "Identification mark is required."
+                "Identification mark is required.",
               )
             }
             type="text"
@@ -1256,7 +1256,7 @@ const HOARegistrationForm: React.FC = () => {
                 touch(
                   "height",
                   form.height >= 125 && form.height <= 275,
-                  "Height (cm) must be between 125 and 275."
+                  "Height (cm) must be between 125 and 275.",
                 );
             }}
             aria-invalid={!!errors.height}
@@ -1287,7 +1287,7 @@ const HOARegistrationForm: React.FC = () => {
               touch(
                 "bloodGroup",
                 isBloodGroup(form.bloodGroup),
-                "Blood group must be A+/A-/B+/B-/AB+/AB-/O+/O-."
+                "Blood group must be A+/A-/B+/B-/AB+/AB-/O+/O-.",
               )
             }
             required
@@ -1475,7 +1475,7 @@ const HOARegistrationForm: React.FC = () => {
               touch(
                 "qualification",
                 !!form.qualification.trim(),
-                "Qualification is required."
+                "Qualification is required.",
               )
             }
             required
@@ -1510,7 +1510,7 @@ const HOARegistrationForm: React.FC = () => {
               touch(
                 "college",
                 !!form.college.trim(),
-                "College / University is required."
+                "College / University is required.",
               )
             }
             required
@@ -1631,7 +1631,7 @@ const HOARegistrationForm: React.FC = () => {
                 touch(
                   "password",
                   isStrongPassword(form.password),
-                  "Password must be 8+ chars with at least 1 letter & 1 number."
+                  "Password must be 8+ chars with at least 1 letter & 1 number.",
                 )
               }
               type={showPassword ? "text" : "password"}

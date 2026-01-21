@@ -62,6 +62,7 @@ export default function AddressFormTailwind({ formData, updateFormData }) {
             label={addressLabels[field]}
             value={tempAddress[field]}
             onChange={handleTempChange}
+            required
           />
         ))}
         <SelectDropdown
@@ -70,6 +71,7 @@ export default function AddressFormTailwind({ formData, updateFormData }) {
           value={tempAddress.district}
           options={Object.keys(haryanaLocations.districts)}
           onChange={handleTempChange}
+          required
         />
         <InputWithLabel
           name="zipcode"
@@ -82,6 +84,7 @@ export default function AddressFormTailwind({ formData, updateFormData }) {
               handleTempChange(e);
             }
           }}
+          required
         />
       </div>
 
@@ -111,6 +114,7 @@ export default function AddressFormTailwind({ formData, updateFormData }) {
             value={permAddress[field]}
             onChange={handlePermChange}
             disabled={sameAddress}
+            required
           />
         ))}
         <SelectDropdown
@@ -120,6 +124,7 @@ export default function AddressFormTailwind({ formData, updateFormData }) {
           options={Object.keys(haryanaLocations.districts)}
           onChange={handlePermChange}
           disabled={sameAddress}
+          required
         />
         <InputWithLabel
           name="zipcode"
@@ -135,6 +140,7 @@ export default function AddressFormTailwind({ formData, updateFormData }) {
             }
           }}
           disabled={sameAddress}
+          required
         />
       </div>
     </div>
@@ -142,10 +148,22 @@ export default function AddressFormTailwind({ formData, updateFormData }) {
 }
 
 /* ----------------------- REUSABLE COMPONENTS ------------------------ */
-function InputWithLabel({ name, label, value, onChange, disabled, ...rest }) {
+function InputWithLabel({
+  name,
+  label,
+  required,
+  value,
+  onChange,
+  disabled,
+  ...rest
+}) {
   return (
     <div className="flex flex-col">
-      <label className="text-sm font-medium mb-1">{label}</label>
+      <label className="text-sm font-medium mb-1">
+        {label}
+        {required && <span className="text-red-500 ml-1">*</span>}
+      </label>
+
       <input
         name={name}
         value={value}
@@ -161,10 +179,20 @@ function InputWithLabel({ name, label, value, onChange, disabled, ...rest }) {
   );
 }
 
-function SelectDropdown({ label, name, value, onChange, options, disabled }) {
+function SelectDropdown({
+  label,
+  name,
+  required,
+  value,
+  onChange,
+  options,
+  disabled,
+}) {
   return (
     <div className="flex flex-col">
-      <label className="text-sm font-medium mb-1">{label}</label>
+      <label className="text-sm font-medium mb-1">
+        {label} {required && <span className="text-red-500 ml-1">*</span>}
+      </label>
       <select
         name={name}
         value={value}

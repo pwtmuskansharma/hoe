@@ -113,7 +113,9 @@ const PdfIcon: React.FC = () => (
   <img
     src="https://olympic.ind.in/wp-content/themes/olympic-india/assets/images/pdf-svgrepo-com.svg"
     alt="PDF"
-    className="w-5 h-5 mr-3 flex-shrink-0"
+    className=" mr-3  w-6 h-6 flex-shrink-0
+                       transition-transform duration-300
+                       group-hover:rotate-12"
   />
 );
 
@@ -136,6 +138,7 @@ interface PolicyCategory {
   id: number;
   name: string;
   slug: string;
+  full_name: string;
   status: boolean;
   documents: DocumentItem[];
 }
@@ -176,7 +179,7 @@ const PdfPoliciesPage: React.FC<PdfPoliciesPageProps> = ({ slug }) => {
     <div className="min-h-screen bg-gray-50 text-gray-900">
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-900 to-indigo-900 p-8 text-center">
-        <h1 className="text-3xl font-bold text-white">{category.name}</h1>
+        <h1 className="text-3xl font-bold text-white">{category.full_name}</h1>
       </div>
 
       <div className="max-w-4xl mx-auto p-6 space-y-12">
@@ -189,14 +192,18 @@ const PdfPoliciesPage: React.FC<PdfPoliciesPageProps> = ({ slug }) => {
                 to={file.download_link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center p-3 bg-white rounded-lg shadow hover:bg-gray-100 transition"
+                className="flex items-center p-3 bg-white rounded-lg shadow  hover:bg-gray-100 transition"
               >
                 <PdfIcon />
-                <span className="text-sm md:text-base">
+                <span
+                  className="text-sm md:text-base text-gray-700 break-all
+                     transition-colors duration-300
+                     group-hover:text-orange-400"
+                >
                   {file.original_name}
                 </span>
               </Link>
-            ))
+            )),
           )}
         </div>
       </div>

@@ -288,12 +288,16 @@ export function Footer() {
   useEffect(() => {
     const fetchPolicyPages = async () => {
       try {
-        const policySlugs = ["privacy-policy", "terms-of-use", "cookie-policy"];
+        const policySlugs = [
+          "privacy-policy",
+          "terms-of-use",
+          "cancellation-policy",
+        ];
         const promises = policySlugs.map(
           (slug) =>
             apiAboutPage(`pages/${slug}`)
               .then((res: any) => res?.data?.data)
-              .catch(() => null) // agar fail ho jaye to null return kare
+              .catch(() => null), // agar fail ho jaye to null return kare
         );
         const pages = (await Promise.all(promises)).filter(Boolean); // null remove
         setPolicyPages(pages);
@@ -442,8 +446,8 @@ export function Footer() {
               {footerPages
                 ?.filter((page) =>
                   ["about us", "olympic values", "anti-doping"].includes(
-                    page.name.toLowerCase()
-                  )
+                    page.name.toLowerCase(),
+                  ),
                 )
                 .map((page) => {
                   const slug = quickLinkSlugMap[page.name.toLowerCase()];
@@ -554,9 +558,9 @@ export function Footer() {
                         >
                           {page.title}
                         </Link>
-                      )
+                      ),
                   )
-                : ["Privacy Policy", "Terms of Use", "Cookie Policy"].map(
+                : ["Privacy Policy", "Terms of Use", "Cancellation Policy"].map(
                     (name) => (
                       <Link
                         key={name}
@@ -565,7 +569,7 @@ export function Footer() {
                       >
                         {name}
                       </Link>
-                    )
+                    ),
                   )}
             </div>
           </div>

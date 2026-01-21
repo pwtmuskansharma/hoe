@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import SportsSelect from "./Sport";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import SportCategorySelect from "./SportCategory";
+const API_BASE = "https://hoa.premiercourses.in/api";
 
 // Validation helpers
 const isEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+const isMobile = (mobile) => /^[6-9]\d{4}-?\d{5}$/.test(mobile);
 
 export default function BasicDetails({ formData, updateFormData }) {
   const [errors, setErrors] = useState({});
@@ -11,10 +15,17 @@ export default function BasicDetails({ formData, updateFormData }) {
   const [showOtp, setShowOtp] = useState(false);
   const [otp, setOtp] = useState("");
   const [timer, setTimer] = useState(0);
+  // Mobile OTP states
+  const [showMobileSendOtp, setShowMobileSendOtp] = useState(false);
+  const [showMobileOtp, setShowMobileOtp] = useState(false);
+  const [mobileOtp, setMobileOtp] = useState("");
+  const [mobileTimer, setMobileTimer] = useState(0);
+
   const [photoUrl, setPhotoUrl] = useState("");
   const [passportPhotoName, setPassportPhotoName] = useState("");
 
-  const generatedOtp = "123456";
+  const DUMMY_EMAIL_OTP = "123456";
+  const DUMMY_MOBILE_OTP = "654321";
 
   const touch = (field, valid, message) => {
     setErrors((prev) => ({
@@ -63,24 +74,152 @@ export default function BasicDetails({ formData, updateFormData }) {
     }
   };
 
-  const sendOtpToEmail = () => {
-    if (!formData.email) return;
+  // const sendOtpToEmail = () => {
+  //   if (!formData.email) return;
 
-    alert(`OTP sent to ${formData.email}`);
-    setShowSendOtp(false);
-    setShowOtp(true);
-    setTimer(60);
-  };
+  //   alert(`OTP sent to ${formData.email}`);
+  //   setShowSendOtp(false);
+  //   setShowOtp(true);
+  //   setTimer(60);
+  // };
 
-  const handleVerifyOtp = () => {
-    if (otp === generatedOtp) {
-      updateFormData({ isEmailVerified: true });
-      setShowOtp(false);
-      alert("Email verified successfully!");
-    } else {
-      alert("Invalid OTP");
+  // const handleVerifyOtp = () => {
+  //   if (otp === DUMMY_EMAIL_OTP) {
+  //     updateFormData({ isEmailVerified: true });
+  //     setShowOtp(false);
+  //     setOtp("");
+  //     alert("Email verified successfully!");
+  //   } else {
+  //     alert("Invalid Email OTP");
+  //   }
+  // };
+
+  const sendOtpToEmail = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/resend-email-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: formData.email }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setShowSendOtp(false);
+        setShowOtp(true);
+        setTimer(60);
+        alert("OTP sent to email");
+      } else {
+        alert(data.message || "Failed to send OTP");
+      }
+    } catch (err) {
+      alert("Server error");
     }
   };
+
+  const handleVerifyOtp = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/verify-email-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.email,
+          otp,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        updateFormData({ isEmailVerified: true });
+        setShowOtp(false);
+        setOtp("");
+        alert("Email verified successfully");
+      } else {
+        alert(data.message || "Invalid OTP");
+      }
+    } catch (err) {
+      alert("Server error");
+    }
+  };
+
+  const handleMobileChange = (e) => {
+    let raw = e.target.value.replace(/\D/g, "");
+    if (raw.length > 10) raw = raw.slice(0, 10);
+
+    // format: 98765-11111
+    let formatted = raw;
+    if (raw.length > 5) {
+      formatted = raw.slice(0, 5) + "-" + raw.slice(5);
+    }
+
+    updateFormData({ mobile: formatted });
+    updateFormData({ isMobileVerified: false });
+
+    if (isMobile(formatted)) {
+      setShowMobileSendOtp(true);
+      setErrors((prev) => ({ ...prev, mobile: "" }));
+    } else {
+      setShowMobileSendOtp(false);
+      setErrors((prev) => ({ ...prev, mobile: "Invalid mobile number" }));
+    }
+  };
+
+  const sendMobileOtp = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/resend-phone-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone: formData.mobile.replace("-", "") }),
+      });
+
+      const data = await res.json();
+      console.log("sdfdgf", data);
+      debugger;
+      if (data.success) {
+        setShowMobileSendOtp(false);
+        setShowMobileOtp(true);
+        setMobileTimer(60);
+        toast.success("Mobile verified successfully");
+      } else {
+        toast.error(data.message || "Invalid OTP");
+      }
+    } catch {
+      toast.error("Server error");
+    }
+  };
+
+  const verifyMobileOtp = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/verify-phone-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          phone: formData.mobile.replace("-", ""),
+          otp: mobileOtp,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        updateFormData({ isMobileVerified: true });
+        setShowMobileOtp(false);
+        setMobileOtp("");
+        toast.success("Mobile verified successfully");
+      } else {
+        toast.error(data.message || "Invalid OTP");
+      }
+    } catch {
+      toast.error("Server error");
+    }
+  };
+
+  useEffect(() => {
+    if (mobileTimer <= 0) return;
+    const interval = setInterval(
+      () => setMobileTimer((prev) => prev - 1),
+      1000,
+    );
+    return () => clearInterval(interval);
+  }, [mobileTimer]);
 
   useEffect(() => {
     if (timer <= 0) return;
@@ -134,8 +273,8 @@ export default function BasicDetails({ formData, updateFormData }) {
             field === "firstName"
               ? "First Name"
               : field === "middleName"
-              ? "Middle Name"
-              : "Last Name";
+                ? "Middle Name"
+                : "Last Name";
 
           return (
             <div key={idx}>
@@ -190,7 +329,7 @@ export default function BasicDetails({ formData, updateFormData }) {
                   item.name,
                   item.numeric
                     ? e.target.value.replace(/\D/g, "")
-                    : e.target.value
+                    : e.target.value,
                 )
               }
               maxLength={item.numeric ? 10 : undefined}
@@ -243,30 +382,77 @@ export default function BasicDetails({ formData, updateFormData }) {
           <input
             type="text"
             maxLength={11}
-            placeholder="98765-12345"
+            placeholder="98765-11111"
             className={`w-full p-2 border rounded-md focus:outline-none focus:ring ${
               errors.mobile
                 ? "border-red-500 focus:ring-red-400"
                 : "border-gray-300 focus:ring-blue-300"
             }`}
             value={formData.mobile}
-            onChange={(e) => {
-              let val = e.target.value.replace(/\D/g, "");
-              if (val.length > 10) val = val.slice(0, 10);
-              if (val.length > 5) val = val.slice(0, 5) + "-" + val.slice(5);
-              handleChange("mobile", val);
-            }}
+            onChange={handleMobileChange}
             onBlur={() =>
               touch(
                 "mobile",
-                formData.mobile.replace("-", "").length === 10,
-                "Enter valid number"
+                isMobile(formData.mobile),
+                "Enter valid 10-digit mobile number",
               )
             }
           />
 
-          {errors.mobile && (
-            <p className="text-red-500 text-sm mt-1">{errors.mobile}</p>
+          {showMobileSendOtp && !formData.isMobileVerified && (
+            <button
+              type="button"
+              className="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              onClick={sendMobileOtp}
+            >
+              Send OTP
+            </button>
+          )}
+
+          {showMobileOtp && (
+            <div className="mt-3">
+              <label className="block mb-1 font-medium">Enter OTP</label>
+
+              <input
+                type="text"
+                value={mobileOtp}
+                placeholder="Enter OTP"
+                className="w-full p-2 border rounded"
+                onChange={(e) =>
+                  setMobileOtp(e.target.value.replace(/\D/g, "").slice(0, 6))
+                }
+              />
+
+              <div className="mt-2 text-sm flex items-center gap-3">
+                <button
+                  type="button"
+                  className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+                  onClick={verifyMobileOtp}
+                >
+                  Verify OTP
+                </button>
+
+                {mobileTimer > 0 ? (
+                  <p className="text-gray-500">Resend OTP in {mobileTimer}s</p>
+                ) : (
+                  <button
+                    type="button"
+                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                    onClick={sendMobileOtp}
+                  >
+                    Resend OTP
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
+
+          {formData.isMobileVerified && (
+            <div className="mt-2 p-2 border-l-4 border-green-600 bg-green-50 rounded">
+              <p className="text-green-800 font-medium">
+                Mobile Verified: {formData.mobile}
+              </p>
+            </div>
           )}
         </div>
 
@@ -371,9 +557,9 @@ export default function BasicDetails({ formData, updateFormData }) {
 
           <input
             type="number"
-            placeholder="125-275"
-            min={125}
-            max={275}
+            placeholder="121.92-213.75 cm"
+            min={121.4}
+            max={213}
             className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:ring-orange-300"
             value={formData.height || ""}
             onChange={(e) => handleChange("height", Number(e.target.value))}

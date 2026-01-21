@@ -1,0 +1,225 @@
+import React, { useState, useEffect } from "react";
+import SportsSelect from "./Sport";
+import SportCategorySelect from "./SportCategory";
+
+const API_BASE = "https://hoa.premiercourses.in/api";
+
+// Validation helpers
+const isEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+const isMobile = (mobile) => /^[6-9]\d{4}-?\d{5}$/.test(mobile);
+
+export default function BasicDetails({
+  formData,
+  updateFormData,
+  errors = {},
+}) {
+  const [showSendOtp, setShowSendOtp] = useState(false);
+  const [showOtp, setShowOtp] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [timer, setTimer] = useState(0);
+
+  const [showMobileSendOtp, setShowMobileSendOtp] = useState(false);
+  const [showMobileOtp, setShowMobileOtp] = useState(false);
+  const [mobileOtp, setMobileOtp] = useState("");
+  const [mobileTimer, setMobileTimer] = useState(0);
+
+  const [photoUrl, setPhotoUrl] = useState("");
+  const [passportPhotoName, setPassportPhotoName] = useState("");
+
+  const handleChange = (field, value) => {
+    updateFormData({ [field]: value });
+  };
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    updateFormData({ passportPhoto: file });
+    setPassportPhotoName(file.name);
+
+    const reader = new FileReader();
+    reader.onloadend = () => setPhotoUrl(reader.result);
+    reader.readAsDataURL(file);
+  };
+
+  const sendOtpToEmail = async () => {
+    const res = await fetch(`${API_BASE}/resend-email-otp`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: formData.email }),
+    });
+    const data = await res.json();
+    if (data.success) {
+      setShowOtp(true);
+      setTimer(60);
+    }
+  };
+
+  const handleVerifyOtp = async () => {
+    const res = await fetch(`${API_BASE}/verify-email-otp`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: formData.email, otp }),
+    });
+    const data = await res.json();
+    if (data.success) {
+      updateFormData({ isEmailVerified: true });
+      setShowOtp(false);
+    }
+  };
+
+  useEffect(() => {
+    if (timer <= 0) return;
+    const t = setInterval(() => setTimer((p) => p - 1), 1000);
+    return () => clearInterval(t);
+  }, [timer]);
+
+  return (
+    <div className="max-w-4xl mx-auto p-6 border rounded-xl shadow-sm bg-white space-y-6">
+      <h2 className="text-2xl font-semibold">Basic Details</h2>
+
+      {/* Passport Photo */}
+      <div>
+        <div className="w-64 h-32 border rounded-md flex items-center justify-center overflow-hidden">
+          {photoUrl ? (
+            <img src={photoUrl} className="w-full h-full object-cover" />
+          ) : (
+            <span className="text-gray-400 text-sm">Passport Size Photo</span>
+          )}
+        </div>
+
+        <input
+          type="file"
+          accept="image/*"
+          className={`mt-2 p-1 border rounded-md ${
+            errors.passportPhoto ? "border-red-500" : "border-gray-300"
+          }`}
+          onChange={handleFileUpload}
+        />
+
+        {errors.passportPhoto && (
+          <p className="text-red-500 text-sm">{errors.passportPhoto}</p>
+        )}
+      </div>
+
+      {/* Name Fields */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {["firstName", "middleName", "lastName"].map((field) => {
+          const label =
+            field === "firstName"
+              ? "First Name"
+              : field === "middleName"
+                ? "Middle Name"
+                : "Last Name";
+
+          return (
+            <div key={field}>
+              <label className="block font-medium mb-1">
+                {label}
+                {field !== "middleName" && (
+                  <span className="text-red-500">*</span>
+                )}
+              </label>
+
+              <input
+                type="text"
+                value={formData[field] || ""}
+                onChange={(e) => handleChange(field, e.target.value)}
+                className={`w-full p-2 rounded-md border ${
+                  errors[field]
+                    ? "border-red-500 focus:ring-red-400"
+                    : "border-gray-300 focus:ring-blue-300"
+                } focus:outline-none focus:ring`}
+              />
+
+              {errors[field] && (
+                <p className="text-red-500 text-sm">{errors[field]}</p>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Parents */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {[
+          { name: "fatherName", label: "Father's Name", required: true },
+          { name: "fatherContact", label: "Father's Contact Number" },
+          { name: "motherName", label: "Mother's Name", required: true },
+          { name: "motherContact", label: "Mother's Contact Number" },
+        ].map((f) => (
+          <div key={f.name}>
+            <label className="block font-medium mb-1">
+              {f.label} {f.required && <span className="text-red-500">*</span>}
+            </label>
+            <input
+              type="text"
+              value={formData[f.name] || ""}
+              onChange={(e) => handleChange(f.name, e.target.value)}
+              className={`w-full p-2 rounded-md border ${
+                errors[f.name] ? "border-red-500" : "border-gray-300"
+              }`}
+            />
+            {errors[f.name] && (
+              <p className="text-red-500 text-sm">{errors[f.name]}</p>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Gender & DOB */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="block font-medium mb-1">
+            Gender <span className="text-red-500">*</span>
+          </label>
+          <select
+            value={formData.gender}
+            onChange={(e) => handleChange("gender", e.target.value)}
+            className={`w-full p-2 rounded-md border ${
+              errors.gender ? "border-red-500" : "border-gray-300"
+            }`}
+          >
+            <option value="">Select</option>
+            <option>Male</option>
+            <option>Female</option>
+          </select>
+          {errors.gender && (
+            <p className="text-red-500 text-sm">{errors.gender}</p>
+          )}
+        </div>
+
+        <div>
+          <label className="block font-medium mb-1">
+            Date of Birth <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="date"
+            value={formData.dob}
+            onChange={(e) => handleChange("dob", e.target.value)}
+            className={`w-full p-2 rounded-md border ${
+              errors.dob ? "border-red-500" : "border-gray-300"
+            }`}
+          />
+          {errors.dob && <p className="text-red-500 text-sm">{errors.dob}</p>}
+        </div>
+      </div>
+
+      {/* Sports */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <SportsSelect
+          value={formData.sportId}
+          onChange={(sport) => updateFormData({ sportId: sport })}
+        />
+
+        {formData.sportId?.id && (
+          <SportCategorySelect
+            sportId={formData.sportId.id}
+            value={formData.categoryId}
+            onChange={(categoryId) => updateFormData({ categoryId })}
+          />
+        )}
+      </div>
+    </div>
+  );
+}

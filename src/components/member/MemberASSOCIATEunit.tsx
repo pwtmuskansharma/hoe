@@ -18,13 +18,14 @@ const MemberUnit: React.FC = () => {
   const { slug } = useParams();
   const [members, setMembers] = useState<HoaMember[]>([]);
   const [selectedMember, setSelectedMember] = useState<HoaMember | null>(null);
-
+  const [title, setTitle] = useState("");
   useEffect(() => {
     const fetchMembers = async () => {
       try {
         const response = await fetchHoaMembers(`hoa-members/${slug}`);
         const fetchedMembers = response?.data?.data?.[0]?.hoa_members || [];
-
+        const pageTitle = response?.data?.data?.[0]?.name || "";
+        setTitle(pageTitle);
         // ✅ First added → first show, last added → last show
         const orderedMembers = [...fetchedMembers].sort((a, b) => a.id - b.id);
 
@@ -49,7 +50,7 @@ const MemberUnit: React.FC = () => {
         }}
       >
         <h1 className="md:text-3xl text-2xl font-bold text-black uppercase">
-          {slug}
+          {title}
         </h1>
       </div>
 

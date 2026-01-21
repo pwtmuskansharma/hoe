@@ -963,7 +963,7 @@ export function Header() {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState<number | null>(
-    null
+    null,
   );
   const [mobileSubSubmenuOpen, setMobileSubSubmenuOpen] = useState<
     number | null
@@ -1029,9 +1029,9 @@ export function Header() {
                   <Link
                     to={item.path || item.url || "#"}
                     className="font-bold text-sm text-gray-700 flex items-center gap-1 hover:text-blue-600"
-                    onClick={
-                      item.label === "CONTACT" ? handleContactClick : undefined
-                    }
+                    // onClick={
+                    //   item.label === "CONTACT" ? handleContactClick : undefined
+                    // }
                   >
                     {item.title || item.label}
                     {item.children?.length ? (
@@ -1117,7 +1117,7 @@ export function Header() {
                       className="w-full px-4 py-3 font-bold flex justify-between items-center"
                       onClick={() =>
                         setMobileSubmenuOpen(
-                          mobileSubmenuOpen === idx ? null : idx
+                          mobileSubmenuOpen === idx ? null : idx,
                         )
                       }
                     >
@@ -1151,7 +1151,7 @@ export function Header() {
                               className="w-full px-6 py-2 font-bold flex justify-between items-center"
                               onClick={() =>
                                 setMobileSubSubmenuOpen(
-                                  mobileSubSubmenuOpen === sIdx ? null : sIdx
+                                  mobileSubSubmenuOpen === sIdx ? null : sIdx,
                                 )
                               }
                             >

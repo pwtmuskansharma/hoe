@@ -705,26 +705,38 @@ interface HoaMember {
   email?: string;
   phone?: string;
   website?: string;
+  sport?: {
+    data?: {
+      id: number;
+      name: string;
+      slug: string;
+    }[];
+  };
 }
 
 const MemberPage: React.FC = () => {
   const { slug } = useParams();
   const [members, setMembers] = useState<HoaMember[]>([]);
   const [selectedMember, setSelectedMember] = useState<HoaMember | null>(null);
-
+  const [title, setTitle] = useState("");
   useEffect(() => {
     const fetchMembers = async () => {
       const response = await fetchHoaMembers(`hoa-members/${slug}`);
       console.log("data", response);
-      debugger;
+
+      // ✅ TITLE (name) FETCH
+      const pageTitle = response?.data?.data?.[0]?.name || "";
+      setTitle(pageTitle);
+
       const fetchedMembers = response?.data?.data?.[0]?.hoa_members || [];
 
       const sortedMembers = [...fetchedMembers].sort((a, b) =>
-        a.name_of_association.localeCompare(b.name_of_association)
+        a.sport?.data?.[0]?.name.localeCompare(b.sport?.data?.[0]?.name),
       );
 
       setMembers(sortedMembers);
     };
+
     if (slug) fetchMembers();
   }, [slug]);
 
@@ -740,7 +752,7 @@ const MemberPage: React.FC = () => {
         }}
       >
         <h1 className="md:text-3xl text-2xl font-bold text-black uppercase">
-          {slug}
+          {title}
         </h1>
       </div>
 
@@ -759,7 +771,7 @@ const MemberPage: React.FC = () => {
                 backgroundSize: "cover",
               }}
             >
-              {item.name_of_association}
+              {item.sport?.data?.[0]?.name || "—"}
             </div>
 
             <div className="flex items-center justify-center h-[130px] p-4">
@@ -780,7 +792,7 @@ const MemberPage: React.FC = () => {
           onClick={() => setSelectedMember(null)} // ✅ outside click close
         >
           <div
-            className="bg-white w-96 max-w-4xl rounded-lg shadow-lg overflow-hidden relative"
+            className="bg-white w-[500px] max-w-4xl rounded-lg shadow-lg overflow-hidden relative"
             onClick={(e) => e.stopPropagation()} // ❌ prevent close on inside click
           >
             {/* CLOSE BUTTON */}
@@ -799,7 +811,7 @@ const MemberPage: React.FC = () => {
                 backgroundSize: "cover",
               }}
             >
-              {selectedMember.name_of_association}
+              {selectedMember.sport?.data?.[0]?.name || "—"}
             </div>
 
             {/* MODAL BODY */}
@@ -816,6 +828,10 @@ const MemberPage: React.FC = () => {
 
               {/* RIGHT DETAILS */}
               <div className="md:col-span-2 space-y-3 text-sm ">
+                <p className="uppercase">
+                  <strong>Name:</strong>{" "}
+                  {selectedMember.name_of_association || "—"}
+                </p>
                 <p className="uppercase">
                   <strong>President:</strong>{" "}
                   {selectedMember.president_name || "—"}
