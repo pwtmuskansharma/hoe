@@ -247,32 +247,32 @@ const SportDocumentsPage: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="
-        group
-        flex items-center gap-3
-        p-3 bg-white
-        rounded-lg shadow
-        hover:bg-gray-100
-        transition
-      "
+                    group
+                    flex items-center gap-3
+                    p-3 bg-white
+                    rounded-lg shadow
+                   hover:bg-gray-100
+                    transition
+                    "
                   >
                     {/* PDF ICON */}
                     <img
                       src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg"
                       alt="pdf"
                       className="
-          w-6 h-6 flex-shrink-0
-          transition-transform duration-300
-          group-hover:rotate-12
-        "
+                       w-6 h-6 flex-shrink-0
+                       transition-transform duration-300
+                       group-hover:rotate-12
+                       "
                     />
 
                     {/* FILE NAME */}
                     <span
                       className="
-          text-sm md:text-base text-gray-700 break-all
-          transition-colors duration-300
-          group-hover:text-orange-400
-        "
+                     text-sm md:text-base text-gray-700 break-all
+                     transition-colors duration-300
+                     group-hover:text-orange-400
+                     "
                     >
                       {doc.original_name}
                     </span>
