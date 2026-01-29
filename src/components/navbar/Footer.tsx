@@ -346,7 +346,7 @@ export function Footer() {
               </div>
             </div>
 
-            <p className="text-gray-300 leading-relaxed">
+            <p className="text-gray-300 leading-relaxed ">
               {settings.description || ""}
             </p>
             <div className="flex space-x-3">
